@@ -10,4 +10,5 @@ Temp/
 .UserSettings/
 .Temp/
 
+*.csproj
 .vsconfig
