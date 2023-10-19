@@ -11,4 +11,5 @@ Temp/
 .Temp/
 
 *.csproj
+Assembly-CSharp.csproj
 .vsconfig
