@@ -2,10 +2,12 @@ Library/
 Logs/
 Packages/
 UserSettings/
+Temp/
 
 .Library/
 .Logs/
 .Packages/
 .UserSettings/
+.Temp/
 
-Temp/
+Assembly-CSharp.csproj
