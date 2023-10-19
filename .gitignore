@@ -2,3 +2,7 @@
 .Logs/
 .Packages/
 .UserSettings/
+Library/
+Logs/
+Packages/
+UserSettings/
