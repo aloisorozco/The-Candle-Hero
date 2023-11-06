@@ -2,8 +2,14 @@ Library/
 Logs/
 Packages/
 UserSettings/
+Temp/
 
 .Library/
 .Logs/
 .Packages/
 .UserSettings/
+.Temp/
+
+*.csproj
+Assembly-CSharp.csproj
+.vsconfig
