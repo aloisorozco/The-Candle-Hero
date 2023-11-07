@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
         playerHorizontalAcceleration = 0.02f;
         playerVerticalAcceleration = -0.05f;
 
-        playerMaxSpeed = 3;
+        playerMaxSpeed = 0.05f;
         playerMaxHealth = 10 * playerMaxSpeed;
         playerMaxJumpHeight = 5;
         playerMaxTimeToStop = 200;

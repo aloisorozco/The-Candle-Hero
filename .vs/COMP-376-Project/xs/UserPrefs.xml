@@ -1,14 +1,14 @@
 ﻿<Properties StartupConfiguration="{05A6A5A7-AC4E-D5FD-7977-8CFA861ECE13}|">
-  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ef9d8e68-92d0-411a-b76f-477363310fe0" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="03afcba1-be4a-4134-a473-50dd1c80b73c" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SceneChanger.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMechanicsScripts/Player.cs">
     <Files>
-      <File FileName="Assets/Scripts/SceneChanger.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/Player.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
