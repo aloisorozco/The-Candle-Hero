@@ -15,10 +15,10 @@ TODO:
 */
 
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float playerHealth;
-    public float playerSpeed;
+    public Vector2 playerSpeed;
     public float playerTimeStopped;
 
     public float playerHorizontalAcceleration;
@@ -29,10 +29,12 @@ public class Player : MonoBehaviour
     public float playerMaxJumpHeight;
     public float playerMaxTimeToStop;
 
+    public bool isJumping;
+
     public void updateHealth()
     {
         //we can make this more complex after for now
-        if (playerSpeed == 0)
+        if (playerSpeed.x == 0)
         {
             playerTimeStopped++;
             if (playerTimeStopped > playerMaxTimeToStop)
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
                 playerHealth--;
             }
         }
-        else if (Math.Abs(playerSpeed) >= (playerMaxSpeed / 5))
+        else if (Math.Abs(playerSpeed.x) >= (playerMaxSpeed / 5))
         {
             playerTimeStopped = 0;
             if (playerHealth < playerMaxHealth)
@@ -53,23 +55,54 @@ public class Player : MonoBehaviour
     void updateSpeed()
     {
         //we can configure the movement keys in project settings later
-        if ((Input.GetKey(KeyCode.A)) && (-playerSpeed <= playerMaxSpeed))
+        if ((Input.GetKey(KeyCode.A)) && (-playerSpeed.x <= playerMaxSpeed))
         {
-            playerSpeed -= playerHorizontalAcceleration;
+            playerSpeed.x -= playerHorizontalAcceleration;
         }
-        if ((Input.GetKey(KeyCode.D)) && (playerSpeed <= playerMaxSpeed))
+        if ((Input.GetKey(KeyCode.D)) && (playerSpeed.x <= playerMaxSpeed))
         {
-            playerSpeed += playerHorizontalAcceleration;
+            playerSpeed.x += playerHorizontalAcceleration;
         }
         if (!(Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D)))
         {
-            if (playerSpeed != 0)
+            if (playerSpeed.x != 0)
             {
-                playerSpeed -= 10 * playerSpeed * playerHorizontalAcceleration;
+                playerSpeed.x -= 10 * playerSpeed.x * playerHorizontalAcceleration;
             }
+        }
+
+        //gravity
+        playerSpeed.y += playerVerticalAcceleration;
+
+        //jumping
+        //TODO: get how long space is held for to adjust how high or low jump is
+        if ((Input.GetKeyDown(KeyCode.Space)) && (!isJumping))
+        {
+            playerSpeed.y = 0.5f;
+            isJumping = true;
+        }
+        //TODO: comment out if statement below once on collision with floor is handled
+        else if (transform.position.y <= -2)
+        {
+            playerSpeed.y = 0;
+            isJumping = false;
         }
     }
 
+    //TODO: set up rigid bodies of level walls & floors
+    private void OnCollisionEnter(Collision other)
+    {
+        playerVerticalAcceleration = 0f;
+        isJumping = false;
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        playerVerticalAcceleration = -0.05f;
+    }
+
+
+    //TODO: fix later right we can go past bounds and then get stuck there
     bool isPositionInBounds()
     {
         //hard-coding here to change after
@@ -80,11 +113,12 @@ public class Player : MonoBehaviour
     {
         if (isPositionInBounds())
         {
-            transform.position = new Vector2(transform.position.x + playerSpeed, transform.position.y);
+            transform.position = new Vector2(transform.position.x + playerSpeed.x, transform.position.y + playerSpeed.y);
+            
         }
         
 
-        if (playerSpeed >= 0)
+        if (playerSpeed.x >= 0)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
@@ -92,6 +126,7 @@ public class Player : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
+        
         
     }
 
@@ -101,7 +136,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(-3, -2);
 
         playerHealth = 100;
-        playerSpeed = 0;
+        playerSpeed = new Vector2(0,0);
         playerTimeStopped = 0;
 
         playerHorizontalAcceleration = 0.02f;
@@ -111,6 +146,8 @@ public class Player : MonoBehaviour
         playerMaxHealth = 10 * playerMaxSpeed;
         playerMaxJumpHeight = 5;
         playerMaxTimeToStop = 200;
+
+        isJumping = false;
     }
 
     // Update is called once per frame
