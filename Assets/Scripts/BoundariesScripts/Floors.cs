@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//TODO: attach script to floor objects & platforms
 public class Floors : MonoBehaviour
 {
     // Start is called before the first frame update
