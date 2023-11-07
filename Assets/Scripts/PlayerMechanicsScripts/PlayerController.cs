@@ -89,19 +89,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //TODO: set up rigid bodies of level walls & floors
-    private void OnCollisionEnter(Collision other)
-    {
-        playerVerticalAcceleration = 0f;
-        isJumping = false;
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        playerVerticalAcceleration = -0.05f;
-    }
-
-
     //TODO: fix later right we can go past bounds and then get stuck there
     bool isPositionInBounds()
     {
