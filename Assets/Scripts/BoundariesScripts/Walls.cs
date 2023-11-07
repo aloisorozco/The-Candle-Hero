@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: attach script to walls & boundaries
 public class WallsScript : MonoBehaviour
 {
     // Start is called before the first frame update
