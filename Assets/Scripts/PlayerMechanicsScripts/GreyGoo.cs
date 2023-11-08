@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 /*
 TODO:
@@ -29,11 +30,15 @@ public class GreyGoo : MonoBehaviour
 
     public float enemyHealth = 50f;
 
+    // Animation
+    public Animator anim;
+    public SpriteRenderer spriteRenderer;
     //TODO: test values for range & speed
 
     void Start()
     {
-
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -42,7 +47,11 @@ public class GreyGoo : MonoBehaviour
         {
             if (Vector2.Distance(playerTransform.position, gameObject.transform.position) < mFollowRange)
             {
-                gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, playerTransform.position, mFollowSpeed);
+                if (this.transform.position.x < playerTransform.position.x)
+                    FaceDirection(Vector2.right);
+                else
+                    FaceDirection(Vector2.left);
+                transform.position = Vector2.MoveTowards(this.transform.position, playerTransform.position, mFollowSpeed * Time.deltaTime);
             }
         }
 
@@ -57,5 +66,14 @@ public class GreyGoo : MonoBehaviour
     public void SetTarget(Transform target)
     {
         playerTransform = target;
+    }
+
+    private void FaceDirection(Vector2 direction)
+    {
+        // Flip the sprite
+        if (direction == Vector2.right)
+            spriteRenderer.flipX = true;
+        else
+            spriteRenderer.flipX = false;
     }
 }
