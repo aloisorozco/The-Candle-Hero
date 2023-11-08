@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Floor
   - 
   - 
   - 
@@ -39,17 +39,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: ' Background (sky)'
     uniqueID: 34747673
     locked: 0
-  - name: Building
+  - name: Background1 (building)
     uniqueID: 2218062059
     locked: 0
-  - name: Floor
-    uniqueID: 3245802395
+  - name: Background2 (objects)
+    uniqueID: 2935530249
     locked: 0
-  - name: Objects_Inside
-    uniqueID: 924375545
+  - name: Ground
+    uniqueID: 3245802395
     locked: 0
   - name: Default
     uniqueID: 0
