@@ -13,15 +13,49 @@ TODO:
 
 public class GreyGoo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    Transform playerTransform;
+    [SerializeField]
+    float mFollowSpeed;
+    [SerializeField]
+    float mFollowRange;
+
+    Vector2[] pointsToCover = new Vector2[] {
+        new Vector2(0, 1),
+        new Vector2(3, 1)
+    };
+    int pointToCoverIndex = 0;
+    int delayCount = 0;
+
+    public float enemyHealth = 50f;
+
+    //TODO: test values for range & speed
+
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (playerTransform != null)
+        {
+            if (Vector2.Distance(playerTransform.position, gameObject.transform.position) < mFollowRange)
+            {
+                gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, playerTransform.position, mFollowSpeed);
+            }
+        }
+
+        if ((delayCount % 30) == 0)
+        {
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, pointsToCover[(pointToCoverIndex % 2)], mFollowSpeed);
+            pointToCoverIndex++;
+        }
+        delayCount++;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        playerTransform = target;
     }
 }

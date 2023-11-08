@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public void updateHealth()
     {
         //we can make this more complex after for now
-        if (playerSpeed.x == 0)
+        if (Math.Abs(playerSpeed.x) <= (playerMaxSpeed / 1000))
         {
             playerTimeStopped++;
             if (playerTimeStopped > playerMaxTimeToStop)
@@ -42,13 +42,19 @@ public class PlayerController : MonoBehaviour
                 playerHealth--;
             }
         }
-        else if (Math.Abs(playerSpeed.x) >= (playerMaxSpeed / 5))
+        else if (Math.Abs(playerSpeed.x) >= (playerMaxSpeed / 1000))
         {
             playerTimeStopped = 0;
             if (playerHealth < playerMaxHealth)
             {
                 playerHealth++;
             }
+        }
+
+        if (playerHealth <= 0)
+        {
+            //TODO: remove player
+            Debug.Log("player dead");
         }
     }
 
@@ -103,6 +109,19 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector2(transform.position.x + playerSpeed.x, transform.position.y + playerSpeed.y);
             
         }
+        //TODO: remove this else code when rigid bodies are implemented
+        else
+        {
+            playerSpeed.x = 0;
+            if (transform.position.x < -7.5)
+            {
+                transform.position = new Vector2(-7.49f, transform.position.y + playerSpeed.y);
+            }
+            else if (transform.position.x > 7.5)
+            {
+                transform.position = new Vector2(7.49f, transform.position.y + playerSpeed.y);
+            }
+        }
         
 
         if (playerSpeed.x >= 0)
@@ -129,8 +148,8 @@ public class PlayerController : MonoBehaviour
         playerHorizontalAcceleration = 0.02f;
         playerVerticalAcceleration = -0.05f;
 
-        playerMaxSpeed = 0.05f;
-        playerMaxHealth = 10 * playerMaxSpeed;
+        playerMaxSpeed = 3;
+        playerMaxHealth = playerHealth;
         playerMaxJumpHeight = 5;
         playerMaxTimeToStop = 200;
 
