@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public void updateHealth()
     {
         //we can make this more complex after for now
-        if (playerSpeed.x == 0)
+        if (Math.Abs(playerSpeed.x) <= (playerMaxSpeed / 1000))
         {
             playerTimeStopped++;
             if (playerTimeStopped > playerMaxTimeToStop)
@@ -42,13 +42,19 @@ public class PlayerController : MonoBehaviour
                 playerHealth--;
             }
         }
-        else if (Math.Abs(playerSpeed.x) >= (playerMaxSpeed / 5))
+        else if (Math.Abs(playerSpeed.x) >= (playerMaxSpeed / 1000))
         {
             playerTimeStopped = 0;
             if (playerHealth < playerMaxHealth)
             {
                 playerHealth++;
             }
+        }
+
+        if (playerHealth <= 0)
+        {
+            //TODO: remove player
+            Debug.Log("player dead");
         }
     }
 
@@ -89,19 +95,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //TODO: set up rigid bodies of level walls & floors
-    private void OnCollisionEnter(Collision other)
-    {
-        playerVerticalAcceleration = 0f;
-        isJumping = false;
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        playerVerticalAcceleration = -0.05f;
-    }
-
-
     //TODO: fix later right we can go past bounds and then get stuck there
     bool isPositionInBounds()
     {
@@ -115,6 +108,19 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x + playerSpeed.x, transform.position.y + playerSpeed.y);
             
+        }
+        //TODO: remove this else code when rigid bodies are implemented
+        else
+        {
+            playerSpeed.x = 0;
+            if (transform.position.x < -7.5)
+            {
+                transform.position = new Vector2(-7.49f, transform.position.y + playerSpeed.y);
+            }
+            else if (transform.position.x > 7.5)
+            {
+                transform.position = new Vector2(7.49f, transform.position.y + playerSpeed.y);
+            }
         }
         
 
@@ -143,7 +149,7 @@ public class PlayerController : MonoBehaviour
         playerVerticalAcceleration = -0.05f;
 
         playerMaxSpeed = 3;
-        playerMaxHealth = 10 * playerMaxSpeed;
+        playerMaxHealth = playerHealth;
         playerMaxJumpHeight = 5;
         playerMaxTimeToStop = 200;
 
