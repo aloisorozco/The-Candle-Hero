@@ -20,7 +20,6 @@ public class Interactable : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             popUp();
-            Debug.Log("In range of Interactable");
         }
     }
 
