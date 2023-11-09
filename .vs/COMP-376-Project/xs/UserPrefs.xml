@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{05A6A5A7-AC4E-D5FD-7977-8CFA861ECE13}|">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2bcf3fda-a6a9-4fee-bdda-fcd149890d4a" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMechanicsScripts/PlayerMovement.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/PlayerController.cs" Line="95" Column="10" />
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/GreyGoo.cs" />
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/PlayerMovement.cs" Line="72" Column="57" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="58609a5d-8bfe-47b6-b03c-3f93a590adae" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMechanicsScripts/PlayerController.cs">
-    <Files>
-      <File FileName="Assets/Scripts/PlayerMechanicsScripts/PlayerController.cs" Line="95" Column="10" />
-      <File FileName="Assets/Scripts/PlayerMechanicsScripts/GreyGoo.cs" Line="74" Column="40" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
 </Properties>
