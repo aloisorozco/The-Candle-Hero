@@ -46,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Variables having to do with wall
-    public bool onWall;
+    public bool onWall = false;
     private bool lastOnWall;
     public bool isSliding;
-    private bool isWallJumping;
+    public bool isWallJumping;
     private float wallJumpingDir;
     [Header("Wall Settings")]
     [SerializeField] private float slideSpeed;
@@ -80,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
 
     private float CheckRadius = .2f;
 
@@ -101,9 +104,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // checking for player state
         isPlayerGrounded();
-        isOnWall();
-        isWallSliding();
-
+        //isOnWall();
+        //isWallSliding();
+        SetAnimation();
 
         // Checking for user input
         if (!isWallJumping && !isDashing)
@@ -138,8 +141,6 @@ public class PlayerMovement : MonoBehaviour
     private void InputManager()
     {
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -322,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isGrounded = Physics2D.OverlapCircle(GroundCheckRight.position, CheckRadius, WhatIsGround)
-            || Physics2D.OverlapCircle(GroundCheckLeft.position, CheckRadius, WhatIsGround);
+            && Physics2D.OverlapCircle(GroundCheckLeft.position, CheckRadius, WhatIsGround);
 
         if (isGrounded && !lastIsGrounded)
         {
@@ -412,6 +413,27 @@ public class PlayerMovement : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+    }
+
+    private void SetAnimation()
+    {
+        // Idle animation
+        if (isGrounded && playerHorizontalInput == 0)
+        {
+            animator.Play("MC_Idle");
+        }
+
+        // Running animation
+        else if (isGrounded && Mathf.Abs(playerHorizontalInput) > 0)
+        {
+            animator.Play("MC_Movement");
+        }
+
+        // Jumping animation
+        else if (isJumping)
+        {
+            animator.Play("MC_Jump");
         }
     }
 }
