@@ -46,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Variables having to do with wall
-    public bool onWall;
+    public bool onWall = false;
     private bool lastOnWall;
     public bool isSliding;
-    private bool isWallJumping;
+    public bool isWallJumping;
     private float wallJumpingDir;
     [Header("Wall Settings")]
     [SerializeField] private float slideSpeed;
@@ -80,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
+    [Header("Idle Settings")]
+    [SerializeField] private int maxTimeIdleBeforeLosingHealth = 50;
+    [SerializeField] private float idleEpsilon = 3f;
+    private int timeIdleCount = 0;
 
     private float CheckRadius = .2f;
 
@@ -101,9 +108,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // checking for player state
         isPlayerGrounded();
-        isOnWall();
-        isWallSliding();
-
+        //isOnWall();
+        //isWallSliding();
+        SetAnimation();
 
         // Checking for user input
         if (!isWallJumping && !isDashing)
@@ -132,14 +139,13 @@ public class PlayerMovement : MonoBehaviour
 
         SetLight();
         SetHealth();
+        SetTimeIdle();
 
     }
 
     private void InputManager()
     {
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -150,20 +156,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLight()
     {
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
         }
         else
         {
-            lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            if (timeIdleCount >= maxTimeIdleBeforeLosingHealth)
+            {
+                lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            }
         }
     }
 
     private void SetHealth()
     {
 
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             if(currentHealth < maxHealth)
             {
@@ -172,12 +181,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(currentHealth > 0)
+            if((currentHealth > 0) && (timeIdleCount >= maxTimeIdleBeforeLosingHealth))
             {
                 currentHealth -= healthRate;
             }
         }
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
+    }
+
+    private void SetTimeIdle()
+    {
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
+        {
+            timeIdleCount = 0;
+        }
+        else
+        {
+            timeIdleCount++;
+        }
     }
 
     private void DefaultInputManager()
@@ -322,7 +343,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isGrounded = Physics2D.OverlapCircle(GroundCheckRight.position, CheckRadius, WhatIsGround)
-            || Physics2D.OverlapCircle(GroundCheckLeft.position, CheckRadius, WhatIsGround);
+            && Physics2D.OverlapCircle(GroundCheckLeft.position, CheckRadius, WhatIsGround);
 
         if (isGrounded && !lastIsGrounded)
         {
@@ -412,6 +433,27 @@ public class PlayerMovement : MonoBehaviour
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+    }
+
+    private void SetAnimation()
+    {
+        // Idle animation
+        if (isGrounded && playerHorizontalInput == 0)
+        {
+            animator.Play("MC_Idle");
+        }
+
+        // Running animation
+        else if (isGrounded && Mathf.Abs(playerHorizontalInput) > 0)
+        {
+            animator.Play("MC_Movement");
+        }
+
+        // Jumping animation
+        else if (isJumping)
+        {
+            animator.Play("MC_Jump");
         }
     }
 }

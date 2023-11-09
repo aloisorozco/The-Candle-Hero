@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using System.Reflection;
+using UnityEngine.UI;
 /*
 TODO:
 -for vertical movement, we need to implement rigidbody in the scene
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 playerSpeed;
     public float playerTimeStopped;
 
-    public float playerHorizontalAcceleration;
+    public float playerHorizontalAcceleration = 0.2f;
     public float playerVerticalAcceleration;
 
     public float playerMaxSpeed;
@@ -29,7 +30,17 @@ public class PlayerController : MonoBehaviour
     public float playerMaxJumpHeight;
     public float playerMaxTimeToStop;
 
+
     public bool isJumping;
+
+    // Animation
+    public bool isMoving;
+    public SpriteRenderer spriteRenderer;
+    public Animator anim;
+    Vector2 mFacingDirection;
+
+    // Slider for health
+    public Slider slider;
 
     public void updateHealth()
     {
@@ -54,26 +65,40 @@ public class PlayerController : MonoBehaviour
         if (playerHealth <= 0)
         {
             //TODO: remove player
-            Debug.Log("player dead");
+            // Debug.Log("player dead");
+            playerHealth = 0;
         }
+        slider.value = playerHealth;
     }
 
-    void updateSpeed()
+    public Vector2 GetFacingDirection()
+    {
+        return mFacingDirection;
+    }
+
+    void UpdateSpeed()
     {
         //we can configure the movement keys in project settings later
         if ((Input.GetKey(KeyCode.A)) && (-playerSpeed.x <= playerMaxSpeed))
         {
+            FaceDirection(Vector2.left);
             playerSpeed.x -= playerHorizontalAcceleration;
+            
+            isMoving = true;
         }
         if ((Input.GetKey(KeyCode.D)) && (playerSpeed.x <= playerMaxSpeed))
         {
+            FaceDirection(Vector2.right);
             playerSpeed.x += playerHorizontalAcceleration;
+            
+            isMoving = true;
         }
         if (!(Input.GetKey(KeyCode.A)) && !(Input.GetKey(KeyCode.D)))
         {
             if (playerSpeed.x != 0)
             {
                 playerSpeed.x -= 10 * playerSpeed.x * playerHorizontalAcceleration;
+                isMoving = false;
             }
         }
 
@@ -136,6 +161,21 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void FaceDirection(Vector2 direction)
+    {
+        Debug.Log("Direction: " + direction);
+        if (direction == Vector2.right)
+            spriteRenderer.flipX = false;
+        else
+            spriteRenderer.flipX = true;
+    }
+
+    private void updateAnimator()
+    {
+        //anim.SetBool("isMoving", isMoving);
+        //anim.SetBool("isJumping", isJumping);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,15 +193,23 @@ public class PlayerController : MonoBehaviour
         playerMaxJumpHeight = 5;
         playerMaxTimeToStop = 200;
 
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isJumping = false;
+        isMoving = false;
+        
+        // Health slider
+        slider.maxValue = playerMaxHealth;
+        slider.minValue = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateSpeed();
+        UpdateSpeed();
+        updateAnimator();
         updateModel();
         updateHealth();
-
+        
     }
 }

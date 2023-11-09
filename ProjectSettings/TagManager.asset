@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Walkable
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -12,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Floor
+  - 
   - 
   - 
   - 
@@ -39,27 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: ' Background (sky)'
-    uniqueID: 34747673
-    locked: 0
-  - name: Background1 (building)
-    uniqueID: 2218062059
-    locked: 0
-  - name: Background2 (objects)
-    uniqueID: 2935530249
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Ground
-    uniqueID: 3245802395
-    locked: 0
-  - name: Foreground
-    uniqueID: 550605297
-    locked: 0
-  - name: UI
-    uniqueID: 1463896445
-    locked: 0
-  - name: Front
-    uniqueID: 1328736955
     locked: 0
