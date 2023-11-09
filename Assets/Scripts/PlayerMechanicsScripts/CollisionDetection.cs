@@ -34,7 +34,6 @@ public class CollisionDetection : MonoBehaviour
     {
         if (collision.CompareTag("Checkpoint"))
         {
-            print("in");
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
