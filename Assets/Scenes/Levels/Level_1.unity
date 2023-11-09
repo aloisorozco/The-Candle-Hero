@@ -22468,6 +22468,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[894].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 2561138033611844962, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: respawn
+      value: 
+      objectReference: {fileID: 1130374093}
     - target: {fileID: 3056993410257862314, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -36628,6 +36632,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693822798403158969, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
   m_PrefabInstance: {fileID: 875598619}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1130374093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3631195571946966301, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+  m_PrefabInstance: {fileID: 875598619}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103a0bc5486bcfb428ca57051ca21e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1182179125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7209239486596237777, guid: 1679ac2af2431924c95c794017158340, type: 3}

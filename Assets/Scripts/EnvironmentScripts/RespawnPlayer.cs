@@ -21,4 +21,9 @@ public class RespawnPlayer : MonoBehaviour
     {
         respawnPoint = newRespawn;
     }
+
+    public Transform getRespawnPoint()
+    {
+        return respawnPoint;
+    }
 }
