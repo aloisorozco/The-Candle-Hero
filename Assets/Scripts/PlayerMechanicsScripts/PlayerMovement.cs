@@ -103,8 +103,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         healthBar.SetHealth(currentHealth, maxHealth);
+        lightSource.pointLightOuterRadius = lightMin;
 
-        
     }
 
     // Update is called once per frame
@@ -461,9 +461,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetGlobalLight()
+    public void SetGlobalLight(float value)
     {
-        globalLightSource.intensity += .03f;
+        globalLightSource.intensity += value;
     }
     
 }
