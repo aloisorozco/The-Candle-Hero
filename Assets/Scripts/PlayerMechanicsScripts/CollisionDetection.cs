@@ -24,7 +24,7 @@ public class CollisionDetection : MonoBehaviour
 
     private void Update()
     {
-        if (onDoor && Input.GetKeyDown(KeyCode.E))
+        if (onDoor && Input.GetButtonDown("Fire1"))
         {
             SceneManager.LoadScene(currentSceneName);
         }
