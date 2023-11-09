@@ -7,6 +7,7 @@ TagManager:
   - Walkable
   - Interactable
   - Checkpoint
+  - Door
   layers:
   - Default
   - TransparentFX
