@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Light Settings")]
     [SerializeField] private UnityEngine.Rendering.Universal.Light2D lightSource;
+    [SerializeField] public UnityEngine.Rendering.Universal.Light2D globalLightSource;
     [SerializeField] private float lightMin = 2f;
     [SerializeField] private float lightMax = 5f;
     [SerializeField] private float lightRate = .2f;
@@ -456,4 +457,10 @@ public class PlayerMovement : MonoBehaviour
             animator.Play("MC_Jump");
         }
     }
+
+    public void SetGlobalLight()
+    {
+        globalLightSource.intensity += .03f;
+    }
+    
 }
