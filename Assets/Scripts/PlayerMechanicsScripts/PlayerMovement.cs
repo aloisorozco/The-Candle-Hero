@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float CheckRadius = .2f;
 
+
     //Components
     private Rigidbody2D rb;
 
@@ -102,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         healthBar.SetHealth(currentHealth, maxHealth);
+
+        
     }
 
     // Update is called once per frame
