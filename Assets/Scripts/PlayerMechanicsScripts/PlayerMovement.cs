@@ -217,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetButtonDown("Fire2") && canDash)
         {
             StartCoroutine(Dash());
         }
