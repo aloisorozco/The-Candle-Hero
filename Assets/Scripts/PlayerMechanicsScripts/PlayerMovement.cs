@@ -81,8 +81,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
 
-    [Header("Animator")]
+    [Header("Animator and Sound")]
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource runningAudio;
 
     [Header("Idle Settings")]
     [SerializeField] private int maxTimeIdleBeforeLosingHealth = 50;
@@ -446,18 +447,34 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && playerHorizontalInput == 0)
         {
             animator.Play("MC_Idle");
+
+
+            // Settings Sounds
+            runningAudio.enabled = false;
         }
 
         // Running animation
         else if (isGrounded && Mathf.Abs(playerHorizontalInput) > 0)
         {
             animator.Play("MC_Movement");
+
+
+            // Settings Sounds
+            runningAudio.enabled = true;
         }
 
         // Jumping animation
         else if (isJumping)
         {
             animator.Play("MC_Jump");
+
+
+            // Settings Sounds
+            runningAudio.enabled = false;
+        }
+        else
+        {
+            runningAudio.enabled = false;
         }
     }
 
