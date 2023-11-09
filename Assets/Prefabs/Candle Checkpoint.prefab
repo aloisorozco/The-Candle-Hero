@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3084863291854626875}
   - component: {fileID: 6143310008485623775}
   - component: {fileID: 2877178080664060934}
+  - component: {fileID: 2463201253631320368}
   m_Layer: 0
   m_Name: Candle Checkpoint
   m_TagString: Checkpoint
@@ -151,6 +152,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2463201253631320368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741248787703663153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4d75c6fa65cac45901c32ae3ddfb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
+  lightValue: 0.01
 --- !u!1 &3126092341499216269
 GameObject:
   m_ObjectHideFlags: 0
