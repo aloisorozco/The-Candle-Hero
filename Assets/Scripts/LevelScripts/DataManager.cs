@@ -7,7 +7,8 @@ public class DataManager : MonoBehaviour
     public ResourceManager resourceManager;
     void Awake()
     {
-        DontDestroyOnLoad(resourceManager);
+        DontDestroyOnLoad(this.gameObject);
+        
     }
 
 
