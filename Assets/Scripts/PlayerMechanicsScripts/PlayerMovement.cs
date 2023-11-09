@@ -80,6 +80,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
 
+    [Header("Idle Settings")]
+    [SerializeField] private int maxTimeIdleBeforeLosingHealth = 50;
+    [SerializeField] private float idleEpsilon = 3f;
+    private int timeIdleCount = 0;
 
     private float CheckRadius = .2f;
 
@@ -132,14 +136,13 @@ public class PlayerMovement : MonoBehaviour
 
         SetLight();
         SetHealth();
+        SetTimeIdle();
 
     }
 
     private void InputManager()
     {
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -150,20 +153,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLight()
     {
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
         }
         else
         {
-            lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            if (timeIdleCount >= maxTimeIdleBeforeLosingHealth)
+            {
+                lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            }
         }
     }
 
     private void SetHealth()
     {
 
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             if(currentHealth < maxHealth)
             {
@@ -172,12 +178,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(currentHealth > 0)
+            if((currentHealth > 0) && (timeIdleCount >= maxTimeIdleBeforeLosingHealth))
             {
                 currentHealth -= healthRate;
             }
         }
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
+    }
+
+    private void SetTimeIdle()
+    {
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
+        {
+            timeIdleCount = 0;
+        }
+        else
+        {
+            timeIdleCount++;
+        }
     }
 
     private void DefaultInputManager()
