@@ -79,8 +79,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
-    [SerializeField] private int maxTimeStoppedBeforeLosingHealth = 50;
-    private int timeStoppedCount = 0;
+
+    [Header("Idle Settings")]
+    [SerializeField] private int maxTimeIdleBeforeLosingHealth = 50;
+    [SerializeField] private float idleEpsilon = 3f;
+    private int timeIdleCount = 0;
 
     private float CheckRadius = .2f;
 
@@ -133,15 +136,13 @@ public class PlayerMovement : MonoBehaviour
 
         SetLight();
         SetHealth();
-        SetTimeStopped();
+        SetTimeIdle();
 
     }
 
     private void InputManager()
     {
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -152,13 +153,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLight()
     {
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
         }
         else
         {
-            if (timeStoppedCount >= maxTimeStoppedBeforeLosingHealth)
+            if (timeIdleCount >= maxTimeIdleBeforeLosingHealth)
             {
                 lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
             }
@@ -168,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
     private void SetHealth()
     {
 
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             if(currentHealth < maxHealth)
             {
@@ -177,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if((currentHealth > 0) && (timeStoppedCount >= maxTimeStoppedBeforeLosingHealth))
+            if((currentHealth > 0) && (timeIdleCount >= maxTimeIdleBeforeLosingHealth))
             {
                 currentHealth -= healthRate;
             }
@@ -185,15 +186,15 @@ public class PlayerMovement : MonoBehaviour
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
     }
 
-    private void SetTimeStopped()
+    private void SetTimeIdle()
     {
-        if (Mathf.Abs(rb.velocityX) > 0)
+        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
-            timeStoppedCount = 0;
+            timeIdleCount = 0;
         }
         else
         {
-            timeStoppedCount++;
+            timeIdleCount++;
         }
     }
 
