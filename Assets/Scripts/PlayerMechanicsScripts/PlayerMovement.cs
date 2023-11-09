@@ -79,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
-
+    [SerializeField] private int maxTimeStoppedBeforeLosingHealth = 50;
+    private int timeStoppedCount = 0;
 
     private float CheckRadius = .2f;
 
@@ -132,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
         SetLight();
         SetHealth();
+        SetTimeStopped();
 
     }
 
@@ -156,7 +158,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            if (timeStoppedCount >= maxTimeStoppedBeforeLosingHealth)
+            {
+                lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+            }
         }
     }
 
@@ -172,12 +177,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(currentHealth > 0)
+            if((currentHealth > 0) && (timeStoppedCount >= maxTimeStoppedBeforeLosingHealth))
             {
                 currentHealth -= healthRate;
             }
         }
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
+    }
+
+    private void SetTimeStopped()
+    {
+        if (Mathf.Abs(rb.velocityX) > 0)
+        {
+            timeStoppedCount = 0;
+        }
+        else
+        {
+            timeStoppedCount++;
+        }
     }
 
     private void DefaultInputManager()
