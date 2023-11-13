@@ -80,8 +80,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
-    [SerializeField] private int currentLives = 3;
-    public RespawnPlayer respawn;
 
     [Header("Animator and Sound")]
     [SerializeField] private Animator animator;
@@ -147,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
         SetLight();
         SetHealth();
         SetTimeIdle();
-        SetLives();
 
     }
 
@@ -206,25 +203,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             timeIdleCount++;
-        }
-    }
-
-    private void SetLives()
-    {
-        if (currentHealth == 0)
-        {
-            if (currentLives > 0)
-            {
-                currentLives--;
-                currentHealth = maxHealth;
-                rb.velocity = Vector2.zero;
-                transform.position = respawn.getRespawnPoint().position;
-                timeIdleCount = 0;
-            }
-            else
-            {
-                //TODO: send to game over scene
-            }
         }
     }
 
