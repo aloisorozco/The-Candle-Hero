@@ -73,13 +73,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public UnityEngine.Rendering.Universal.Light2D globalLightSource;
     [SerializeField] private float lightMin = 2f;
     [SerializeField] private float lightMax = 5f;
+    [SerializeField] private float globalLightMin = 0.05f;
+    [SerializeField] private float globalLightMax = 0.25f;
     [SerializeField] private float lightRate = .2f;
+    [SerializeField] private float globalLightRate = .01f;
 
     [Header("Health Settings")]
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
+
+    [Header("Safe Area Settings")]
+    [SerializeField] private GameObject safeArea;
 
     [Header("Animator and Sound")]
     [SerializeField] private Animator animator;
@@ -142,6 +148,14 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
+        if (safeArea.GetComponent<SafeArea>().inSafeArea)
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth, maxHealth);
+            globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity + globalLightRate, globalLightMin, globalLightMax);
+            return;
+        }
+
         SetLight();
         SetHealth();
         SetTimeIdle();
@@ -164,12 +178,14 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
+            globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
         }
         else
         {
             if (timeIdleCount >= maxTimeIdleBeforeLosingHealth)
             {
                 lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
+                globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
             }
         }
     }
