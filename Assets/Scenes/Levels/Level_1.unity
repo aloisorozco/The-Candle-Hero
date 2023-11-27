@@ -120,6 +120,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &767910531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6814383905469428084, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+  m_PrefabInstance: {fileID: 875598619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &875598619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,6 +137,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2561138033611844962, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: candles
+      value: 
+      objectReference: {fileID: 767910531}
+    - target: {fileID: 2561138033611844962, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: respawn
+      value: 
+      objectReference: {fileID: 1959058623}
+    - target: {fileID: 2561138033611844962, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: initialRespawnPoint
+      value: 
+      objectReference: {fileID: 875598620}
     - target: {fileID: 5123860771852322294, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
       propertyPath: m_Name
       value: ScenePrefab
@@ -176,6 +193,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6500798652459172849, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1630
+      objectReference: {fileID: 0}
     - target: {fileID: 8032732739387679928, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -185,6 +206,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+--- !u!4 &875598620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2383065092962903638, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+  m_PrefabInstance: {fileID: 875598619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1959058623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 874761558935452805, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+  m_PrefabInstance: {fileID: 875598619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

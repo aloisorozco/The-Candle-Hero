@@ -16,10 +16,10 @@ Chapter 2: The Lost Flame
 
 /*+ [Continue.]*/
 
-- "I hope you find your brother. I'm a lost cause, leave me here. It won't be much longer until I pass. Here, take this. A gift to help you on your quest."
+- "I hope you find your brother. I'm a lost cause, leave me here. It won't be much longer until I pass."
 
 /*+ [Continue.]*/
 
-- Flora hands you "Mitochondria in a Jar".
+/*- Flora hands you "Mitochondria in a Jar".*/
 
 /*+ [Continue.]*/ -> END
