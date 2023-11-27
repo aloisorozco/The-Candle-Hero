@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -103,6 +104,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float CheckRadius = .2f;
 
+    [Header("Upgrade Settings")]
+    public bool dashUpgrade = false;
+    public bool doubleJumpUpgrade = false;
+    public bool wallJumpUpgrade = false;
+
+    [Header("Data Settings")]
+    public DataManager dataManager;
 
     //Components
     private Rigidbody2D rb;
@@ -116,7 +124,13 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         healthBar.SetHealth(currentHealth, maxHealth);
         lightSource.pointLightOuterRadius = lightMin;
+        
 
+    }
+
+    private void Start()
+    {
+        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
     }
 
     // Update is called once per frame
@@ -124,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // checking for player state
         isPlayerGrounded();
-        //isOnWall();
+        isOnWall();
         //isWallSliding();
         SetAnimation();
 
@@ -136,8 +150,8 @@ public class PlayerMovement : MonoBehaviour
         DefaultInputManager();
         // Setting up animation variables
 
-        //JumpDynamics();
 
+        SetData();
     }
 
     private void FixedUpdate()
@@ -232,9 +246,9 @@ public class PlayerMovement : MonoBehaviour
     {
         currentLives--;
         if (currentLives == 0) {
-            respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
+            //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
             currentLives = maxLives;
-            candles.GetComponent<Candles>().ResetCandles();
+            //candles.GetComponent<Candles>().ResetCandles();
         }
 
         currentHealth = maxHealth;
@@ -263,7 +277,7 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade)
         {
             StartCoroutine(Dash());
         }
@@ -280,7 +294,7 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = move * runSpeed;
             //Find the difference between our current speed and the disired speed
             float speedDif = targetSpeed - rb.velocity.x;
-            //Chang acceleration depending on situation
+            //Change acceleration depending on situation
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
 
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
@@ -293,13 +307,12 @@ public class PlayerMovement : MonoBehaviour
             float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(rb.velocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
-
         }
     }
 
     private IEnumerator Jump()
     {
-        if (onWall && !isGrounded && Mathf.Abs(playerHorizontalInput) > 0f)
+        if (onWall && !isGrounded && Mathf.Abs(playerHorizontalInput) > 0f && wallJumpUpgrade)
         {
             rb.gravityScale = gravityValue;
             WallJump();
@@ -310,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (!isGrounded && extraJumps > 0)
+        else if (!isGrounded && extraJumps > 0 && doubleJumpUpgrade)
         {
             extraJumps--;
             rb.gravityScale = gravityValue;
@@ -367,7 +380,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
 
     private void stopJump()
     {
@@ -528,5 +540,18 @@ public class PlayerMovement : MonoBehaviour
     {
         globalLightSource.intensity += value;
     }
-    
+
+
+    public void SetData()
+    {
+        if (FindAnyObjectByType<DataManager>())
+        {
+            dataManager = FindAnyObjectByType<DataManager>();
+            dashUpgrade = dataManager.data.dashUpgrade;
+            doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+
+        }
+    }
+
 }

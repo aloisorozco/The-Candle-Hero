@@ -1670,6 +1670,10 @@ MonoBehaviour:
   runningAudio: {fileID: 4616871236865865374}
   maxTimeIdleBeforeLosingHealth: 50
   idleEpsilon: 3
+  dashUpgrade: 0
+  doubleJumpUpgrade: 0
+  wallJumpUpgrade: 0
+  dataManager: {fileID: 0}
 --- !u!50 &4957049352997151820
 Rigidbody2D:
   serializedVersion: 4
@@ -1749,6 +1753,7 @@ MonoBehaviour:
   player: {fileID: 2561138033611844962}
   respawn: {fileID: 3631195571946966301}
   resourceManager: {fileID: 9147202668848696261}
+  dataManager: {fileID: 0}
   impactFlash: {fileID: 9082300128193963042}
   onScreenText: {fileID: 7761685908921585010}
   UI_particles: {fileID: 4014333001830208260}
@@ -1764,8 +1769,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f570969a6c8134fb4a6bec399fb4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCandles: 0
+  currentEmbers: 0
   candleCountText: {fileID: 8755476481746516708}
+  dataManagerPrefab: {fileID: 502413533934713636, guid: 4685149d2f222654caa9384ae1d895f6, type: 3}
   dataManager: {fileID: 0}
 --- !u!1 &2847751961880365822
 GameObject:
