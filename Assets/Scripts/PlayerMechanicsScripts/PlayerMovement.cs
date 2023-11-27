@@ -247,6 +247,7 @@ public class PlayerMovement : MonoBehaviour
         currentLives--;
         if (currentLives == 0) {
             //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
+           // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
             currentLives = maxLives;
             //candles.GetComponent<Candles>().ResetCandles();
         }
@@ -302,11 +303,20 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(movement * Vector2.right);
         }
 
-        if (lastGroundedTime > 0 && Mathf.Abs(move) < movementBuffer)
+        if (isGrounded && Mathf.Abs(move) <= movementBuffer)
         {
             float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(rb.velocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
+        if (!isGrounded && Mathf.Abs(move) <= movementBuffer)
+        {
+            float targetSpeed = move * runSpeed;
+            //Find the difference between our current speed and the disired speed
+            float speedDif = targetSpeed - rb.velocity.x;
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * decceleration, velPower) * -transform.localScale.x;
+
+            rb.AddForce(movement * Vector2.right);
         }
     }
 
@@ -554,4 +564,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        runSpeed *= multiplier;
+    }
+    
 }
