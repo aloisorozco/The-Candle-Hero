@@ -175,17 +175,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLight()
     {
+        globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
         if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
-            globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
         }
         else
         {
             if (timeIdleCount >= maxTimeIdleBeforeLosingHealth)
             {
                 lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius - lightRate, lightMin, lightMax);
-                globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
             }
         }
     }
