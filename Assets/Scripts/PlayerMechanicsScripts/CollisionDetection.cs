@@ -54,6 +54,10 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
         }
+        else if (collision.CompareTag("Cobweb"))
+        {
+            player.SetSpeedMultiplier(0.55f);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -62,6 +66,10 @@ public class CollisionDetection : MonoBehaviour
         {
             onDoor = false;
             onScreenText.enabled = false;
+        }
+        else if (collision.CompareTag("Cobweb"))
+        {
+            player.SetSpeedMultiplier((1.0f / 0.55f));
         }
     }
 
