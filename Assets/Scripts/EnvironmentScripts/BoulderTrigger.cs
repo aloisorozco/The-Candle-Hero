@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BoulderTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private bool hasEnteredBefore = false;
+    [SerializeField] private GameObject boulder;
+
+    [SerializeField] private Vector2 force = new Vector2(-2000, 0);
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player") && !hasEnteredBefore)
+        {
+            hasEnteredBefore = true;
+            GameObject boulderObject = Instantiate(boulder, boulder.transform);
+            boulderObject.GetComponent<Boulder>().force = force;
+        }
     }
 }
