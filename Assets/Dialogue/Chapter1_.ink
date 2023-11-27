@@ -4,6 +4,8 @@ Chapter 1: Into the Mansion
 
 /*+ [Continue.]*/
 
+- "This house is so suffocating, I feel like I'm losing my light every time I stop moving around."
+
 - "You can keep trying to open that door, but it won't budge. I've tried for ..."
 
 /*+ [Continue.]*/

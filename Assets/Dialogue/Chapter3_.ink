@@ -20,11 +20,11 @@ Chapter 3: The Other Side
 
 /*+ [Continue.]*/
 
-- "I can tell your brother means as much to you as my pookie bear meant to me. Take this, it was a gift from my true love, it will help you tremendously in your search for your brother."
+- "I can tell your brother means as much to you as my pookie bear meant to me. Good luck on your quest."
 
 /*+ [Continue.]*/
 
-- Lester hands you "The Eternal Flame".
+/*- Lester hands you "The Eternal Flame".*/
 
 /*+ [Continue.]*/ -> END
 
