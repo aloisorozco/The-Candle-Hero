@@ -537,5 +537,10 @@ public class PlayerMovement : MonoBehaviour
     {
         globalLightSource.intensity += value;
     }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        runSpeed *= multiplier;
+    }
     
 }
