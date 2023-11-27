@@ -11,6 +11,7 @@ public class CollisionDetection : MonoBehaviour
     public PlayerMovement player;
     public RespawnPlayer respawn;
     public ResourceManager resourceManager;
+    public DataManager dataManager;
     private string currentSceneName;
     private bool onDoor;
     [SerializeField] private ImpactFlash impactFlash;
@@ -20,12 +21,19 @@ public class CollisionDetection : MonoBehaviour
     private void Start()
     {
         player = GetComponent<PlayerMovement>();
+
+        if (FindAnyObjectByType<DataManager>())
+        {
+            dataManager = FindAnyObjectByType<DataManager>();
+        }
     }
 
     private void Update()
     {
         if (onDoor && Input.GetKeyDown(KeyCode.E))
         {
+            dataManager.data.currentScene = currentSceneName;
+            dataManager.data.respawnPoint = "InitialRespawnPoint";
             SceneManager.LoadScene(currentSceneName);
         }
 
@@ -37,14 +45,17 @@ public class CollisionDetection : MonoBehaviour
             if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
-                resourceManager.AddCountCandle(collision.GetComponent<CandleInformation>().value);
+                resourceManager.AddEmber();
+                dataManager.SetDashUpgrade();
                 UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            respawn.setRespawn(collision.transform);
+            respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
+
+            dataManager.SavePlayer();
         }
         else if (collision.CompareTag("Door"))
         {
@@ -52,7 +63,10 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.enabled = true;
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
+
+            
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
+            
         }
         else if (collision.CompareTag("Cobweb"))
         {

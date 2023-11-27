@@ -5,37 +5,41 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    public int currentCandles = 0;
+    public int currentEmbers = 0;
     public TMP_Text candleCountText;
+    public GameObject dataManagerPrefab;
 
     public DataManager dataManager;
 
+
     void Awake()
     {
-        candleCountText.text = currentCandles.ToString();
+        candleCountText.text = currentEmbers.ToString();
 
-        if(GameObject.Find("DataManager") != null)
+        if (FindAnyObjectByType<DataManager>())
         {
-            dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-            SetCountCandle(dataManager.resourceManager.currentCandles);
+            dataManager = FindAnyObjectByType<DataManager>();
+            currentEmbers = dataManager.data.embers;
         }
         else
         {
-            SetCountCandle(currentCandles);
+            GameObject dataM = Instantiate(dataManagerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            dataManager = dataM.GetComponent<DataManager>();
         }
-
+        SetCountCandle(currentEmbers);
     }
 
-    public void AddCountCandle(int count)
+    public void AddEmber()
     {
-        currentCandles+= count;
-        candleCountText.text = currentCandles.ToString();
+        dataManager.AddEmber();
+        currentEmbers = dataManager.data.embers;
+        SetCountCandle(currentEmbers);
     }
 
     public void SetCountCandle(int count)
     {
-        currentCandles = count;
-        candleCountText.text = currentCandles.ToString();
+        currentEmbers = count;
+        candleCountText.text = currentEmbers.ToString();
     }
 
 }

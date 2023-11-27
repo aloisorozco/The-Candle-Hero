@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
+    public DataManager dataManager;
+
+    private void Start()
+    {
+        dataManager = FindAnyObjectByType<DataManager>();
+    }
     public void PlayGame()
     {
+        dataManager.data = SaveSystem.LoadPlayer();
         //Play the next scene in queue
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(dataManager.data.currentScene);
     }
 
     public void QuitGame()
