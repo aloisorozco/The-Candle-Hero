@@ -24,7 +24,7 @@ public class CollisionDetection : MonoBehaviour
 
     private void Update()
     {
-        if (onDoor && (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)))
+        if (onDoor && Input.GetKeyDown(KeyCode.E))
         {
             SceneManager.LoadScene(currentSceneName);
         }
@@ -43,11 +43,6 @@ public class CollisionDetection : MonoBehaviour
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-<<<<<<< Updated upstream
-=======
-            collision.GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius = 2.5f;
-            UI_particles.GetComponentInChildren<ParticleSystem>().Play();
->>>>>>> Stashed changes
             respawn.setRespawn(collision.transform);
             StartCoroutine(impactFlash.FlashRoutine());
         }

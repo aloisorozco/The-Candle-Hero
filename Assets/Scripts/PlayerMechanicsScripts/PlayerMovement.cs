@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpGraceTime = .05f;
     [SerializeField] private float coyoteTime = .05f;
     [SerializeField] private float jumpTime = .2f;
-    private bool canDoubleJump = false;
 
 
     // Variables having to do with wall
@@ -67,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashJumpGraceTime = 0.5f;
     private bool canDash = true;
     private bool isDashing;
-    private bool dashUnlocked;
 
 
     [Header("Light Settings")]
@@ -103,9 +101,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float idleEpsilon = 3f;
     private int timeIdleCount = 0;
 
-    public PlayerData playerData;
-
     private float CheckRadius = .2f;
+
+
     //Components
     private Rigidbody2D rb;
 
@@ -116,30 +114,18 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerData = GetComponent<PlayerData>();
         healthBar.SetHealth(currentHealth, maxHealth);
         lightSource.pointLightOuterRadius = lightMin;
 
     }
 
+    // Update is called once per frame
     void Update()
     {
-        bool wallJumpUnlocked = playerData.canWallJump;
-        dashUnlocked = playerData.canDash;
-
-        if(playerData.canDoubleJump && !canDoubleJump)
-        {
-            canDoubleJump = true;
-            SetDoubleJump();
-        }
-        
         // checking for player state
         isPlayerGrounded();
-        if (wallJumpUnlocked)
-        {
-            isOnWall();
-            isWallSliding();
-        }
+        //isOnWall();
+        //isWallSliding();
         SetAnimation();
 
         // Checking for user input
@@ -148,7 +134,9 @@ public class PlayerMovement : MonoBehaviour
             InputManager();
         }
         DefaultInputManager();
+        // Setting up animation variables
 
+        //JumpDynamics();
 
     }
 
@@ -275,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetButtonDown("Fire2") && canDash && dashUnlocked)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -540,11 +528,5 @@ public class PlayerMovement : MonoBehaviour
     {
         globalLightSource.intensity += value;
     }
-
-    public void SetDoubleJump()
-    {
-        maxJumps = 1;
-        extraJumps = 1;
-    }
-
+    
 }
