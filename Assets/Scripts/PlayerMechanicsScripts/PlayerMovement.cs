@@ -83,6 +83,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 10;
     [SerializeField] private int healthRate = 5;
+    [SerializeField] private int currentLives = 3;
+    [SerializeField] private int maxLives = 3;
+    [SerializeField] private GameObject respawn;
+    [SerializeField] private GameObject candles;
+    [SerializeField] private Transform initialRespawnPoint;
 
     [Header("Safe Area Settings")]
     [SerializeField] private GameObject safeArea;
@@ -160,6 +165,8 @@ public class PlayerMovement : MonoBehaviour
         SetHealth();
         SetTimeIdle();
 
+        SetLives();
+
     }
 
     private void InputManager()
@@ -218,6 +225,30 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             timeIdleCount++;
+        }
+    }
+
+    public void RespawnPlayer()
+    {
+        currentLives--;
+        if (currentLives == 0) {
+            respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
+            currentLives = maxLives;
+            candles.GetComponent<Candles>().ResetCandles();
+        }
+
+        currentHealth = maxHealth;
+        timeIdleCount = 0;
+
+        rb.velocity = Vector2.zero;
+        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+    }
+
+    private void SetLives()
+    {
+        if (currentHealth <= 0)
+        {
+            RespawnPlayer();
         }
     }
 

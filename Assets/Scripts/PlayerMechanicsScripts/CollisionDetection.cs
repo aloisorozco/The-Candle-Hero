@@ -34,12 +34,16 @@ public class CollisionDetection : MonoBehaviour
     {
         if (collision.CompareTag("Checkpoint"))
         {
+            if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
+            {
+                collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
+                resourceManager.AddCountCandle(collision.GetComponent<CandleInformation>().value);
+                UI_particles.GetComponentInChildren<ParticleSystem>().Play();
+            }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             respawn.setRespawn(collision.transform);
-            resourceManager.AddCountCandle(collision.GetComponent<CandleInformation>().value);
             StartCoroutine(impactFlash.FlashRoutine());
         }
         else if (collision.CompareTag("Door"))
