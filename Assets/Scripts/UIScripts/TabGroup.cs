@@ -52,6 +52,7 @@ public class TabGroup : MonoBehaviour
             }
             else
             {
+                Debug.Log("OnTabSelected: TabGroup - Index != i");
                 objectsToSwap[i].SetActive(false);
             }
         }
