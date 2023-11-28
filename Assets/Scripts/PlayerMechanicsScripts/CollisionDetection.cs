@@ -13,9 +13,11 @@ public class CollisionDetection : MonoBehaviour
     public ResourceManager resourceManager;
     private string currentSceneName;
     private bool onDoor;
+    private bool onShop;
     [SerializeField] private ImpactFlash impactFlash;
     [SerializeField] private Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
+    [SerializeField] private Canvas ShopUI;
 
     private void Start()
     {
@@ -28,8 +30,18 @@ public class CollisionDetection : MonoBehaviour
         {
             SceneManager.LoadScene(currentSceneName);
         }
-
+        if(onShop && Input.GetKeyDown(KeyCode.E))
+        {
+            EnableShop();
+        }
     }
+
+    private void EnableShop()
+    {
+        Time.timeScale = 0f;
+        ShopUI.enabled = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Checkpoint"))
@@ -50,6 +62,13 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
         }
+        else if (collision.CompareTag("UpgradeShop"))
+        {
+            onShop = true;
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter Upgrade Shop";
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,6 +76,11 @@ public class CollisionDetection : MonoBehaviour
         if (collision.CompareTag("Door"))
         {
             onDoor = false;
+            onScreenText.enabled = false;
+        }
+        if (collision.CompareTag("UpgradeShop"))
+        {
+            onShop = false;
             onScreenText.enabled = false;
         }
     }

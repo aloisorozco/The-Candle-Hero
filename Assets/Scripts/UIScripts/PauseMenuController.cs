@@ -20,6 +20,7 @@ public class PauseMenuController : MonoBehaviour
             }
             else
             {
+                Time.timeScale = 0f;
                 Pause();
             }
         }
@@ -39,10 +40,11 @@ public class PauseMenuController : MonoBehaviour
     void Pause()
     {
         // Show Menu
+        Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
 
         // Stop game from running
-        Time.timeScale = 0f;
+        
 
         GameIsPaused = true;
     }
