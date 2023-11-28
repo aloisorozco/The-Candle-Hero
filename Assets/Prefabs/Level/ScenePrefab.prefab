@@ -1135,8 +1135,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 4, y: -4}
   m_UseGraphicAlpha: 1
@@ -1851,13 +1851,13 @@ MonoBehaviour:
   lightMax: 5
   globalLightMin: 0.05
   globalLightMax: 0.25
-  lightRate: 0.2
+  lightRate: 0.05
   globalLightRate: 0.01
   healthBar: {fileID: 8930422710487476593}
   maxHealth: 100
   currentHealth: 100
-  increaseHealthRate: 5
-  decreaseHealthRate: 5
+  increaseHealthRate: 1
+  decreaseHealthRate: 1
   currentLives: 3
   maxLives: 3
   respawn: {fileID: 874761558935452805}
@@ -1866,7 +1866,7 @@ MonoBehaviour:
   safeArea: {fileID: 7632591320200816173}
   animator: {fileID: 6640774769353465349}
   runningAudio: {fileID: 4616871236865865374}
-  maxTimeIdleBeforeLosingHealth: 50
+  maxTimeIdleBeforeLosingHealth: 5
   idleEpsilon: 3
   dashUpgrade: 0
   doubleJumpUpgrade: 0
@@ -2247,6 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeAreaMusic: {fileID: 7198151723295946160}
   levelMusic: {fileID: 8682381123345201386}
+  safeArea: {fileID: 1788375304066437330}
   levelMusicPlaying: 0
   safeAreaMusicPlaying: 0
 --- !u!1 &3333311922795596377
