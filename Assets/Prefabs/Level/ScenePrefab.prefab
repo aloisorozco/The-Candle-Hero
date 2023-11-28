@@ -1135,8 +1135,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 4, y: -4}
   m_UseGraphicAlpha: 1
@@ -1829,8 +1829,8 @@ MonoBehaviour:
   stopJumpForce: 0.5
   gravityValue: 3
   downGravityValue: 8
-  jumpGraceTime: 0.05
-  coyoteTime: 0.1
+  jumpGraceTime: 0.1
+  coyoteTime: 0.2
   jumpTime: 0.2
   onWall: 0
   isSliding: 0
@@ -1864,6 +1864,7 @@ MonoBehaviour:
   candles: {fileID: 6814383905469428084}
   initialRespawnPoint: {fileID: 2383065092962903638}
   safeArea: {fileID: 7632591320200816173}
+  inSafeArea: 0
   animator: {fileID: 6640774769353465349}
   runningAudio: {fileID: 4616871236865865374}
   maxTimeIdleBeforeLosingHealth: 5
@@ -24799,7 +24800,7 @@ Transform:
   m_GameObject: {fileID: 3998861995723879788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.61768943, y: -1.3063211, z: -9.477576}
+  m_LocalPosition: {x: -7.39, y: -1.21, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24973,7 +24974,7 @@ Transform:
   m_GameObject: {fileID: 4138334714161370495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3823106, y: 0.2563212, z: -0.52242374}
+  m_LocalPosition: {x: 4.39, y: 0.16000009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
