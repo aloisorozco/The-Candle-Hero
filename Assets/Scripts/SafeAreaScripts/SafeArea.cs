@@ -12,7 +12,7 @@ public class SafeArea : MonoBehaviour
         if (collider.gameObject.tag == "Player")
         {
             inSafeArea = true;
-            if (!musicManager.safeAreaMusic)
+            if (!musicManager.safeAreaMusicPlaying)
             {
                 musicManager.switchToSafeAreaMusic();
 

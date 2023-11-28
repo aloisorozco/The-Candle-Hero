@@ -79,8 +79,14 @@ public class CollisionDetection : MonoBehaviour
         {
             canTalk = true;
             onScreenText.enabled = true;
-            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.5f;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Talk";
+        }
+        else if (collision.CompareTag("Altar"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 2.0f;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
         }
 
     }
@@ -99,6 +105,10 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("NPC"))
         {
             canTalk = false;
+            onScreenText.enabled = false;
+        }
+        else if (collision.CompareTag("Altar"))
+        {
             onScreenText.enabled = false;
         }
     }
