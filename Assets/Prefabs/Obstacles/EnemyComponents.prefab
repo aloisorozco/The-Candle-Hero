@@ -184,6 +184,8 @@ MonoBehaviour:
   pointB: {fileID: 7190239427724369753}
   currentPoint: {fileID: 0}
   speed: 2
+  knockbackForce: 5000
+  timeFrozen: 2
 --- !u!61 &6886356597224928445
 BoxCollider2D:
   m_ObjectHideFlags: 0
