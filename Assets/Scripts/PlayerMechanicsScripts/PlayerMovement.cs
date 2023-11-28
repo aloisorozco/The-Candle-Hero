@@ -4,7 +4,7 @@ using System.Resources;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -94,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Safe Area Settings")]
     [SerializeField] private GameObject safeArea;
+    [SerializeField] private bool inSafeArea;
 
     [Header("Animator and Sound")]
     [SerializeField] private Animator animator;
@@ -171,7 +172,8 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
-        if (safeArea.GetComponent<SafeArea>().inSafeArea)
+        inSafeArea = safeArea.GetComponent<SafeArea>().inSafeArea;
+        if (inSafeArea)
         {
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth, maxHealth);
@@ -179,8 +181,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if(SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            SetHealth();
+        }
         SetLight();
-        SetHealth();
         SetTimeIdle();
 
         SetLives();

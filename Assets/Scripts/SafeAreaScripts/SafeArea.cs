@@ -11,6 +11,7 @@ public class SafeArea : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
+            Debug.Log("inSafeArea");
             inSafeArea = true;
             if (!musicManager.safeAreaMusic)
             {
@@ -31,4 +32,6 @@ public class SafeArea : MonoBehaviour
             }
         }
     }
+
+
 }

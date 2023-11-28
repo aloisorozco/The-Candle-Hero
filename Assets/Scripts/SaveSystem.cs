@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static string dataFile = "/player.lol";
+    public static string dataFile = "/player1.lol";
     public static void SavePlayer(Data data)
     {
         BinaryFormatter formater = new BinaryFormatter();
