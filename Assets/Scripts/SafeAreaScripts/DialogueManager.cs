@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
 
+    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     private Story currentStory;
@@ -38,24 +39,23 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             ContinueStory();
         }
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON)
-
+    public void EnterDialogueMode(TextAsset inkJSON, string name)
     {
         currentStory = new Story(inkJSON.text);
-
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
+        nameText.text = name;
 
         ContinueStory();
     }
 
-    private IEnumerator ExitDialogueMode()
+    public IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
 

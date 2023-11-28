@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [Header("Visual Cue")]
-    [SerializeField] private GameObject visualCue;
+    [Header("Name")]
+    [SerializeField] private string npcName;
 
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
@@ -15,43 +15,26 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialogueManager;
 
-    private bool playerInRange;
+    private CollisionDetection collisionDetector;
 
-    private void Awake()
+    private void Start()
     {
-        playerInRange = false;
-        visualCue.SetActive(false);
+        collisionDetector = FindAnyObjectByType<CollisionDetection>();
     }
 
     private void Update()
     {
-        if (playerInRange && !dialogueManager.GetComponent<DialogueManager>().dialogueIsPlaying)
+        if (collisionDetector.canTalk && !dialogueManager.GetComponent<DialogueManager>().dialogueIsPlaying)
         {
-            visualCue.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSON);
+                dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSON, npcName);
             }
         }
-        else
-        {
-            visualCue.SetActive(false);
-        }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "Player")
+        if (!collisionDetector.canTalk && dialogueManager.GetComponent<DialogueManager>().dialogueIsPlaying)
         {
-            playerInRange = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "Player")
-        {
-            playerInRange = false;
+            StartCoroutine(dialogueManager.GetComponent<DialogueManager>().ExitDialogueMode());
         }
     }
 }
