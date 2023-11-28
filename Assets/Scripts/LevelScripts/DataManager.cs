@@ -39,7 +39,6 @@ public class DataManager : MonoBehaviour
 
     public void SetRespawnPoint(string respawnPoint)
     {
-        Debug.Log(respawnPoint);
         data.respawnPoint = respawnPoint;
     }
 
