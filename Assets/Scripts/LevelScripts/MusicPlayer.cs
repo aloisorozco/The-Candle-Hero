@@ -6,6 +6,7 @@ public class MusicPlayer : MonoBehaviour
 {
     [SerializeField] public AudioSource safeAreaMusic;
     [SerializeField] public AudioSource levelMusic;
+    [SerializeField] public SafeArea safeArea;
 
     public bool levelMusicPlaying;
     public bool safeAreaMusicPlaying;
@@ -13,17 +14,17 @@ public class MusicPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (safeAreaMusic.clip == null)
-        {
-            levelMusic.Play();
-            levelMusicPlaying = true;
-            safeAreaMusicPlaying = false;
-        }
-        else
+        if (safeArea.inSafeArea)
         {
             safeAreaMusic.Play();
             levelMusicPlaying = false;
             safeAreaMusicPlaying = true;
+        }
+        else
+        {
+            levelMusic.Play();
+            levelMusicPlaying = true;
+            safeAreaMusicPlaying = false;
         }
     }
 
