@@ -64,14 +64,29 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
 
-            
+
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
-            
+
         }
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier(0.55f);
         }
+
+        else if (collision.CompareTag("NPC"))
+        {
+            canTalk = true;
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Talk";
+        }
+        else if (collision.CompareTag("Altar"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 2.0f;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -84,6 +99,15 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.55f));
+        }
+        else if (collision.CompareTag("NPC"))
+        {
+            canTalk = false;
+            onScreenText.enabled = false;
+        }
+        else if (collision.CompareTag("Altar"))
+        {
+            onScreenText.enabled = false;
         }
     }
 
