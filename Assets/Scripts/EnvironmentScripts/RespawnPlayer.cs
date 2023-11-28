@@ -15,7 +15,14 @@ public class RespawnPlayer : MonoBehaviour
         {
             dataManager = FindAnyObjectByType<DataManager>();
             GameObject respawnObject = GameObject.Find(dataManager.data.respawnPoint);
-            respawnPoint = respawnObject.transform;
+            if(dataManager.data.respawnPoint == "InitialRespawnPoint")
+            {
+                respawnPoint = respawnObject.transform;
+            }
+            else
+            {
+                respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
+            }
         }
     }
 
@@ -30,7 +37,7 @@ public class RespawnPlayer : MonoBehaviour
     public void setRespawn(string newRespawn)
     {
         GameObject respawnObject = GameObject.Find(newRespawn);
-        respawnPoint = respawnObject.transform;
+        respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
 
         if (dataManager)
         {
