@@ -1,22 +1,22 @@
 ﻿<Properties StartupConfiguration="{05A6A5A7-AC4E-D5FD-7977-8CFA861ECE13}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6a3d384a-efd0-457d-869b-a16a5d078832" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UIScripts/UpgradeButtons.cs">
     <Files>
       <File FileName="Assets/Scripts/UIScripts/PauseMenuController.cs" Line="11" Column="34" />
       <File FileName="Assets/Scripts/UIScripts/MainMenuController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerMechanicsScripts/CollisionDetection.cs" />
-      <File FileName="Assets/Scripts/PlayerMechanicsScripts/ResourceManager.cs" Line="39" Column="31" />
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/CollisionDetection.cs" Line="41" Column="8" />
+      <File FileName="Assets/Scripts/PlayerMechanicsScripts/ResourceManager.cs" Line="38" Column="58" />
       <File FileName="Assets/Scripts/UIScripts/Tab_Button.cs" Line="27" Column="34" />
       <File FileName="Assets/Scripts/UIScripts/TabGroup.cs" Line="16" Column="29" />
-      <File FileName="Assets/Scripts/UIScripts/UpgradeShop.cs" Line="12" Column="47" />
+      <File FileName="Assets/Scripts/UIScripts/UpgradeShop.cs" Line="49" Column="46" />
       <File FileName="Assets/Scripts/UIScripts/InventoryManager.cs" Line="26" Column="8" />
-      <File FileName="Assets/Scripts/UIScripts/UpgradeButtons.cs" Line="26" Column="44" />
+      <File FileName="Assets/Scripts/UIScripts/UpgradeButtons.cs" Line="32" Column="91" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="f7ceef4e-34e3-4781-a157-dedf7b93b2ea" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
