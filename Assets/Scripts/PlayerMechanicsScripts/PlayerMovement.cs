@@ -580,4 +580,10 @@ public class PlayerMovement : MonoBehaviour
     {
         lightSource.intensity = intensity;
     }
+
+    public void AddLife()
+    {
+        maxLives++;
+        currentLives++;
+    }
 }

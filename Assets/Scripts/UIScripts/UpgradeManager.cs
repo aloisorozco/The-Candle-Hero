@@ -22,17 +22,17 @@ public class UpgradeManager : MonoBehaviour
 
     public void OnMitochondriaButtonClicked()
     {
-
+        player.GetComponent<PlayerMovement>().AddLife();
     }
 
     public void OnStrongGreensButtonClicked()
     {
-
+        player.GetComponent<PlayerMovement>().AddLife();
     }
 
     public void OnHealingEmberButtonClicked()
     {
-
+        //TODO: impl health bar inc faster, dcs slower
     }
 
     public void OnEternalFlameButtonClicked()
