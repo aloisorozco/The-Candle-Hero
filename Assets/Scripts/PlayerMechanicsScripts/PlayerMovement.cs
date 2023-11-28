@@ -375,7 +375,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * decceleration * dashStopForce, velPower) * -transform.localScale.x;
+        float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
         yield return new WaitForSeconds(dashTime);
         rb.AddForce(stopforce * Vector2.right);
 
@@ -563,7 +563,9 @@ public class PlayerMovement : MonoBehaviour
         if (FindAnyObjectByType<DataManager>())
         {
             dataManager = FindAnyObjectByType<DataManager>();
-            dashUpgrade = dataManager.data.dashUpgrade;
+            //dashUpgrade = dataManager.data.dashUpgrade;
+            // TEMPORARY
+            dataManager.SetDashUpgrade();
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
 
