@@ -9,7 +9,6 @@ TagManager:
   - Checkpoint
   - Door
   - Cobweb
-  - NPC
   layers:
   - Default
   - TransparentFX

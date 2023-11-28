@@ -12,7 +12,6 @@ public class CollisionDetection : MonoBehaviour
     public RespawnPlayer respawn;
     public ResourceManager resourceManager;
     public DataManager dataManager;
-    public bool canTalk;
     private string currentSceneName;
     private bool onDoor;
     [SerializeField] private ImpactFlash impactFlash;
@@ -35,7 +34,6 @@ public class CollisionDetection : MonoBehaviour
         {
             dataManager.data.currentScene = currentSceneName;
             dataManager.data.respawnPoint = "InitialRespawnPoint";
-            FindAnyObjectByType<MusicPlayer>().levelMusic.Stop();
             SceneManager.LoadScene(currentSceneName);
         }
 
@@ -74,15 +72,6 @@ public class CollisionDetection : MonoBehaviour
         {
             player.SetSpeedMultiplier(0.55f);
         }
-
-        else if (collision.CompareTag("NPC"))
-        {
-            canTalk = true;
-            onScreenText.enabled = true;
-            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.5f;
-            onScreenText.GetComponentInChildren<TMP_Text>().text = "Talk";
-        }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -95,11 +84,6 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.55f));
-        }
-        else if (collision.CompareTag("NPC"))
-        {
-            canTalk = false;
-            onScreenText.enabled = false;
         }
     }
 
