@@ -555,7 +555,7 @@ public class PlayerMovement : MonoBehaviour
             dataManager = FindAnyObjectByType<DataManager>();
             //dashUpgrade = dataManager.data.dashUpgrade;
             // TEMPORARY
-            dashUpgrade = dataManager.SetDashUpgrade();
+            dataManager.SetDashUpgrade();
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
 
