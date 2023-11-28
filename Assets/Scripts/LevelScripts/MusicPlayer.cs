@@ -10,21 +10,37 @@ public class MusicPlayer : MonoBehaviour
 
     public bool levelMusicPlaying;
     public bool safeAreaMusicPlaying;
+    private bool firstMusicPlayed;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        if (safeArea.inSafeArea)
+        firstMusicPlayed = false;
+    }
+
+    private void Update()
+    {
+        if (safeArea.inSafeArea && !firstMusicPlayed)
         {
             safeAreaMusic.Play();
             levelMusicPlaying = false;
             safeAreaMusicPlaying = true;
+            firstMusicPlayed = true;
         }
-        else
+        else if (!safeArea.inSafeArea && !firstMusicPlayed)
         {
             levelMusic.Play();
             levelMusicPlaying = true;
             safeAreaMusicPlaying = false;
+            firstMusicPlayed = true;
+        }
+        else if (safeArea.inSafeArea && firstMusicPlayed && !safeAreaMusicPlaying)
+        {
+            switchToSafeAreaMusic();
+        }
+        else if (!safeArea.inSafeArea && firstMusicPlayed && !levelMusicPlaying)
+        {
+            switchToLevelMusic();
         }
     }
 
