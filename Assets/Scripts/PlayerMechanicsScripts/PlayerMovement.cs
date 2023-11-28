@@ -582,6 +582,7 @@ public class PlayerMovement : MonoBehaviour
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
             currentLives = dataManager.data.lives;
+            lightMax = dataManager.data.lightRadius;
 
         }
     }
