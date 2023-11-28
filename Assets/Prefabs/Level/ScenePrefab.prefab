@@ -1813,7 +1813,7 @@ MonoBehaviour:
   dashTime: 0.25
   downDashForce: 20
   dashJumpGraceTime: 0.5
-  dashStopForce: 8
+  dashStopForce: 20
   lightSource: {fileID: 5585521333327262376}
   globalLightSource: {fileID: 6523676807946469935}
   lightMin: 1
