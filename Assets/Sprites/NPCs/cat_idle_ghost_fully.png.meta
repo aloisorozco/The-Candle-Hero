@@ -296,7 +296,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cat_idle_ghost_fully_0: 3197614895437736322
+      cat_idle_ghost_fully_1: -2068525927249933657
+      cat_idle_ghost_fully_2: 2834146324434763009
+      cat_idle_ghost_fully_3: 6447560313150984639
+      cat_idle_ghost_fully_4: -6838052872642704783
+      cat_idle_ghost_fully_5: -5289036154758563822
+      cat_idle_ghost_fully_6: 4224047811953472041
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
