@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3);
+        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3, 5);
         
         DontDestroyOnLoad(this.gameObject);
         

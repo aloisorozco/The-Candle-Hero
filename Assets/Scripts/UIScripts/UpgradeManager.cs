@@ -37,6 +37,7 @@ public class UpgradeManager : MonoBehaviour
     public void OnEternalFlameButtonClicked()
     {
         player.GetComponent<PlayerMovement>().SetMaxLightRadius(8f);
+        dataManager.data.lightRadius = 8;
     }
 
     public void OnPlumberJoeHeadlampButtonClicked()
