@@ -1851,13 +1851,13 @@ MonoBehaviour:
   lightMax: 5
   globalLightMin: 0.05
   globalLightMax: 0.25
-  lightRate: 0.2
+  lightRate: 0.05
   globalLightRate: 0.01
   healthBar: {fileID: 8930422710487476593}
   maxHealth: 100
   currentHealth: 10
-  increaseHealthRate: 5
-  decreaseHealthRate: 5
+  increaseHealthRate: 1
+  decreaseHealthRate: 1
   currentLives: 3
   maxLives: 3
   respawn: {fileID: 874761558935452805}
@@ -1866,7 +1866,7 @@ MonoBehaviour:
   safeArea: {fileID: 7632591320200816173}
   animator: {fileID: 6640774769353465349}
   runningAudio: {fileID: 4616871236865865374}
-  maxTimeIdleBeforeLosingHealth: 50
+  maxTimeIdleBeforeLosingHealth: 5
   idleEpsilon: 3
   dashUpgrade: 0
   doubleJumpUpgrade: 0
