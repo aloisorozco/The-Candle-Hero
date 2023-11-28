@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Boulder : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] public Vector2 force = new Vector2(0f, 0f);
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        this.GetComponent<Rigidbody2D>().AddForce(force);
     }
 }
