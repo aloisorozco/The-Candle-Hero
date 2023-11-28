@@ -12,7 +12,6 @@ public class CollisionDetection : MonoBehaviour
     public RespawnPlayer respawn;
     public ResourceManager resourceManager;
     public DataManager dataManager;
-    public bool canTalk;
     private string currentSceneName;
     private bool onDoor;
     [SerializeField] private ImpactFlash impactFlash;
@@ -35,7 +34,6 @@ public class CollisionDetection : MonoBehaviour
         {
             dataManager.data.currentScene = currentSceneName;
             dataManager.data.respawnPoint = "InitialRespawnPoint";
-            FindAnyObjectByType<MusicPlayer>().levelMusic.Stop();
             SceneManager.LoadScene(currentSceneName);
         }
 
@@ -66,9 +64,9 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
 
-            
+
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
-            
+
         }
         else if (collision.CompareTag("Cobweb"))
         {
