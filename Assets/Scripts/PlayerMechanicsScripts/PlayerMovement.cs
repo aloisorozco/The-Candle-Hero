@@ -155,6 +155,13 @@ public class PlayerMovement : MonoBehaviour
         DefaultInputManager();
         // Setting up animation variables
 
+        if (dataManager)
+        {
+            dashUpgrade = dataManager.data.dashUpgrade;
+            doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+        }
+
 
         SetData();
     }
@@ -268,6 +275,8 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
     }
 
+    
+
     private void SetLives()
     {
         if (currentHealth <= 0)
@@ -355,7 +364,6 @@ public class PlayerMovement : MonoBehaviour
         //canJump = false;
         yield return new WaitForSeconds(jumpTime);
         //canJump = true;
-
 
     }
     public void WallJump()
@@ -573,6 +581,7 @@ public class PlayerMovement : MonoBehaviour
             dataManager.SetDashUpgrade();
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+            currentLives = dataManager.data.lives;
 
         }
     }
@@ -589,16 +598,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetMaxLightRadius(float radius)
     {
+
         lightMax = radius;
     }
     public void SetLightSetGlobalLightIntensity(float intensity)
     {
         lightSource.intensity = intensity;
     }
-    public void AddLife()
+    public void AddLife(int value)
     {
-        maxLives++;
-        currentLives++;
+        maxLives += value;
+        currentLives += value;
     }
 
     public void AddHealingEmber()
