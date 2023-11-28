@@ -17,10 +17,12 @@ public class Boulder : MonoBehaviour
         PlayerMovement playerScript = player.GetComponent<PlayerMovement>();
 
         playerScript.SetSpeedMultiplier(0.001f);
+        playerScript.SetFrozen(true);
 
         yield return new WaitForSeconds(1f);
 
         playerScript.SetSpeedMultiplier((1f / 0.001f));
+        playerScript.SetFrozen(false);
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -28,7 +30,10 @@ public class Boulder : MonoBehaviour
         if (col.gameObject.tag == "Player" && !hasCollidedBefore)
         {
             hasCollidedBefore = true;
-            col.gameObject.GetComponent<Rigidbody2D>().AddForce(force);
+            Vector2 playerForce = (col.gameObject.transform.position - transform.position);
+            playerForce.Normalize();
+
+            col.gameObject.GetComponent<Rigidbody2D>().AddForce(playerForce * force.magnitude);
             StartCoroutine(FreezePlayer(col.gameObject));
         }
     }
