@@ -32,7 +32,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void OnHealingEmberButtonClicked()
     {
-        //TODO: impl health bar inc faster, dcs slower
+        player.GetComponent<PlayerMovement>().AddHealingEmber();
     }
 
     public void OnEternalFlameButtonClicked()

@@ -17,10 +17,12 @@ public class Boulder : MonoBehaviour
         PlayerMovement playerScript = player.GetComponent<PlayerMovement>();
 
         playerScript.SetSpeedMultiplier(0.001f);
+        playerScript.SetFrozen(true);
 
         yield return new WaitForSeconds(1f);
 
         playerScript.SetSpeedMultiplier((1f / 0.001f));
+        playerScript.SetFrozen(false);
     }
 
     public void OnCollisionEnter2D(Collision2D col)

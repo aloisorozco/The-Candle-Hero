@@ -83,8 +83,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Health Settings")]
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 10;
-    [SerializeField] private int healthRate = 5;
+    [SerializeField] private int currentHealth = 100;
+    [SerializeField] private int increaseHealthRate = 5;
+    [SerializeField] private int decreaseHealthRate = 5;
     [SerializeField] private int currentLives = 3;
     [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawn;
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Idle Settings")]
     [SerializeField] private int maxTimeIdleBeforeLosingHealth = 50;
-    [SerializeField] private float idleEpsilon = 3f;
+    [SerializeField] private float idleEpsilon = 2f;
     private int timeIdleCount = 0;
 
     private float CheckRadius = .2f;
@@ -119,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
     //Time Variables
     private float lastGroundedTime = 0f;
     private float lastWalledTime = 0f;
+
+    private bool isFrozen = false;
 
     private void Awake()
     {
@@ -218,14 +221,14 @@ public class PlayerMovement : MonoBehaviour
         {
             if(currentHealth < maxHealth)
             {
-                currentHealth += healthRate;
+                currentHealth += increaseHealthRate;
             }
         }
         else
         {
             if((currentHealth > 0) && (timeIdleCount >= maxTimeIdleBeforeLosingHealth))
             {
-                currentHealth -= healthRate;
+                currentHealth -= decreaseHealthRate;
             }
         }
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
@@ -507,6 +510,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimation()
     {
+        //Idle Animation if MC Frozen
+        if (isFrozen)
+        {
+            animator.Play("MC_Idle");
+            return;
+        }
+
         // Idle animation
         if (isGrounded && playerHorizontalInput == 0)
         {
@@ -585,5 +595,16 @@ public class PlayerMovement : MonoBehaviour
     {
         maxLives++;
         currentLives++;
+    }
+
+    public void AddHealingEmber()
+    {
+        increaseHealthRate = 10;
+        decreaseHealthRate = 2;
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
     }
 }
