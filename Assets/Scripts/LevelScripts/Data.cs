@@ -14,6 +14,8 @@ public class Data
 
     public string currentScene;
     public string respawnPoint;
+    public int lives;
+    public float lightRadius;
 
     public Data()
     {
@@ -23,8 +25,10 @@ public class Data
         this.wallJumpUpgrade = false;
         this.currentScene = "Tutorial";
         this.respawnPoint = "InitialRespawnPoint";
+        this.lives = 3;
+        this.lightRadius = 5;
     }
-    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint)
+    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, float lightRadius)
     {
         this.embers = embers;
         this.dashUpgrade = dashUpgrade;
@@ -32,5 +36,7 @@ public class Data
         this.wallJumpUpgrade = wallJumpUpgrade;
         this.currentScene = currentScene;
         this.respawnPoint = respawnPoint;
+        this.lives = lives;
+        this.lightRadius = lightRadius;
     }
 }

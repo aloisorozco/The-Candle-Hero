@@ -6,28 +6,27 @@ public class UpgradeManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject dataManager;
+    [SerializeField] private DataManager dataManager;
+    [SerializeField] private int livesIncrease = 2;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (GameObject.Find("DataManager"))
+        {
+            dataManager =GameObject.Find("DataManager").GetComponent<DataManager>();
+        }
     }
 
     public void OnMitochondriaButtonClicked()
     {
-        player.GetComponent<PlayerMovement>().AddLife();
+        player.GetComponent<PlayerMovement>().AddLife(livesIncrease);
+        dataManager.data.lives += livesIncrease;
     }
 
     public void OnStrongGreensButtonClicked()
     {
-        player.GetComponent<PlayerMovement>().AddLife();
+        player.GetComponent<PlayerMovement>().AddLife(livesIncrease);
+        dataManager.data.lives += livesIncrease;
     }
 
     public void OnHealingEmberButtonClicked()

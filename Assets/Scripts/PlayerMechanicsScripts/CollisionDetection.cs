@@ -15,9 +15,11 @@ public class CollisionDetection : MonoBehaviour
     public bool canTalk;
     private string currentSceneName;
     private bool onDoor;
+    private bool onAltar;
     [SerializeField] private ImpactFlash impactFlash;
     [SerializeField] private Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
+    [SerializeField] private GameObject altarUI;
 
     private void Start()
     {
@@ -37,6 +39,14 @@ public class CollisionDetection : MonoBehaviour
             dataManager.data.respawnPoint = "InitialRespawnPoint";
             FindAnyObjectByType<MusicPlayer>().levelMusic.Stop();
             SceneManager.LoadScene(currentSceneName);
+        }
+        if (onAltar && Input.GetKeyDown(KeyCode.E))
+        {
+            onScreenText.enabled = false;
+            if (altarUI)
+            {
+                altarUI.SetActive(true);
+            }
         }
 
     }
@@ -66,7 +76,6 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
 
-            
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
             
         }
@@ -84,6 +93,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Altar"))
         {
+            onAltar = true;
             onScreenText.enabled = true;
             onScreenText.transform.position = collision.transform.position + Vector3.up * 2f;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
@@ -109,6 +119,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Altar"))
         {
+            onAltar = false;
             onScreenText.enabled = false;
         }
     }
