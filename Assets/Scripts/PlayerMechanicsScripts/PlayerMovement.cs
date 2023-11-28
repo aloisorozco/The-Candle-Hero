@@ -565,4 +565,19 @@ public class PlayerMovement : MonoBehaviour
         runSpeed *= multiplier;
     }
     
+
+    public void SetGlobalLightIntensity(float intensity)
+    {
+        globalLightSource.intensity = intensity;
+    }
+
+    public void SetMaxLightRadius(float radius)
+    {
+        lightMax = radius;
+    }
+
+    public void SetLightSetGlobalLightIntensity(float intensity)
+    {
+        lightSource.intensity = intensity;
+    }
 }

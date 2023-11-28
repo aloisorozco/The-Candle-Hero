@@ -28,7 +28,10 @@ public class Boulder : MonoBehaviour
         if (col.gameObject.tag == "Player" && !hasCollidedBefore)
         {
             hasCollidedBefore = true;
-            col.gameObject.GetComponent<Rigidbody2D>().AddForce(force);
+            Vector2 playerForce = (col.gameObject.transform.position - transform.position);
+            playerForce.Normalize();
+
+            col.gameObject.GetComponent<Rigidbody2D>().AddForce(playerForce * force.magnitude);
             StartCoroutine(FreezePlayer(col.gameObject));
         }
     }
