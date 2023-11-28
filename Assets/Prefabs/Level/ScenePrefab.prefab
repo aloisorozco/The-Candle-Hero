@@ -2247,6 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeAreaMusic: {fileID: 7198151723295946160}
   levelMusic: {fileID: 8682381123345201386}
+  safeArea: {fileID: 1788375304066437330}
   levelMusicPlaying: 0
   safeAreaMusicPlaying: 0
 --- !u!1 &3333311922795596377
