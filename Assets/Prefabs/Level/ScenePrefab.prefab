@@ -500,8 +500,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1785,7 +1785,7 @@ MonoBehaviour:
     m_Bits: 64
   runSpeed: 20
   acceleration: 5
-  decceleration: 3
+  decceleration: 5
   velPower: 1
   frictionAmount: 1.2
   movementBuffer: 0
@@ -1929,6 +1929,7 @@ MonoBehaviour:
   respawn: {fileID: 3631195571946966301}
   resourceManager: {fileID: 9147202668848696261}
   dataManager: {fileID: 0}
+  canTalk: 0
   impactFlash: {fileID: 9082300128193963042}
   onScreenText: {fileID: 7761685908921585010}
   UI_particles: {fileID: 4014333001830208260}
@@ -2475,7 +2476,7 @@ GameObject:
   - component: {fileID: 7542938551422042543}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2509,7 +2510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c82c957aed52b346a4adc8e7a57a164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualCue: {fileID: 4614319527498272047}
+  npcName: 
   inkJSON: {fileID: 4900000, guid: 0c9aea56ddf0fde49a662d6404b0df83, type: 3}
   dialogueManager: {fileID: 6450274028063981441}
 --- !u!61 &7542938551422042543
@@ -35950,6 +35951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 5661204224712775185}
+  nameText: {fileID: 1399217192959750646}
   dialogueText: {fileID: 2622330217314003885}
 --- !u!1 &6665336820103903034
 GameObject:
