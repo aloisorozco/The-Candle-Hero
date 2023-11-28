@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashTime;
     [SerializeField] private float downDashForce;
     [SerializeField] private float dashJumpGraceTime = 0.5f;
+    [SerializeField] private float dashStopForce;
     private bool canDash = true;
     private bool isDashing;
 
@@ -356,15 +357,12 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
-        if (Input.GetAxisRaw("Vertical") < -0.5f && !isGrounded)
-        {
-            rb.velocity = new Vector2(0.0f, -downDashForce);
-        }
-        else
-        {
-            rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        }
+        rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * decceleration * dashStopForce, velPower) * -transform.localScale.x;
         yield return new WaitForSeconds(dashTime);
+        rb.AddForce(stopforce * Vector2.right);
+
+
         if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded)// && canJump)
         {
             StartCoroutine(Jump());
@@ -373,8 +371,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-
-
     }
 
 
