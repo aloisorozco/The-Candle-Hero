@@ -1856,7 +1856,8 @@ MonoBehaviour:
   healthBar: {fileID: 8930422710487476593}
   maxHealth: 100
   currentHealth: 10
-  healthRate: 2
+  increaseHealthRate: 5
+  decreaseHealthRate: 5
   currentLives: 3
   maxLives: 3
   respawn: {fileID: 874761558935452805}
@@ -37387,6 +37388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444826204152567702}
   - component: {fileID: 9084339315864153626}
+  - component: {fileID: 8867787048838928674}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -37449,9 +37451,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -509029084, guid: f5517cbbafc9941f4801dc3c742c56c0, type: 3}
-  m_Color: {r: 0.6745283, g: 0.84003675, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -37461,6 +37463,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8867787048838928674
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8921534174718684899}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8983550247021102127
 GameObject:
   m_ObjectHideFlags: 0
