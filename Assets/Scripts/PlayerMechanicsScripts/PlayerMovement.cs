@@ -264,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentLives--;
         if (currentLives == 0) {
+            //StartCoroutine(DeathAnimation());
             //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
            // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
             currentLives = maxLives;
@@ -567,10 +568,20 @@ public class PlayerMovement : MonoBehaviour
             // Settings Sounds
             runningAudio.enabled = false;
         }
+        else if (onWall)
+        {
+            animator.Play("MC_WallGrip");
+        }
         else
         {
             runningAudio.enabled = false;
         }
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        animator.Play("MC_Death");
+        yield return new WaitForSeconds(1);
     }
 
     public void SetGlobalLight(float value)
