@@ -635,6 +635,15 @@ public class PlayerMovement : MonoBehaviour
         runSpeed *= multiplier;
     }
 
+    public void SetJumpMultiplier(float multiplier)
+    {
+        jumpForce *= multiplier;
+    }
+    public void SetDashMultiplier(float multiplier)
+    {
+        dashForce *= multiplier;
+    }
+
     public void SetGlobalLightIntensity(float intensity)
     {
         globalLightSource.intensity = intensity;

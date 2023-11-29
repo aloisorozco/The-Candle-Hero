@@ -81,6 +81,8 @@ public class CollisionDetection : MonoBehaviour
         {
             player.animator.Play("MC_Hurt");
             player.SetSpeedMultiplier(0.3f);
+            player.SetJumpMultiplier(0.6f);
+            player.SetDashMultiplier(0.6f);
         }
 
         else if (collision.CompareTag("NPC"))
@@ -110,6 +112,8 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.3f));
+            player.SetJumpMultiplier((1.0f / 0.6f));
+            player.SetDashMultiplier((1.0f / 0.6f));
         }
         else if (collision.CompareTag("NPC"))
         {
