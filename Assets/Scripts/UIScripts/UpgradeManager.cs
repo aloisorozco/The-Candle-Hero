@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
@@ -9,12 +10,18 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private DataManager dataManager;
     [SerializeField] private int livesIncrease = 2;
 
+    [Header("Abilities")]
+    [SerializeField] private Canvas abilityPopUp;
+    [SerializeField] private TMP_Text abilityNameText;
+    [SerializeField] private TMP_Text abilityDescriptionText;
+
     void Start()
     {
         if (GameObject.Find("DataManager"))
         {
             dataManager =GameObject.Find("DataManager").GetComponent<DataManager>();
         }
+        abilityPopUp.enabled = false;
     }
 
     public void OnMitochondriaButtonClicked()
@@ -50,18 +57,17 @@ public class UpgradeManager : MonoBehaviour
         player.GetComponent<PlayerMovement>().SetGlobalLightIntensity(0.1f);
     }
 
-    public void OnDashButtonClicked()
+
+
+    public void openAbilityPopUp(string name, string description)
     {
-        dataManager.GetComponent<DataManager>().data.dashUpgrade = true;
+        abilityPopUp.enabled = true;
+        abilityNameText.text = name;
+        abilityDescriptionText.text = description;
     }
 
-    public void OnDoubleJumpButtonClicked()
+    public void closeAbilityPopUp()
     {
-        dataManager.GetComponent<DataManager>().data.doubleJumpUpgrade = true;
-    }
-
-    public void OnWallJumpButtonClicked()
-    {
-        dataManager.GetComponent<DataManager>().data.wallJumpUpgrade = true;
+        abilityPopUp.enabled = false;
     }
 }
