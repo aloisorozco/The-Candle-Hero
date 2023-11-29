@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -54,14 +55,12 @@ public class CollisionDetection : MonoBehaviour
             if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
-                //resourceManager.AddEmber();
-                //dataManager.SetDashUpgrade();
-                UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            collision.transform.Find("Flame")?.gameObject.SetActive(false);
+            collision.transform.Find("Flame")?.gameObject.SetActive(true);
+            collision.transform.Find("Small Flame")?.gameObject.SetActive(false);
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 
@@ -79,7 +78,10 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
+            player.animator.Play("MC_Hurt");
             player.SetSpeedMultiplier(0.3f);
+            player.SetJumpMultiplier(0.6f);
+            player.SetDashMultiplier(0.6f);
         }
 
         else if (collision.CompareTag("NPC"))
@@ -96,6 +98,18 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.transform.position = collision.transform.position + Vector3.up * 2f;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
         }
+        if (collision.CompareTag("Ember"))
+        {
+            string number = collision.gameObject.name.Split(' ')[1];
+            resourceManager.AddEmber(Int32.Parse(number));
+            UI_particles.GetComponentInChildren<ParticleSystem>().Play();
+            
+            collision.GetComponentInChildren<ParticleSystem>().Play();
+            collision.GetComponent<emberScript>().SetInactive();
+            StartCoroutine(impactFlash.FlashRoutine());
+
+            dataManager.SavePlayer();
+        }
 
     }
 
@@ -109,6 +123,8 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.3f));
+            player.SetJumpMultiplier((1.0f / 0.6f));
+            player.SetDashMultiplier((1.0f / 0.6f));
         }
         else if (collision.CompareTag("NPC"))
         {

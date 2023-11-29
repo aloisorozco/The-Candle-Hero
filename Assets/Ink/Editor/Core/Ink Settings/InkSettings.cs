@@ -40,12 +40,14 @@ namespace Ink.UnityIntegration {
 			get {
 				if(_instance == null) {
 					Object[] objects = UnityEditorInternal.InternalEditorUtility.LoadSerializedFileAndForget(absoluteSavePath);
-					if (objects != null && objects.Length > 0) {
-						instance = objects[0] as InkSettings;
-					} else {
+					/*if (objects != null && objects.Length > 0) {
+                        Debug.Log("hi");
+                        instance = objects[0] as InkSettings;
+					} else {*/
+						//Debug.Log("hello");
 						instance = ScriptableObject.CreateInstance<InkSettings>();
 						instance.Save(true);
-					}
+					//}
 					// Oh gosh Unity never unloads ScriptableObjects once created! This fixes it but is more of an expensive call than I like.
 					// I've commented this out in favour of a callback approach - see OnEnable. Left this for posterity in case we need to return to this. 
 					// foreach (var settings in Resources.FindObjectsOfTypeAll<InkSettings>()) {

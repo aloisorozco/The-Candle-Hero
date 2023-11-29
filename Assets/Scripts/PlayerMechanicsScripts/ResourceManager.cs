@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -29,9 +30,14 @@ public class ResourceManager : MonoBehaviour
         SetCountCandle(currentEmbers);
     }
 
-    public void AddEmber()
+    private void Start()
     {
-        dataManager.AddEmber();
+        SetActiveEmbers();
+    }
+
+    public void AddEmber(int num)
+    {
+        dataManager.AddEmber(num);
         currentEmbers = dataManager.data.embers;
         SetCountCandle(currentEmbers);
     }
@@ -40,6 +46,35 @@ public class ResourceManager : MonoBehaviour
     {
         currentEmbers = count;
         candleCountText.text = currentEmbers.ToString();
+    }
+
+    public void SetActiveEmbers()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        GameObject embers = GameObject.Find("Embers");
+        int numEmbers = 0;
+        bool[] activeEmbers;
+
+        if (currentScene == "Tutorial")
+        {
+            numEmbers = dataManager.data.emberTutorial.Length;
+            activeEmbers = dataManager.data.emberTutorial;
+        }
+        else if (currentScene == "Level_1") { activeEmbers = dataManager.data.emberLevel1; }
+        else if (currentScene == "Level_2") { activeEmbers = dataManager.data.emberLevel2; }
+        else if (currentScene == "Level_3") { activeEmbers = dataManager.data.emberLevel3; }
+        else { return; }
+
+        foreach (Transform child in embers.transform)
+        {
+            if (activeEmbers[numEmbers])
+            {
+                Debug.Log(child.name + " Set Inactive");
+                child.GetComponent<emberScript>().SetInactive();
+            }
+            numEmbers++;
+            
+        }
     }
 
 }
