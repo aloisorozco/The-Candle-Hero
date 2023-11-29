@@ -605,7 +605,7 @@ public class PlayerMovement : MonoBehaviour
             // Settings Sounds
             runningAudio.enabled = false;
         }
-        else if (onWall || isSliding)
+        else if (onWall && isSliding)
         {
             animator.Play("MC_WallGrip");
         }
