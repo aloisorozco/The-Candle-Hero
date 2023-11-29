@@ -233,7 +233,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
-            Debug.Log("In3");
             StartCoroutine(Jump());
         }
 
@@ -489,7 +488,6 @@ public class PlayerMovement : MonoBehaviour
         if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)
         {
             isJumping = true;
-            Debug.Log("IN4");
             StartCoroutine(Jump());
         }
     }
@@ -525,7 +523,6 @@ public class PlayerMovement : MonoBehaviour
         
         if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall && !isGrounded && !isJumping && Time.time - lastGroundedTime > .5f)
         {
-            Debug.Log("IN1");
             Debug.Log(Time.time - lastGroundedTime);
             isJumping = true;
             StartCoroutine(Jump());
@@ -548,7 +545,6 @@ public class PlayerMovement : MonoBehaviour
         if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isSliding && !isJumping && Time.time - lastGroundedTime > .5f)
         {
             isJumping = true;
-            Debug.Log("IN2");
             StartCoroutine(Jump());
         }
     }
