@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IMG_0068_0: 5210981034667692576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
