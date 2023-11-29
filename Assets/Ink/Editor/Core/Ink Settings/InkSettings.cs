@@ -44,7 +44,7 @@ namespace Ink.UnityIntegration {
                         Debug.Log("hi");
                         instance = objects[0] as InkSettings;
 					} else {*/
-						Debug.Log("hello");
+						//Debug.Log("hello");
 						instance = ScriptableObject.CreateInstance<InkSettings>();
 						instance.Save(true);
 					//}
