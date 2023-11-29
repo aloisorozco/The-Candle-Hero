@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         // checking for player state
         isPlayerGrounded();
         isOnWall();
-        //isWallSliding();
+        isWallSliding();
         SetAnimation();
 
         // Checking for user input
