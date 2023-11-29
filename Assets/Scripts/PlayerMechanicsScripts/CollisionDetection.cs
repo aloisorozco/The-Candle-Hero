@@ -55,14 +55,12 @@ public class CollisionDetection : MonoBehaviour
             if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
-                //resourceManager.AddEmber();
-                //dataManager.SetDashUpgrade();
-                UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            collision.transform.Find("Flame")?.gameObject.SetActive(false);
+            collision.transform.Find("Flame")?.gameObject.SetActive(true);
+            collision.transform.Find("Small Flame")?.gameObject.SetActive(false);
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 

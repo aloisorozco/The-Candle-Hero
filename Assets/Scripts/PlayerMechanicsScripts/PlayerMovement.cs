@@ -149,7 +149,10 @@ public class PlayerMovement : MonoBehaviour
         // checking for player state
         isPlayerGrounded();
         isOnWall();
-        isWallSliding();
+        if (wallJumpUpgrade)
+        {
+            isWallSliding();
+        }
         SetAnimation();
        
 
