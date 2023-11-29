@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         // checking for player state
         isPlayerGrounded();
         isOnWall();
-        //isWallSliding();
+        isWallSliding();
         SetAnimation();
 
         // Checking for user input
@@ -580,7 +580,8 @@ public class PlayerMovement : MonoBehaviour
             // TEMPORARY
             dataManager.SetDashUpgrade();
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
-            wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+            //wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+            dataManager.SetWallJumpUpgrade();
             currentLives = dataManager.data.lives;
             lightMax = dataManager.data.lightRadius;
 
