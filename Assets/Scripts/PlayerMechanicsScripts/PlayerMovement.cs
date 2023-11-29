@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float downDashForce;
     [SerializeField] private float dashJumpGraceTime = 0.5f;
     [SerializeField] private float dashStopForce;
+    [SerializeField] private int nbDashInAir = 1;
+    [SerializeField] private int maxDashInAir = 1;
     private bool canDash = true;
     private bool isDashing;
 
@@ -100,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool inSafeArea;
 
     [Header("Animator and Sound")]
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] private AudioSource runningAudio;
 
     [Header("Idle Settings")]
@@ -281,6 +283,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentLives--;
         if (currentLives == 0) {
+            //StartCoroutine(DeathAnimation());
             //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
            // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
             currentLives = maxLives;
@@ -315,11 +318,15 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade && isGrounded)
         {
             StartCoroutine(Dash());
         }
-
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isGrounded && canDash && dashUpgrade && nbDashInAir > 0)
+        {
+            nbDashInAir--;
+            StartCoroutine(Dash());
+        }
 
     }
 
@@ -452,6 +459,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && !lastIsGrounded)
         {
             extraJumps = maxJumps;
+            nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
 
@@ -479,6 +487,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallJumping = false;
             extraJumps = maxJumps;
+            nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
             if (!isGrounded)
@@ -549,7 +558,7 @@ public class PlayerMovement : MonoBehaviour
         //Idle Animation if MC Frozen
         if (isFrozen)
         {
-            animator.Play("MC_Idle");
+            animator.Play("MC_Hurt");
             return;
         }
 
@@ -582,10 +591,20 @@ public class PlayerMovement : MonoBehaviour
             // Settings Sounds
             runningAudio.enabled = false;
         }
+        else if (onWall)
+        {
+            animator.Play("MC_WallGrip");
+        }
         else
         {
             runningAudio.enabled = false;
         }
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        animator.Play("MC_Death");
+        yield return new WaitForSeconds(1);
     }
 
     public void SetGlobalLight(float value)

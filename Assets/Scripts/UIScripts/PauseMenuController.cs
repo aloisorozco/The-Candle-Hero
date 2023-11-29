@@ -9,6 +9,7 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject playerUI;
 
     void Update()
     {
@@ -29,6 +30,7 @@ public class PauseMenuController : MonoBehaviour
     {
         // Hide Menu
         pauseMenuUI.SetActive(false);
+        playerUI.SetActive(true);
 
         // Continue game time
         Time.timeScale = 1f;
@@ -40,6 +42,7 @@ public class PauseMenuController : MonoBehaviour
     {
         // Show Menu
         pauseMenuUI.SetActive(true);
+        playerUI.SetActive(false);
 
         // Stop game from running
         Time.timeScale = 0f;

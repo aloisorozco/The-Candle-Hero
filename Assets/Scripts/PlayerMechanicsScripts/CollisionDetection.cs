@@ -16,7 +16,7 @@ public class CollisionDetection : MonoBehaviour
     [SerializeField] private ImpactFlash impactFlash;
     [SerializeField] private Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
-    [SerializeField] private GameObject altarUI;
+    [SerializeField] private Canvas altarUI;
 
     private void Start()
     {
@@ -42,7 +42,7 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.enabled = false;
             if (altarUI)
             {
-                altarUI.SetActive(true);
+                altarUI.enabled = true;
             }
         }
 
@@ -61,6 +61,7 @@ public class CollisionDetection : MonoBehaviour
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
+            collision.transform.Find("Flame")?.gameObject.SetActive(false);
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 
@@ -78,6 +79,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
+            player.animator.Play("MC_Hurt");
             player.SetSpeedMultiplier(0.3f);
         }
 
