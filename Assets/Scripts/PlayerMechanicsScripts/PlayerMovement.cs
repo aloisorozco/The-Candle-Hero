@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingDuration = 0.15f;
     [SerializeField] private float wallJumpForce = 10f;
     [SerializeField] private float wallJumpGraceTime = .05f;
+    [SerializeField] private float wallStopTime = 0.5f;
+    [SerializeField] private bool isWallStop = false;
+    [SerializeField] private bool wasOnWall = false;
 
 
     [Header("Dash Settings")]
@@ -148,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
         isOnWall();
         isWallSliding();
         SetAnimation();
+       
 
         // Checking for user input
         if (!isWallJumping && !isDashing)
@@ -155,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
             InputManager();
         }
         DefaultInputManager();
+        
         // Setting up animation variables
 
         if (dataManager)
@@ -166,6 +171,17 @@ public class PlayerMovement : MonoBehaviour
 
 
         SetData();
+    }
+
+    private IEnumerator WallStop(float wallStopDuration)
+    {
+        isDashing = false;
+        isWallStop = true;
+        rb.velocity = new Vector2(0f, 0f);
+        rb.gravityScale = 0f;
+        yield return new WaitForSeconds(wallStopDuration);
+        rb.gravityScale = gravityValue;
+        isWallStop = false;
     }
 
     private void FixedUpdate()
@@ -203,7 +219,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputManager()
     {
-        playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
+        if (!isWallStop)
+        {
+            playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -347,7 +366,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Jump()
     {
-        if (onWall && !isGrounded && Mathf.Abs(playerHorizontalInput) > 0f && wallJumpUpgrade)
+        if (onWall && !isGrounded && wallJumpUpgrade)
         {
             rb.gravityScale = gravityValue;
             WallJump();
@@ -471,8 +490,12 @@ public class PlayerMovement : MonoBehaviour
             nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
-            CancelInvoke(nameof(StopWallJumping));
+            if (!isGrounded)
+            {
+                StartCoroutine(WallStop(wallStopTime));
+            }
 
+            CancelInvoke(nameof(StopWallJumping));
         }
 
         lastOnWall = onWall;
@@ -492,7 +515,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isSliding = (!isGrounded && onWall && Mathf.Abs(playerHorizontalInput) > 0);
 
-        if (isSliding)
+        if (isSliding && !isWallStop)
         {
             extraJumps = maxJumps;
             rb.gravityScale = gravityValue;
