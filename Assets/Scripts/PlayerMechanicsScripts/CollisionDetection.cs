@@ -79,6 +79,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
+            player.animator.Play("MC_Hurt");
             player.SetSpeedMultiplier(0.3f);
         }
 
