@@ -20,7 +20,13 @@ Chapter 3: The Other Side
 
 /*+ [Continue.]*/
 
-- "I can tell your brother means as much to you as my pookie bear meant to me. Good luck on your quest."
+- "...She was the love of my life. I will never forget her bright light."
+
+- "I can tell your brother means as much to you as my pookie bear meant to me. Take this, it was a gift from my true love."
+
+- Lester hands you "Whoopie Cushion".
+
+- You earned the ability to Double Jump!
 
 /*+ [Continue.]*/
 
