@@ -14,6 +14,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Canvas abilityPopUp;
     [SerializeField] private TMP_Text abilityNameText;
     [SerializeField] private TMP_Text abilityDescriptionText;
+    [SerializeField] private AudioSource playerAbilityAudioSource;
 
     void Start()
     {
@@ -61,6 +62,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void openAbilityPopUp(string name, string description)
     {
+        playerAbilityAudioSource.Play();
         abilityPopUp.enabled = true;
         abilityNameText.text = name;
         abilityDescriptionText.text = description;
