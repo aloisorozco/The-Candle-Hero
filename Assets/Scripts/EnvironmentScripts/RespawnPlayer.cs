@@ -9,7 +9,7 @@ public class RespawnPlayer : MonoBehaviour
     [SerializeField] private Transform respawnPoint;
     [SerializeField] public GameObject playerUI;
     [SerializeField] public GameObject heartsPrefab;
-    [SerializeField] int numLives;
+    [SerializeField] public int numLives;
 
     private DataManager dataManager;
     private GameObject[] livesArray;
@@ -41,22 +41,20 @@ public class RespawnPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerMovement>().RespawnPlayer();
-            numLives -= 1;
-            if (numLives > 0)
-            {
-                Destroy(livesArray[numLives]);
-            }
-            else
-            {
-                Debug.Log("No more lives - Death");
-            }
         }
     }
 
     public void setRespawn(string newRespawn)
     {
         GameObject respawnObject = GameObject.Find(newRespawn);
-        respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
+        if (newRespawn != "InitialRespawnPoint")
+        {
+            respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
+        }
+        else
+        {
+            respawnPoint = respawnObject.transform;
+        }
 
         if (dataManager)
         {
@@ -67,5 +65,19 @@ public class RespawnPlayer : MonoBehaviour
     public Transform getRespawn()
     {
         return respawnPoint;
+    }
+
+    public void removeHeart()
+    {
+        numLives--;
+        if (numLives > 0)
+        {
+            Destroy(livesArray[numLives]);
+        }
+        else
+        {
+            Destroy(livesArray[0]);
+            Debug.Log("No more lives - Death");
+        }
     }
 }

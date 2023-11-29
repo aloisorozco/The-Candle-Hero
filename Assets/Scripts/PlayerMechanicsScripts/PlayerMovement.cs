@@ -97,6 +97,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject candles;
     [SerializeField] private Transform initialRespawnPoint;
 
+    [Header("Death Settings")]
+    [SerializeField] private Canvas deathScreen;
+    [SerializeField] public bool isDead;
+    [SerializeField] private AudioSource deathSound;
+    private bool deathSoundPlaying = false;
+
+
     [Header("Safe Area Settings")]
     [SerializeField] private GameObject safeArea;
     [SerializeField] private bool inSafeArea;
@@ -155,13 +162,15 @@ public class PlayerMovement : MonoBehaviour
         }
         SetAnimation();
        
-
-        // Checking for user input
-        if (!isWallJumping && !isDashing)
+        if (!isDead)
         {
-            InputManager();
+            // Checking for user input
+            if (!isWallJumping && !isDashing)
+            {
+                InputManager();
+            }
+            DefaultInputManager();
         }
-        DefaultInputManager();
         
         // Setting up animation variables
 
@@ -210,21 +219,21 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(SceneManager.GetActiveScene().name != "Tutorial")
+        if(SceneManager.GetActiveScene().name != "Tutorial" && !isDead)
         {
             SetHealth();
         }
-        SetLight();
-        SetTimeIdle();
-
-        SetLives();
+        if (!isDead)
+        {
+            SetLight();
+            SetTimeIdle();
+            SetLives();
+        }
 
     }
 
     private void InputManager()
     {
-        if (!isWallStop)
-        { }
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
         
 
@@ -286,27 +295,46 @@ public class PlayerMovement : MonoBehaviour
     public void RespawnPlayer()
     {
         currentLives--;
-        if (currentLives == 0) {
-            //StartCoroutine(DeathAnimation());
-            //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
-           // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
-            currentLives = maxLives;
-            //candles.GetComponent<Candles>().ResetCandles();
+        dataManager.data.lives--;
+        respawn.GetComponent<RespawnPlayer>().removeHeart();
+
+        if (currentLives == 0) 
+        {
+            StartCoroutine(Death());
         }
+        else
+        {
+            currentHealth = maxHealth;
+            timeIdleCount = 0;
 
-        currentHealth = maxHealth;
-        timeIdleCount = 0;
-
-        rb.velocity = Vector2.zero;
-        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+            rb.velocity = Vector2.zero;
+            transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+        }
     }
 
     
 
     private void SetLives()
     {
+        MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+        if (currentHealth < maxHealth && !deathSoundPlaying)
+        {
+            deathSoundPlaying = true;
+            musicPlayer.deathSound(true, deathSound);
+        }
+        else if (currentHealth == maxHealth && deathSoundPlaying)
+        {
+            deathSoundPlaying = false;
+            musicPlayer.deathSound(false, deathSound);
+        }
+
         if (currentHealth <= 0)
         {
+            if (currentLives-1 > 0 && deathSoundPlaying)
+            {
+                deathSoundPlaying = false;
+                musicPlayer.deathSound(false, deathSound);
+            }
             RespawnPlayer();
         }
     }
@@ -576,6 +604,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (isDead)
+        {
+            animator.Play("MC_Death");
+            return;
+        }
+
         // Idle animation
         if (isGrounded && playerHorizontalInput == 0)
         {
@@ -615,12 +649,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator DeathAnimation()
-    {
-        animator.Play("MC_Death");
-        yield return new WaitForSeconds(1);
-    }
-
     public void SetGlobalLight(float value)
     {
         globalLightSource.intensity += value;
@@ -654,6 +682,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SHIFT to dash forwards.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetDashUpgrade();
+            dataManager.SavePlayer();
         }
         if (currentScene.name == "Level_2" && !wallJumpUpgrade)
         {
@@ -661,6 +690,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SPACE on a wall to wall jump.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetWallJumpUpgrade();
+            dataManager.SavePlayer();
         }
         if (currentScene.name == "Level_3" && !doubleJumpUpgrade)
         {
@@ -668,6 +698,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SPACE in the air to perform a double jump.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetDoubleJumpUpgrade();
+            dataManager.SavePlayer();
         }
     }
 
@@ -714,5 +745,26 @@ public class PlayerMovement : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         isFrozen = frozen;
+    }
+
+    private IEnumerator Death()
+    {
+
+        isDead = true;
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(2);
+
+        deathScreen.enabled = true;
+        yield return new WaitForSeconds(5);
+
+        respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
+        dataManager.data.lives = maxLives;
+        currentLives = maxLives;
+        candles.GetComponent<Candles>().ResetCandles();
+        currentHealth = maxHealth;
+        timeIdleCount = 0;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        isDead = false;
     }
 }
