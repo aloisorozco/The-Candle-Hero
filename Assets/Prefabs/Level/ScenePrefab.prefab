@@ -1835,10 +1835,10 @@ MonoBehaviour:
   onWall: 0
   isSliding: 0
   isWallJumping: 0
-  slideSpeed: 3
-  wallJumpingDuration: 0.15
-  wallJumpForce: 10
-  wallJumpGraceTime: 0.05
+  slideSpeed: 5
+  wallJumpingDuration: 0.2
+  wallJumpForce: 8
+  wallJumpGraceTime: 0.1
   dashCooldown: 0.2
   dashForce: 14
   dashTime: 0.25
@@ -2195,7 +2195,7 @@ Transform:
   m_GameObject: {fileID: 3153637035140819551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.256, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2359,15 +2359,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -976956535, guid: f5517cbbafc9941f4801dc3c742c56c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.02, y: 4.97}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &6640774769353465349
@@ -24801,7 +24801,7 @@ Transform:
   m_GameObject: {fileID: 3998861995723879788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.39, y: -1.21, z: -10}
+  m_LocalPosition: {x: -3, y: -1.05, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24975,7 +24975,7 @@ Transform:
   m_GameObject: {fileID: 4138334714161370495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.39, y: 0.16000009, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29970,6 +29970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2805474732437766881}
   dataManager: {fileID: 0}
+  livesIncrease: 2
 --- !u!1 &5138279527595290903
 GameObject:
   m_ObjectHideFlags: 0
@@ -30384,7 +30385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8907688312022198576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30427,7 +30428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 0}
+  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
