@@ -1,14 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public ResourceManager resourceManager;
+    public Data data;
+
+
     void Awake()
     {
+        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3, 5, "Save 1");
+        
         DontDestroyOnLoad(this.gameObject);
         
+    }
+
+    public void AddEmber()
+    {
+        data.embers++;
+    }
+
+    public void SetDashUpgrade()
+    {
+        data.dashUpgrade = true;
+    }
+
+    public void SetDoubleJumpUpgrade()
+    {
+        data.doubleJumpUpgrade = true;
+    }
+    public void SetWallJumpUpgrade()
+    {
+        data.wallJumpUpgrade = true;
+    }
+
+    public void SetRespawnPoint(string respawnPoint)
+    {
+        data.respawnPoint = respawnPoint;
+    }
+
+    public void SavePlayer()
+    {
+        Debug.Log(data.dataFile);
+        SaveSystem.SavePlayer(data, data.dataFile);
     }
 
 

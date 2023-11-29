@@ -7,24 +7,22 @@ public class RespawnPlayer : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform respawnPoint;
 
-    [Header("Player Life")]
-    [SerializeField] GameObject heartsPrefab;
-    [SerializeField] Transform panel;
-    [SerializeField] int numLives;
-
-    [Header("Death UI")]
-    [SerializeField] GameObject deathScreen;
-    [SerializeField] GameObject playerUI;
-
-    GameObject[] livesArray;
+    private DataManager dataManager;
 
     private void Start()
     {
-        livesArray = new GameObject[numLives];
-        for (int i = 0; i < numLives; i++)
+        if (FindAnyObjectByType<DataManager>())
         {
-            if (livesArray[i] == null)
-                livesArray[i] = Instantiate(heartsPrefab, new Vector3(44 + (88*i), 44, 0), Quaternion.identity, panel);
+            dataManager = FindAnyObjectByType<DataManager>();
+            GameObject respawnObject = GameObject.Find(dataManager.data.respawnPoint);
+            if(dataManager.data.respawnPoint == "InitialRespawnPoint")
+            {
+                respawnPoint = respawnObject.transform;
+            }
+            else
+            {
+                respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
+            }
         }
     }
 
@@ -32,24 +30,23 @@ public class RespawnPlayer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            collision.gameObject.transform.position = respawnPoint.position;
-            numLives -= 1;
-            if (numLives > 0)
-            {
-                Destroy(livesArray[numLives]);
-            }
-            else
-            {
-                Time.timeScale = 0f;
-                playerUI.SetActive(false);
-                deathScreen.SetActive(true);
-            }   
+            collision.gameObject.GetComponent<PlayerMovement>().RespawnPlayer();
         }
     }
 
-    public void setRespawn(Transform newRespawn)
+    public void setRespawn(string newRespawn)
     {
-        respawnPoint = newRespawn;
+        GameObject respawnObject = GameObject.Find(newRespawn);
+        respawnPoint = respawnObject.transform.Find("SpawnPoint").transform;
+
+        if (dataManager)
+        {
+            dataManager.SetRespawnPoint(newRespawn);
+        }
+    }
+
+    public Transform getRespawn()
+    {
+        return respawnPoint;
     }
 }

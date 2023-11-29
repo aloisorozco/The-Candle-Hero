@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +8,8 @@ public class CollisionDetection : MonoBehaviour
     public PlayerMovement player;
     public RespawnPlayer respawn;
     public ResourceManager resourceManager;
+    public DataManager dataManager;
+    public bool canTalk;
     private string currentSceneName;
     private bool onDoor;
     private bool onShop;
@@ -18,22 +17,44 @@ public class CollisionDetection : MonoBehaviour
     [SerializeField] private Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
     [SerializeField] private Canvas ShopUI;
+    private bool onAltar;
+    [SerializeField] private ImpactFlash impactFlash;
+    [SerializeField] private Canvas onScreenText;
+    [SerializeField] private Canvas UI_particles;
+    [SerializeField] private GameObject altarUI;
 
     private void Start()
     {
         player = GetComponent<PlayerMovement>();
+
+        if (FindAnyObjectByType<DataManager>())
+        {
+            dataManager = FindAnyObjectByType<DataManager>();
+        }
     }
 
     private void Update()
     {
         if (onDoor && Input.GetKeyDown(KeyCode.E))
         {
+            dataManager.data.currentScene = currentSceneName;
+            dataManager.data.respawnPoint = "InitialRespawnPoint";
+            FindAnyObjectByType<MusicPlayer>().levelMusic.Stop();
             SceneManager.LoadScene(currentSceneName);
         }
         if(onShop && Input.GetKeyDown(KeyCode.E))
         {
             EnableShop();
         }
+        if (onAltar && Input.GetKeyDown(KeyCode.E))
+        {
+            onScreenText.enabled = false;
+            if (altarUI)
+            {
+                altarUI.SetActive(true);
+            }
+        }
+
     }
 
     private void EnableShop()
@@ -46,13 +67,20 @@ public class CollisionDetection : MonoBehaviour
     {
         if (collision.CompareTag("Checkpoint"))
         {
+            if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
+            {
+                collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
+                resourceManager.AddEmber();
+                dataManager.SetDashUpgrade();
+                UI_particles.GetComponentInChildren<ParticleSystem>().Play();
+            }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            UI_particles.GetComponentInChildren<ParticleSystem>().Play();
-            respawn.setRespawn(collision.transform);
-            resourceManager.AddCountCandle(collision.GetComponent<CandleInformation>().value);
+            respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
+
+            dataManager.SavePlayer();
         }
         else if (collision.CompareTag("Door"))
         {
@@ -60,7 +88,9 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.enabled = true;
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter " + collision.GetComponent<DoorInformation>().doorName;
+
             currentSceneName = collision.GetComponent<DoorInformation>().sceneName;
+            
         }
         else if (collision.CompareTag("UpgradeShop"))
         {
@@ -69,6 +99,26 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.transform.position = collision.transform.position;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Enter Upgrade Shop";
         }
+        else if (collision.CompareTag("Cobweb"))
+        {
+            player.SetSpeedMultiplier(0.55f);
+        }
+
+        else if (collision.CompareTag("NPC"))
+        {
+            canTalk = true;
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Talk";
+        }
+        else if (collision.CompareTag("Altar"))
+        {
+            onAltar = true;
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 2f;
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -81,6 +131,18 @@ public class CollisionDetection : MonoBehaviour
         if (collision.CompareTag("UpgradeShop"))
         {
             onShop = false;
+        else if (collision.CompareTag("Cobweb"))
+        {
+            player.SetSpeedMultiplier((1.0f / 0.55f));
+        }
+        else if (collision.CompareTag("NPC"))
+        {
+            canTalk = false;
+            onScreenText.enabled = false;
+        }
+        else if (collision.CompareTag("Altar"))
+        {
+            onAltar = false;
             onScreenText.enabled = false;
         }
     }

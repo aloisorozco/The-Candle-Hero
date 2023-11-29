@@ -9,6 +9,9 @@ TagManager:
   - Checkpoint
   - Door
   - UpgradeShop
+  - Cobweb
+  - NPC
+  - Altar
   layers:
   - Default
   - TransparentFX

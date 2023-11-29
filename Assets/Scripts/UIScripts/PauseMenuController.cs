@@ -55,6 +55,9 @@ public class PauseMenuController : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
+        DataManager dm = GameObject.Find("DataManager").GetComponent<DataManager>();
+        SaveSystem.SavePlayer(dm.data, dm.data.dataFile);
+        dm.transform.parent = transform;
         SceneManager.LoadScene("MainMenu");
     }
 

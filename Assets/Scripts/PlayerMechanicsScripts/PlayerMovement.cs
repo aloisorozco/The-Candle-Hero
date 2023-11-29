@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashTime;
     [SerializeField] private float downDashForce;
     [SerializeField] private float dashJumpGraceTime = 0.5f;
+    [SerializeField] private float dashStopForce;
     private bool canDash = true;
     private bool isDashing;
 
@@ -73,13 +75,26 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public UnityEngine.Rendering.Universal.Light2D globalLightSource;
     [SerializeField] private float lightMin = 2f;
     [SerializeField] private float lightMax = 5f;
+    [SerializeField] private float globalLightMin = 0.05f;
+    [SerializeField] private float globalLightMax = 0.25f;
     [SerializeField] private float lightRate = .2f;
+    [SerializeField] private float globalLightRate = .01f;
 
     [Header("Health Settings")]
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 10;
-    [SerializeField] private int healthRate = 5;
+    [SerializeField] private int currentHealth = 100;
+    [SerializeField] private int increaseHealthRate = 5;
+    [SerializeField] private int decreaseHealthRate = 5;
+    [SerializeField] private int currentLives = 3;
+    [SerializeField] private int maxLives = 3;
+    [SerializeField] private GameObject respawn;
+    [SerializeField] private GameObject candles;
+    [SerializeField] private Transform initialRespawnPoint;
+
+    [Header("Safe Area Settings")]
+    [SerializeField] private GameObject safeArea;
+    [SerializeField] private bool inSafeArea;
 
     [Header("Animator and Sound")]
     [SerializeField] private Animator animator;
@@ -92,6 +107,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float CheckRadius = .2f;
 
+    [Header("Upgrade Settings")]
+    public bool dashUpgrade = false;
+    public bool doubleJumpUpgrade = false;
+    public bool wallJumpUpgrade = false;
+
+    [Header("Data Settings")]
+    public DataManager dataManager;
 
     //Components
     private Rigidbody2D rb;
@@ -100,12 +122,20 @@ public class PlayerMovement : MonoBehaviour
     private float lastGroundedTime = 0f;
     private float lastWalledTime = 0f;
 
+    private bool isFrozen = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         healthBar.SetHealth(currentHealth, maxHealth);
         lightSource.pointLightOuterRadius = lightMin;
+        
 
+    }
+
+    private void Start()
+    {
+        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
     }
 
     // Update is called once per frame
@@ -113,8 +143,8 @@ public class PlayerMovement : MonoBehaviour
     {
         // checking for player state
         isPlayerGrounded();
-        //isOnWall();
-        //isWallSliding();
+        isOnWall();
+        isWallSliding();
         SetAnimation();
 
         // Checking for user input
@@ -125,8 +155,15 @@ public class PlayerMovement : MonoBehaviour
         DefaultInputManager();
         // Setting up animation variables
 
-        //JumpDynamics();
+        if (dataManager)
+        {
+            dashUpgrade = dataManager.data.dashUpgrade;
+            doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+        }
 
+
+        SetData();
     }
 
     private void FixedUpdate()
@@ -142,9 +179,23 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
 
+        inSafeArea = safeArea.GetComponent<SafeArea>().inSafeArea;
+        if (inSafeArea)
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth, maxHealth);
+            globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity + globalLightRate, globalLightMin, globalLightMax);
+            return;
+        }
+
+        if(SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            SetHealth();
+        }
         SetLight();
-        SetHealth();
         SetTimeIdle();
+
+        SetLives();
 
     }
 
@@ -161,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetLight()
     {
+        globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity - globalLightRate, globalLightMin, globalLightMax);
         if (Mathf.Abs(rb.velocityX) > idleEpsilon)
         {
             lightSource.pointLightOuterRadius = Mathf.Clamp(lightSource.pointLightOuterRadius + lightRate, lightMin, lightMax);
@@ -181,14 +233,14 @@ public class PlayerMovement : MonoBehaviour
         {
             if(currentHealth < maxHealth)
             {
-                currentHealth += healthRate;
+                currentHealth += increaseHealthRate;
             }
         }
         else
         {
             if((currentHealth > 0) && (timeIdleCount >= maxTimeIdleBeforeLosingHealth))
             {
-                currentHealth -= healthRate;
+                currentHealth -= decreaseHealthRate;
             }
         }
         healthBar.SetHealth(Mathf.Clamp(currentHealth, 0, maxHealth), maxHealth);
@@ -206,6 +258,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void RespawnPlayer()
+    {
+        currentLives--;
+        if (currentLives == 0) {
+            //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
+           // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
+            currentLives = maxLives;
+            //candles.GetComponent<Candles>().ResetCandles();
+        }
+
+        currentHealth = maxHealth;
+        timeIdleCount = 0;
+
+        rb.velocity = Vector2.zero;
+        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+    }
+
+    
+
+    private void SetLives()
+    {
+        if (currentHealth <= 0)
+        {
+            RespawnPlayer();
+        }
+    }
+
     private void DefaultInputManager()
     {
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -217,7 +296,7 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade)
         {
             StartCoroutine(Dash());
         }
@@ -234,7 +313,7 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = move * runSpeed;
             //Find the difference between our current speed and the disired speed
             float speedDif = targetSpeed - rb.velocity.x;
-            //Chang acceleration depending on situation
+            //Change acceleration depending on situation
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
 
             float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
@@ -242,18 +321,26 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(movement * Vector2.right);
         }
 
-        if (lastGroundedTime > 0 && Mathf.Abs(move) < movementBuffer)
+        if (isGrounded && Mathf.Abs(move) <= movementBuffer)
         {
             float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(rb.velocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
+        if (!isGrounded && Mathf.Abs(move) <= movementBuffer)
+        {
+            float targetSpeed = move * runSpeed;
+            //Find the difference between our current speed and the disired speed
+            float speedDif = targetSpeed - rb.velocity.x;
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * decceleration, velPower) * -transform.localScale.x;
 
+            rb.AddForce(movement * Vector2.right);
         }
     }
 
     private IEnumerator Jump()
     {
-        if (onWall && !isGrounded && Mathf.Abs(playerHorizontalInput) > 0f)
+        if (onWall && !isGrounded && Mathf.Abs(playerHorizontalInput) > 0f && wallJumpUpgrade)
         {
             rb.gravityScale = gravityValue;
             WallJump();
@@ -264,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (!isGrounded && extraJumps > 0)
+        else if (!isGrounded && extraJumps > 0 && doubleJumpUpgrade)
         {
             extraJumps--;
             rb.gravityScale = gravityValue;
@@ -277,7 +364,6 @@ public class PlayerMovement : MonoBehaviour
         //canJump = false;
         yield return new WaitForSeconds(jumpTime);
         //canJump = true;
-
 
     }
     public void WallJump()
@@ -301,15 +387,12 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
-        if (Input.GetAxisRaw("Vertical") < -0.5f && !isGrounded)
-        {
-            rb.velocity = new Vector2(0.0f, -downDashForce);
-        }
-        else
-        {
-            rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
-        }
+        rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
         yield return new WaitForSeconds(dashTime);
+        rb.AddForce(stopforce * Vector2.right);
+
+
         if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded)// && canJump)
         {
             StartCoroutine(Jump());
@@ -318,10 +401,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-
-
     }
-
 
     private void stopJump()
     {
@@ -443,6 +523,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimation()
     {
+        //Idle Animation if MC Frozen
+        if (isFrozen)
+        {
+            animator.Play("MC_Idle");
+            return;
+        }
+
         // Idle animation
         if (isGrounded && playerHorizontalInput == 0)
         {
@@ -482,5 +569,58 @@ public class PlayerMovement : MonoBehaviour
     {
         globalLightSource.intensity += value;
     }
-    
+
+
+    public void SetData()
+    {
+        if (FindAnyObjectByType<DataManager>())
+        {
+            dataManager = FindAnyObjectByType<DataManager>();
+            //dashUpgrade = dataManager.data.dashUpgrade;
+            // TEMPORARY
+            dataManager.SetDashUpgrade();
+            doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            //wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+            dataManager.SetWallJumpUpgrade();
+            currentLives = dataManager.data.lives;
+            lightMax = dataManager.data.lightRadius;
+
+        }
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        runSpeed *= multiplier;
+    }
+
+    public void SetGlobalLightIntensity(float intensity)
+    {
+        globalLightSource.intensity = intensity;
+    }
+
+    public void SetMaxLightRadius(float radius)
+    {
+
+        lightMax = radius;
+    }
+    public void SetLightSetGlobalLightIntensity(float intensity)
+    {
+        lightSource.intensity = intensity;
+    }
+    public void AddLife(int value)
+    {
+        maxLives += value;
+        currentLives += value;
+    }
+
+    public void AddHealingEmber()
+    {
+        increaseHealthRate = 10;
+        decreaseHealthRate = 2;
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
+    }
 }
