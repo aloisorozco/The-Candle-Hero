@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -98,6 +99,18 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.enabled = true;
             onScreenText.transform.position = collision.transform.position + Vector3.up * 2f;
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Buy Upgrades";
+        }
+        if (collision.CompareTag("Ember"))
+        {
+            string number = collision.gameObject.name.Split(' ')[1];
+            resourceManager.AddEmber(Int32.Parse(number));
+            UI_particles.GetComponentInChildren<ParticleSystem>().Play();
+            
+            collision.GetComponentInChildren<ParticleSystem>().Play();
+            collision.GetComponent<emberScript>().SetInactive();
+            StartCoroutine(impactFlash.FlashRoutine());
+
+            dataManager.SavePlayer();
         }
 
     }
