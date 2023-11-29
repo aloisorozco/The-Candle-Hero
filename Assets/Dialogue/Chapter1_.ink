@@ -10,10 +10,20 @@ Chapter 1: Into the Mansion
 
 - "I can't keep track I'm sorry, it's been at least a few months! I'm going crazy in here!!!"
 
-- "This house is so suffocating, I feel like I'm losing my light every time I stop moving around, I'm going nuts!"
+- "There might be another exit somewhere, but I couldn't find it..."
+
+- "Be careful out there, if you stop moving for even a split second, you'll start to lose your flame..."
+
+- "This is the only area I found where I can relax without losing my light."
+
+- "This space is so claustrophobic, there's not enough room for both of us. I'm going nuts!"
+
+- "Here, take this and find your own safe area."
+
+- Babaganoush hands you "Gust of Steam".
+
+- You earned the ability to dash! Press SHIFT to start a dash.
 
 /*+ [Continue.]*/
-
-- "I gotta get out of here, I gotta get out of here, I gotta get out of hereeeee!!!!!!"
 
 /*+ [Continue.]*/ ->END
