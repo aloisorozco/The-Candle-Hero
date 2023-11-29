@@ -24,10 +24,6 @@ Chapter 3: The Other Side
 
 - "I can tell your brother means as much to you as my pookie bear meant to me. Take this, it was a gift from my true love."
 
-- Lester hands you "Whoopie Cushion".
-
-- You earned the ability to Double Jump!
-
 /*+ [Continue.]*/
 
 /*- Lester hands you "The Eternal Flame".*/

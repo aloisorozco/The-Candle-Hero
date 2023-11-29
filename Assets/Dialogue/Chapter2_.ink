@@ -20,10 +20,6 @@ Chapter 2: The Lost Flame
 
 - "Before you go, take this! It's not much use to me, but it'll help you on your search for your brother."
 
-- Flora hands you "The Ashen Gloves".
-
-- You earned the ability to Wall Jump! Press SPACE while on a wall to wall jump.
-
 /*+ [Continue.]*/
 
 /*- Flora hands you "Mitochondria in a Jar".*/

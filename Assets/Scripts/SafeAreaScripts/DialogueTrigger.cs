@@ -11,10 +11,12 @@ public class DialogueTrigger : MonoBehaviour
 
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private TextAsset inkJSONRepeat;
 
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialogueManager;
 
+    private bool hasTalkedToBefore = false;
     private CollisionDetection collisionDetector;
 
     private void Start()
@@ -28,7 +30,15 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSON, npcName);
+                if (!hasTalkedToBefore)
+                {
+                    hasTalkedToBefore = true;
+                    dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSON, npcName);
+                }
+                else
+                {
+                    dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSONRepeat, npcName);
+                }
             }
         }
 
