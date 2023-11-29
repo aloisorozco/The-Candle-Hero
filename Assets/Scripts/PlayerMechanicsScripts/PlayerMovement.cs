@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool inSafeArea;
 
     [Header("Animator and Sound")]
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] private AudioSource runningAudio;
 
     [Header("Idle Settings")]
@@ -535,7 +535,7 @@ public class PlayerMovement : MonoBehaviour
         //Idle Animation if MC Frozen
         if (isFrozen)
         {
-            animator.Play("MC_Idle");
+            animator.Play("MC_Hurt");
             return;
         }
 

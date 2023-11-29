@@ -52,15 +52,15 @@ public class MusicPlayer : MonoBehaviour
 
         while (timer < fadeDuration)
         {
-            current.volume = Mathf.Lerp(0.6f, 0f, timer / fadeDuration);
-            newSource.volume = Mathf.Lerp(0f, 0.6f, timer / fadeDuration);
+            current.volume = Mathf.Lerp(0.3f, 0f, timer / fadeDuration);
+            newSource.volume = Mathf.Lerp(0f, 0.3f, timer / fadeDuration);
             timer += Time.deltaTime;
             yield return null;
         }
 
         // Stop the current audio source and reset its volume
         current.Stop();
-        current.volume = 0.6f;
+        current.volume = 0.3f;
 
         // Play the new audio source
         newSource.Play();
