@@ -13,10 +13,12 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Canvas abilityPopUp;
 
     private Story currentStory;
 
-    public bool dialogueIsPlaying { get; private set; }
+    private bool hasGivenAbilityBefore = false;
+    public bool dialogueIsPlaying;
     private static DialogueManager instance;
     private PlayerMovement player;
 
@@ -61,10 +63,17 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
-        player.getNewAbility();
+        if (!hasGivenAbilityBefore)
+        {
+            hasGivenAbilityBefore = true;
+            player.getNewAbility();
+        }
+        else
+        {
+            dialogueIsPlaying = false;
+        }
     }
 
     private void ContinueStory()
@@ -75,7 +84,11 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ExitDialogueMode());
+            if (!abilityPopUp.enabled)
+            {
+                StartCoroutine(ExitDialogueMode());
+            }
+            
         }
     }
 }

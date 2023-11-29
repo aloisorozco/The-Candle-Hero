@@ -20,10 +20,6 @@ Chapter 1: Into the Mansion
 
 - "Here, take this and find your own safe area."
 
-- Babaganoush hands you "Gust of Steam".
-
-- You earned the ability to Dash! Press SHIFT to dash.
-
 /*+ [Continue.]*/
 
 /*+ [Continue.]*/ ->END

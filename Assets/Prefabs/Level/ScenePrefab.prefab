@@ -2238,6 +2238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: 
   inkJSON: {fileID: 4900000, guid: 0c9aea56ddf0fde49a662d6404b0df83, type: 3}
+  inkJSONRepeat: {fileID: 4900000, guid: fa30cdd8490b9c941b797021f4ae2f00, type: 3}
   dialogueManager: {fileID: 6450274028063981441}
 --- !u!61 &7542938551422042543
 BoxCollider2D:
@@ -29704,6 +29705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2805474732437766881}
   dataManager: {fileID: 0}
+  dialogueManager: {fileID: 831218956204292793}
   livesIncrease: 2
   abilityPopUp: {fileID: 46293343320677012}
   abilityNameText: {fileID: 7447412664272753287}
@@ -35702,6 +35704,8 @@ MonoBehaviour:
   dialoguePanel: {fileID: 5661204224712775185}
   nameText: {fileID: 1399217192959750646}
   dialogueText: {fileID: 2622330217314003885}
+  abilityPopUp: {fileID: 46293343320677012}
+  dialogueIsPlaying: 0
 --- !u!1 &6506121886211784746
 GameObject:
   m_ObjectHideFlags: 0

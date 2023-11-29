@@ -8,6 +8,7 @@ public class UpgradeManager : MonoBehaviour
 
     [SerializeField] private GameObject player;
     [SerializeField] private DataManager dataManager;
+    [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private int livesIncrease = 2;
 
     [Header("Abilities")]
@@ -69,5 +70,6 @@ public class UpgradeManager : MonoBehaviour
     public void closeAbilityPopUp()
     {
         abilityPopUp.enabled = false;
+        dialogueManager.dialogueIsPlaying = false;
     }
 }
