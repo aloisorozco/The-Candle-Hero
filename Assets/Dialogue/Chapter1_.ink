@@ -22,7 +22,7 @@ Chapter 1: Into the Mansion
 
 - Babaganoush hands you "Gust of Steam".
 
-- You earned the ability to dash! Press SHIFT to start a dash.
+- You earned the ability to Dash! Press SHIFT to dash.
 
 /*+ [Continue.]*/
 
