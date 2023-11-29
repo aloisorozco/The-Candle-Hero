@@ -665,7 +665,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentScene.name == "Level_3" && !doubleJumpUpgrade)
         {
             abilityName = "Fire Jump";
-            abilityDescription = "Press SPCAE in the air to perform a double jump.";
+            abilityDescription = "Press SPACE in the air to perform a double jump.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetDoubleJumpUpgrade();
         }
