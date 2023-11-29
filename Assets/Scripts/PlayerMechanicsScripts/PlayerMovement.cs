@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -147,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // checking for player state
-        isPlayerGrounded();
+        
         isOnWall();
         if (wallJumpUpgrade)
         {
@@ -157,12 +158,14 @@ public class PlayerMovement : MonoBehaviour
        
 
         // Checking for user input
-        if (!isWallJumping && !isDashing)
+        //if (!isWallJumping && !isDashing)
         {
-            InputManager();
+        InputManager();
         }
         DefaultInputManager();
-        
+
+        isPlayerGrounded();
+
         // Setting up animation variables
 
         if (dataManager)
@@ -228,8 +231,9 @@ public class PlayerMovement : MonoBehaviour
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
         
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isJumping)
         {
+            Debug.Log("In3");
             StartCoroutine(Jump());
         }
 
@@ -381,7 +385,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (!isGrounded && extraJumps > 0 && doubleJumpUpgrade)
+        else if (!isGrounded && extraJumps > 0)// && doubleJumpUpgrade)
         {
             extraJumps--;
             rb.gravityScale = gravityValue;
@@ -393,6 +397,7 @@ public class PlayerMovement : MonoBehaviour
         isJumping = true;
         //canJump = false;
         yield return new WaitForSeconds(jumpTime);
+        isJumping = false;
         //canJump = true;
 
     }
@@ -418,7 +423,7 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        rb.velocity = new Vector2(Math.Sign(playerHorizontalInput) * dashForce, 0f);
         float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
         yield return new WaitForSeconds(dashTime);
         if (!onWall)
@@ -427,8 +432,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded)// && canJump)
+        if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)// && canJump)
         {
+            isJumping = true;
             StartCoroutine(Jump());
         }
         rb.gravityScale = gravityValue;
@@ -480,9 +486,10 @@ public class PlayerMovement : MonoBehaviour
 
         lastIsGrounded = isGrounded;
 
-        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isGrounded)
+        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)
         {
             isJumping = true;
+            Debug.Log("IN4");
             StartCoroutine(Jump());
         }
     }
@@ -515,9 +522,12 @@ public class PlayerMovement : MonoBehaviour
         {
             lastWalledTime = Time.time;
         }
-
-        if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall)
+        
+        if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall && !isGrounded && !isJumping && Time.time - lastGroundedTime > .5f)
         {
+            Debug.Log("IN1");
+            Debug.Log(Time.time - lastGroundedTime);
+            isJumping = true;
             StartCoroutine(Jump());
         }
     }
@@ -535,9 +545,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isSliding)
+        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isSliding && !isJumping && Time.time - lastGroundedTime > .5f)
         {
             isJumping = true;
+            Debug.Log("IN2");
             StartCoroutine(Jump());
         }
     }
@@ -633,8 +644,17 @@ public class PlayerMovement : MonoBehaviour
         {
             dataManager = FindAnyObjectByType<DataManager>();
             dashUpgrade = dataManager.data.dashUpgrade;
+
+            //For testing
+            dashUpgrade = true;
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            if (true )
+            {
+                maxJumps = 1;
+            }
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
+            //For testing
+            wallJumpUpgrade = true;
             currentLives = dataManager.data.lives;
             lightMax = dataManager.data.lightRadius;
 
