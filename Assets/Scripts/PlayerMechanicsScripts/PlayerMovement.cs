@@ -176,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator WallStop(float wallStopDuration)
     {
         isDashing = false;
+        StopCoroutine(Dash());
         isWallStop = true;
         rb.velocity = new Vector2(0f, 0f);
         rb.gravityScale = 0f;
@@ -188,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) { return; }
 
-        if (!isWallJumping)
+        if (!isWallJumping && !isWallStop)
         {
             Run(playerHorizontalInput * Time.fixedDeltaTime);
         }
@@ -220,9 +221,9 @@ public class PlayerMovement : MonoBehaviour
     private void InputManager()
     {
         if (!isWallStop)
-        {
-            playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
-        }
+        { }
+        playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
+        
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -318,11 +319,11 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade && isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade && isGrounded && !onWall)
         {
             StartCoroutine(Dash());
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isGrounded && canDash && dashUpgrade && nbDashInAir > 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isGrounded && canDash && dashUpgrade && nbDashInAir > 0 && !onWall)
         {
             nbDashInAir--;
             StartCoroutine(Dash());
@@ -394,10 +395,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void WallJump()
     {
+
         isWallJumping = true;
         isSliding = false;
         isJumping = true;
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.velocity = new Vector2(0f, 0f);
         rb.AddForce(new Vector2(wallJumpingDir * wallJumpForce, jumpForce), ForceMode2D.Impulse);
         float originalScaleX = transform.localScale.x;
         if (originalScaleX != wallJumpingDir)
@@ -416,7 +418,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
         float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
         yield return new WaitForSeconds(dashTime);
-        rb.AddForce(stopforce * Vector2.right);
+        if (!onWall)
+        {
+            rb.AddForce(stopforce * Vector2.right);
+        }
 
 
         if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded)// && canJump)
@@ -486,11 +491,14 @@ public class PlayerMovement : MonoBehaviour
         if (onWall && !lastOnWall)
         {
             isWallJumping = false;
+            isDashing = false;
+            StopCoroutine(Dash() );
             extraJumps = maxJumps;
             nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
-            if (!isGrounded)
+            wallJumpingDir = (-transform.localScale.x);
+            if (!isGrounded && wallJumpUpgrade) 
             {
                 StartCoroutine(WallStop(wallStopTime));
             }
@@ -520,7 +528,7 @@ public class PlayerMovement : MonoBehaviour
             extraJumps = maxJumps;
             rb.gravityScale = gravityValue;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -slideSpeed, float.MaxValue));
-            wallJumpingDir = (-transform.localScale.x);
+            
 
         }
 
@@ -537,12 +545,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        if (FacingRight && playerHorizontalInput < -movementBuffer || !FacingRight && playerHorizontalInput > movementBuffer)
+        if ((FacingRight && playerHorizontalInput < -movementBuffer) || (!FacingRight && playerHorizontalInput > movementBuffer) )
         {
-            FacingRight = !FacingRight;
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
+            if (!isWallStop)
+            {
+                FacingRight = !FacingRight;
+                Vector3 theScale = transform.localScale;
+                theScale.x *= -1;
+                transform.localScale = theScale;
+            }
         }
         else if (isWallJumping)
         {
@@ -583,7 +594,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jumping animation
-        else if (isJumping)
+        else if (isJumping && !isSliding)
         {
             animator.Play("MC_Jump");
 
@@ -591,7 +602,7 @@ public class PlayerMovement : MonoBehaviour
             // Settings Sounds
             runningAudio.enabled = false;
         }
-        else if (onWall)
+        else if (onWall || isSliding)
         {
             animator.Play("MC_WallGrip");
         }
