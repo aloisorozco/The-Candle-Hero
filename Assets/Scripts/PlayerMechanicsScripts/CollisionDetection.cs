@@ -54,8 +54,8 @@ public class CollisionDetection : MonoBehaviour
             if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
-                resourceManager.AddEmber();
-                dataManager.SetDashUpgrade();
+                //resourceManager.AddEmber();
+                //dataManager.SetDashUpgrade();
                 UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             }
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
@@ -78,7 +78,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
-            player.SetSpeedMultiplier(0.55f);
+            player.SetSpeedMultiplier(0.3f);
         }
 
         else if (collision.CompareTag("NPC"))
@@ -107,7 +107,7 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
-            player.SetSpeedMultiplier((1.0f / 0.55f));
+            player.SetSpeedMultiplier((1.0f / 0.3f));
         }
         else if (collision.CompareTag("NPC"))
         {

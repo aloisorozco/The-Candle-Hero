@@ -27,7 +27,6 @@ public class MainMenuController : MonoBehaviour
     {
         dataManager.data = SaveSystem.NewGame();
 
-        Debug.Log(SaveSystem.GetFileNum());
         dataManager.data.dataFile = "Save " + SaveSystem.GetFileNum();
         SceneManager.LoadScene(dataManager.data.currentScene);
     }
