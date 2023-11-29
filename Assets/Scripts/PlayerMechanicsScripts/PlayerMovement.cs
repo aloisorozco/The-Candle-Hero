@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float downDashForce;
     [SerializeField] private float dashJumpGraceTime = 0.5f;
     [SerializeField] private float dashStopForce;
+    [SerializeField] private int nbDashInAir = 1;
+    [SerializeField] private int maxDashInAir = 1;
     private bool canDash = true;
     private bool isDashing;
 
@@ -296,11 +298,15 @@ public class PlayerMovement : MonoBehaviour
             stopJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && dashUpgrade && isGrounded)
         {
             StartCoroutine(Dash());
         }
-
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isGrounded && canDash && dashUpgrade && nbDashInAir > 0)
+        {
+            nbDashInAir--;
+            StartCoroutine(Dash());
+        }
 
     }
 
@@ -433,6 +439,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && !lastIsGrounded)
         {
             extraJumps = maxJumps;
+            nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
 
@@ -460,6 +467,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallJumping = false;
             extraJumps = maxJumps;
+            nbDashInAir = maxDashInAir;
             isJumping = false;
             rb.gravityScale = gravityValue;
             CancelInvoke(nameof(StopWallJumping));
