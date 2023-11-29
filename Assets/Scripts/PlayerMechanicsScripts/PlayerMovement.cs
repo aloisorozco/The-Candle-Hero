@@ -332,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = move * runSpeed;
             //Find the difference between our current speed and the disired speed
             float speedDif = targetSpeed - rb.velocity.x;
-            float movement = Mathf.Pow(Mathf.Abs(speedDif) * decceleration, velPower) * -transform.localScale.x;
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * decceleration, velPower) * -Mathf.Sign(rb.velocity.x);
 
             rb.AddForce(movement * Vector2.right);
         }
