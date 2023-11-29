@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
 
     public bool dialogueIsPlaying { get; private set; }
     private static DialogueManager instance;
+    private PlayerMovement player;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
 
         instance = this;
+        player = FindAnyObjectByType<PlayerMovement>();
     }
 
     private void Update()
@@ -62,6 +64,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
 
+        player.getNewAbility();
     }
 
     private void ContinueStory()
