@@ -618,15 +618,42 @@ public class PlayerMovement : MonoBehaviour
         if (FindAnyObjectByType<DataManager>())
         {
             dataManager = FindAnyObjectByType<DataManager>();
-            //dashUpgrade = dataManager.data.dashUpgrade;
-            // TEMPORARY
-            dataManager.SetDashUpgrade();
+            dashUpgrade = dataManager.data.dashUpgrade;
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
-            //wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
-            dataManager.SetWallJumpUpgrade();
+            wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
             currentLives = dataManager.data.lives;
             lightMax = dataManager.data.lightRadius;
 
+        }
+    }
+
+    public void getNewAbility()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        UpgradeManager upgradeManager = FindAnyObjectByType<UpgradeManager>();
+        string abilityName;
+        string abilityDescription;
+
+        if (currentScene.name == "Level_1" && !dashUpgrade)
+        {
+            abilityName = "Gust of Steam";
+            abilityDescription = "Press SHIFT to dash forwards.";
+            upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
+            dataManager.SetDashUpgrade();
+        }
+        if (currentScene.name == "Level_2" && !wallJumpUpgrade)
+        {
+            abilityName = "Ashen Gloves";
+            abilityDescription = "Press SPACE on a wall to wall jump.";
+            upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
+            dataManager.SetWallJumpUpgrade();
+        }
+        if (currentScene.name == "Level_3" && !doubleJumpUpgrade)
+        {
+            abilityName = "Fire Jump";
+            abilityDescription = "Press SPCAE in the air to perform a double jump.";
+            upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
+            dataManager.SetDoubleJumpUpgrade();
         }
     }
 
