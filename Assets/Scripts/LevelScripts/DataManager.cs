@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3, 5);
+        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3, 5, "Save 1");
         
         DontDestroyOnLoad(this.gameObject);
         
@@ -40,7 +40,8 @@ public class DataManager : MonoBehaviour
 
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(data);
+        Debug.Log(data.dataFile);
+        SaveSystem.SavePlayer(data, data.dataFile);
     }
 
 

@@ -13,6 +13,8 @@ public class Data
     public int lives;
     public float lightRadius;
 
+    public string dataFile;
+
     public Data()
     {
         this.embers = 0;
@@ -24,7 +26,7 @@ public class Data
         this.lives = 3;
         this.lightRadius = 5;
     }
-    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, float lightRadius)
+    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, float lightRadius, string dataFile)
     {
         this.embers = embers;
         this.dashUpgrade = dashUpgrade;
@@ -34,5 +36,6 @@ public class Data
         this.respawnPoint = respawnPoint;
         this.lives = lives;
         this.lightRadius = lightRadius;
+        this.dataFile = dataFile;
     }
 }
