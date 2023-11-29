@@ -1837,7 +1837,7 @@ MonoBehaviour:
   isWallJumping: 0
   slideSpeed: 5
   wallJumpingDuration: 0.2
-  wallJumpForce: 8
+  wallJumpForce: 10
   wallJumpGraceTime: 0.1
   dashCooldown: 0.2
   dashForce: 14
@@ -24801,7 +24801,7 @@ Transform:
   m_GameObject: {fileID: 3998861995723879788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: -1.05, z: -10}
+  m_LocalPosition: {x: -10.47, y: -1.05, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24975,7 +24975,7 @@ Transform:
   m_GameObject: {fileID: 4138334714161370495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 7.4700003, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
