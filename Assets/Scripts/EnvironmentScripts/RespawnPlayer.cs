@@ -7,17 +7,18 @@ public class RespawnPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private Transform respawnPoint;
-    [SerializeField] public GameObject playerUI;
+    [SerializeField] public GameObject heartsUI;
     [SerializeField] public GameObject heartsPrefab;
-    [SerializeField] public int numLives;
 
     private DataManager dataManager;
     private GameObject[] livesArray;
+    private int numLives;
     private void Start()
     {
         if (FindAnyObjectByType<DataManager>())
         {
             dataManager = FindAnyObjectByType<DataManager>();
+            numLives = dataManager.data.lives;
             GameObject respawnObject = GameObject.Find(dataManager.data.respawnPoint);
             if (dataManager.data.respawnPoint == "InitialRespawnPoint")
             {
@@ -31,7 +32,7 @@ public class RespawnPlayer : MonoBehaviour
             for (int i = 0; i < numLives; i++)
             {
                 if (livesArray[i] == null)
-                    livesArray[i] = Instantiate(heartsPrefab, new Vector3(44 + (88 * i), 44, 0), Quaternion.identity, playerUI.transform);
+                    livesArray[i] = Instantiate(heartsPrefab, new Vector3(heartsUI.transform.position.x + (88 * i), heartsUI.transform.position.y, 0), Quaternion.identity, heartsUI.transform);
             }
         }
     }
