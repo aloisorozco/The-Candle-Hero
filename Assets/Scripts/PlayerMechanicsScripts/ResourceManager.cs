@@ -47,6 +47,13 @@ public class ResourceManager : MonoBehaviour
         SetCountCandle(currentEmbers);
     }
 
+    public void RemoveEmber(int num)
+    {
+        dataManager.RemoveEmber(num);
+        currentEmbers = dataManager.data.embers;
+        SetCountCandle(currentEmbers);
+    }
+
     public void SetCountCandle(int count)
     {
         currentEmbers = count;

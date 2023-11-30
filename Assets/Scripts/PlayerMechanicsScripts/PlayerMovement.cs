@@ -154,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
         trail = GameObject.Find("Trail").GetComponent<TrailRenderer>();
         trail.emitting = false;
+        
     }
 
     // Update is called once per frame
@@ -706,6 +707,7 @@ public class PlayerMovement : MonoBehaviour
             lightMax = dataManager.data.lightRadius;
             decreaseHealthRate = dataManager.data.healthRate;
             increaseHealthRate = dataManager.data.healthRate;
+            dataManager.UpdateUI();
 
         }
     }

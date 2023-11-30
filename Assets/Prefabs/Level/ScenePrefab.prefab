@@ -29710,7 +29710,7 @@ Transform:
   m_GameObject: {fileID: 3998861995723879788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.47, y: -1.25, z: -10}
+  m_LocalPosition: {x: -6.79, y: -1.05, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29884,7 +29884,7 @@ Transform:
   m_GameObject: {fileID: 4138334714161370495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6800003, y: 0.20000005, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43815,6 +43815,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6203863902104354190, guid: f8c749f2afa1a49159c03b69fe290827, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6308517979668034969, guid: f8c749f2afa1a49159c03b69fe290827, type: 3}
       propertyPath: m_Name
       value: InventoryUI
@@ -43933,7 +43937,6 @@ MonoBehaviour:
   - {fileID: 3688521154479445391}
   - {fileID: 8632005985901905925}
   - {fileID: 1250495913870077069}
-  buttonImages: []
 --- !u!224 &8918435333354957488 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6112721226263064124, guid: f8c749f2afa1a49159c03b69fe290827, type: 3}

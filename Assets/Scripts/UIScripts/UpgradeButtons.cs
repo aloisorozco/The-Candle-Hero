@@ -18,14 +18,17 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] pricesText;
 
     private string upgradeSelected;
+    private int costSelected;
     private DataManager dm;
+    private ResourceManager rm;
 
 
     [SerializeField] ResourceManager playerResource;
     private void Start()
     {
         dm = GameObject.Find("DataManager").GetComponent<DataManager>();
-        for(int i = 0; i < prices.Length; i++)
+        rm = GameObject.Find("Player").GetComponent<ResourceManager>();
+        for (int i = 0; i < prices.Length; i++)
         {
             pricesText[i].SetText(prices[i].ToString());
         }
@@ -34,7 +37,7 @@ public class ButtonHandler : MonoBehaviour
     public void OnButtonClick(int i)
     {
         upgradeSelected = GameObject.Find("Upgrade Title" +  (i+1)).GetComponent<TMP_Text>().text;
-
+        costSelected = i;
         // Show the confirmation UI
         if (prices[i] > playerResource.currentEmbers)
         {
@@ -57,6 +60,8 @@ public class ButtonHandler : MonoBehaviour
 
 
         dm.BuyUpgrade(upgradeSelected);
+        dm.UpdateUI();
+        rm.RemoveEmber(prices[costSelected]);
 
         // Close the confirmation UI
         confirmationUI.SetActive(false);

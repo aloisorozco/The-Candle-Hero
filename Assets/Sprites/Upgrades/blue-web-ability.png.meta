@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blue-web-ability_0: -635749687414866555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
