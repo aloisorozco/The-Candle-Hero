@@ -279,8 +279,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetHealth()
     {
+        Debug.Log(currentHealth);
 
-        if (Mathf.Abs(rb.velocityX) > idleEpsilon)
+        if (Mathf.Abs(rb.velocity.x) > idleEpsilon)
         {
             if(currentHealth < maxHealth)
             {
