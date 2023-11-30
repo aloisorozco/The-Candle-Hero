@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviour
         bool[] emberLevel1 = new bool[] { false, false, false, false, false, false };
         bool[] emberLevel2 = new bool[] { false, false, false, false, false };
         bool[] emberLevel3 = new bool[] { false, false, false, false, false };
-        bool[] activeLevels = new bool[] { true, false, false };
+        bool[] activeLevels = new bool[] { true, false, false, false};
         data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 5, 5, 5, "Save 1", emberTutorial, emberLevel1, emberLevel2, emberLevel3, activeLevels, false, false, false, 1);
         
         DontDestroyOnLoad(this.gameObject);
@@ -94,7 +94,6 @@ public class DataManager : MonoBehaviour
 
     public void SetActiveScenes(int i)
     {
-        Debug.Log("DataManager: Line 73: SetActiveScene(int i): " + i);
         data.activeLevels[i] = true;
     }
 
