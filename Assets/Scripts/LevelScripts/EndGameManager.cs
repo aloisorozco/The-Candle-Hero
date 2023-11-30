@@ -32,6 +32,7 @@ public class EndGameManager : MonoBehaviour
 
         UpdateTimerText(dataManager.data.gameTimer);
         displayNbEmbers();
+        displayNbUpgrades();
     }
 
     private void UpdateTimerText(float seconds)
@@ -82,9 +83,15 @@ public class EndGameManager : MonoBehaviour
 
     private void displayNbUpgrades()
     {
-        //for (int i = 0; i < dataManager.data.upgrades)
-        //{
+        int nbUpgrades = 0;
+        for (int i = 0; i < dataManager.data.boughtUpgrades.Length-3; i++)
+        {
+            if (dataManager.data.boughtUpgrades[i+3])
+            {
+                nbUpgrades++;
+            }
+        }
 
-        //}
+        nbUpgradesText.text = nbUpgrades.ToString() + "/9";
     }
 }
