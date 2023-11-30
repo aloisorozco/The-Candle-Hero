@@ -177,14 +177,6 @@ public class PlayerMovement : MonoBehaviour
             }
             DefaultInputManager();
         }
-        
-
-        // Checking for user input
-        //if (!isWallJumping && !isDashing)
-        {
-        InputManager();
-        }
-        DefaultInputManager();
 
         isPlayerGrounded();
 
