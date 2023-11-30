@@ -1798,6 +1798,7 @@ MonoBehaviour:
   deathSound: {fileID: 1637946416934288554}
   safeArea: {fileID: 7632591320200816173}
   inSafeArea: 0
+  inCheckpoint: 0
   animator: {fileID: 6640774769353465349}
   runningAudio: {fileID: 4616871236865865374}
   maxTimeIdleBeforeLosingHealth: 10
@@ -38831,6 +38832,10 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 5730215370563754760}
+    - target: {fileID: 6062418826540502441, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: playerResource
+      value: 
+      objectReference: {fileID: 9147202668848696261}
     - target: {fileID: 6914878118520489313, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
       propertyPath: m_Color.a
       value: 0.039215688
