@@ -12,6 +12,12 @@ TagManager:
   - NPC
   - Altar
   - Ember
+  - Check Safe
+  - TutorialCheckpoint
+  - TutorialJump
+  - TutorialHidden
+  - TutorialMove
+  - TutorialEmbers
   layers:
   - Default
   - TransparentFX

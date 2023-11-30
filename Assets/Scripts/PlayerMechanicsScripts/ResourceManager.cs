@@ -35,9 +35,21 @@ public class ResourceManager : MonoBehaviour
         SetActiveEmbers();
     }
 
+    private void Update()
+    {
+        currentEmbers = dataManager.data.embers;
+    }
+
     public void AddEmber(int num)
     {
         dataManager.AddEmber(num);
+        currentEmbers = dataManager.data.embers;
+        SetCountCandle(currentEmbers);
+    }
+
+    public void RemoveEmber(int num)
+    {
+        dataManager.RemoveEmber(num);
         currentEmbers = dataManager.data.embers;
         SetCountCandle(currentEmbers);
     }
@@ -55,11 +67,7 @@ public class ResourceManager : MonoBehaviour
         int numEmbers = 0;
         bool[] activeEmbers;
 
-        if (currentScene == "Tutorial")
-        {
-            numEmbers = dataManager.data.emberTutorial.Length;
-            activeEmbers = dataManager.data.emberTutorial;
-        }
+        if (currentScene == "Tutorial") { activeEmbers = dataManager.data.emberTutorial; }
         else if (currentScene == "Level_1") { activeEmbers = dataManager.data.emberLevel1; }
         else if (currentScene == "Level_2") { activeEmbers = dataManager.data.emberLevel2; }
         else if (currentScene == "Level_3") { activeEmbers = dataManager.data.emberLevel3; }

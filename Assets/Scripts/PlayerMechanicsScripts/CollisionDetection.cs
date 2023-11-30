@@ -15,7 +15,7 @@ public class CollisionDetection : MonoBehaviour
     private bool onDoor;
     private bool onAltar;
     [SerializeField] private ImpactFlash impactFlash;
-    [SerializeField] private Canvas onScreenText;
+    [SerializeField] public Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
     [SerializeField] private Canvas altarUI;
 
@@ -50,22 +50,29 @@ public class CollisionDetection : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.CompareTag("Checkpoint"))
         {
             if (!collision.GetComponent<CandleInformation>().hasVisitedBefore)
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
-                //resourceManager.AddEmber();
-                //dataManager.SetDashUpgrade();
-                UI_particles.GetComponentInChildren<ParticleSystem>().Play();
             }
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(false, player.deathSound);
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
-            collision.transform.Find("Flame")?.gameObject.SetActive(false);
+            collision.transform.Find("Flame")?.gameObject.SetActive(true);
+            collision.transform.Find("Small Flame")?.gameObject.SetActive(false);
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 
+            Debug.Log("Before");
+            dataManager.ResetLives();
+            if (SceneManager.GetActiveScene().name != "Tutorial")
+            {
+                respawn.ResetHearts();
+            }
             dataManager.SavePlayer();
         }
         else if (collision.CompareTag("Door"))
@@ -80,10 +87,15 @@ public class CollisionDetection : MonoBehaviour
         }
         else if (collision.CompareTag("Cobweb"))
         {
-            player.animator.Play("MC_Hurt");
             player.SetSpeedMultiplier(0.3f);
-            player.SetJumpMultiplier(0.6f);
-            player.SetDashMultiplier(0.6f);
+            if (!dataManager.data.jumpPlus)
+            {
+                player.SetJumpMultiplier(0.6f);
+            }
+            if (!dataManager.data.dashPlus)
+            {
+                player.SetDashMultiplier(0.6f);
+            }
         }
 
         else if (collision.CompareTag("NPC"))
@@ -112,6 +124,49 @@ public class CollisionDetection : MonoBehaviour
 
             dataManager.SavePlayer();
         }
+        if(collision.CompareTag("Check Safe"))
+        {
+            player.inCheckpoint = true;
+        }
+
+        // TUTORIAL MESSAGES
+        if (collision.CompareTag("TutorialCheckpoint"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Light the flame to set";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Spawn Point";
+        }
+        if (collision.CompareTag("TutorialJump"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.3f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press SPACE to";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Jump";
+        }
+        if (collision.CompareTag("TutorialHidden"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.4f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Leap of";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Faith";
+        }
+        if (collision.CompareTag("TutorialMove"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press A & D to";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Move";
+        }
+        if (collision.CompareTag("TutorialEmbers"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.9f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Collect resources called";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Embers";
+        }
+
+
 
     }
 
@@ -125,8 +180,14 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.3f));
-            player.SetJumpMultiplier((1.0f / 0.6f));
-            player.SetDashMultiplier((1.0f / 0.6f));
+            if (!dataManager.data.jumpPlus)
+            {
+                player.SetJumpMultiplier(1.0f / 0.6f);
+            }
+            if (!dataManager.data.dashPlus)
+            {
+                player.SetDashMultiplier(1.0f / 0.6f);
+            }
         }
         else if (collision.CompareTag("NPC"))
         {
@@ -137,6 +198,37 @@ public class CollisionDetection : MonoBehaviour
         {
             onAltar = false;
             onScreenText.enabled = false;
+        }
+        if (collision.CompareTag("Check Safe"))
+        {
+            player.inCheckpoint = false;
+        }
+
+        // TUTORIAL MESSAGES
+        if (collision.CompareTag("TutorialCheckpoint"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialJump"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialHidden"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialMove"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialEmbers"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
         }
     }
 

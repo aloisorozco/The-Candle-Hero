@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -71,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashStopForce;
     [SerializeField] private int nbDashInAir = 1;
     [SerializeField] private int maxDashInAir = 1;
+    [SerializeField] private TrailRenderer trail;
     private bool canDash = true;
     private bool isDashing;
 
@@ -87,19 +89,27 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Health Settings")]
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 100;
-    [SerializeField] private int increaseHealthRate = 5;
-    [SerializeField] private int decreaseHealthRate = 5;
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currentHealth = 100;
+    [SerializeField] private float increaseHealthRate = 5;
+    [SerializeField] private float decreaseHealthRate = 5;
     [SerializeField] private int currentLives = 3;
     [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawn;
     [SerializeField] private GameObject candles;
     [SerializeField] private Transform initialRespawnPoint;
 
+    [Header("Death Settings")]
+    [SerializeField] private Canvas deathScreen;
+    [SerializeField] public bool isDead;
+    [SerializeField] public AudioSource deathSound;
+    private bool deathSoundPlaying = false;
+
+
     [Header("Safe Area Settings")]
     [SerializeField] private GameObject safeArea;
     [SerializeField] private bool inSafeArea;
+    [SerializeField] public bool inCheckpoint;
 
     [Header("Animator and Sound")]
     [SerializeField] public Animator animator;
@@ -119,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Data Settings")]
     public DataManager dataManager;
+
 
     //Components
     private Rigidbody2D rb;
@@ -141,25 +152,35 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+        trail = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        trail.emitting = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         // checking for player state
-        isPlayerGrounded();
+        
         isOnWall();
-        isWallSliding();
+        if (wallJumpUpgrade)
+        {
+            isWallSliding();
+        }
         SetAnimation();
        
-
-        // Checking for user input
-        if (!isWallJumping && !isDashing)
+        if (!isDead)
         {
-            InputManager();
+            // Checking for user input
+            //if (!isWallJumping && !isDashing)
+            {
+                InputManager();
+            }
+            DefaultInputManager();
         }
-        DefaultInputManager();
-        
+
+        isPlayerGrounded();
+
         // Setting up animation variables
 
         if (dataManager)
@@ -201,31 +222,39 @@ public class PlayerMovement : MonoBehaviour
         inSafeArea = safeArea.GetComponent<SafeArea>().inSafeArea;
         if (inSafeArea)
         {
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(false, deathSound);
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth, maxHealth);
             globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity + globalLightRate, globalLightMin, globalLightMax);
             return;
         }
+        if (inCheckpoint)
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth, maxHealth);
+            return;
+        }
 
-        if(SceneManager.GetActiveScene().name != "Tutorial")
+        if(SceneManager.GetActiveScene().name != "Tutorial" && !isDead)
         {
             SetHealth();
         }
-        SetLight();
-        SetTimeIdle();
-
-        SetLives();
+        if (!isDead)
+        {
+            SetLight();
+            SetTimeIdle();
+            SetLives();
+        }
 
     }
 
     private void InputManager()
     {
-        if (!isWallStop)
-        { }
         playerHorizontalInput = Input.GetAxisRaw("Horizontal") * runSpeed;
         
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isJumping)
         {
             StartCoroutine(Jump());
         }
@@ -282,28 +311,51 @@ public class PlayerMovement : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        currentLives--;
-        if (currentLives == 0) {
-            //StartCoroutine(DeathAnimation());
-            //respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
-           // respawn.GetComponent<RespawnPlayer>().setRespawn(initialRespawnPoint);
-            currentLives = maxLives;
-            //candles.GetComponent<Candles>().ResetCandles();
+        trail.emitting = false;
+        if (currentLives != 0)
+        {
+            currentLives--;
+            dataManager.data.lives--;
+            respawn.GetComponent<RespawnPlayer>().removeHeart();
         }
 
-        currentHealth = maxHealth;
-        timeIdleCount = 0;
+        if (currentLives == 0) 
+        {
+            StartCoroutine(Death());
+        }
+        else if (currentLives > 0)
+        {
+            currentHealth = maxHealth;
+            timeIdleCount = 0;
 
-        rb.velocity = Vector2.zero;
-        transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+            rb.velocity = Vector2.zero;
+            transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+        }
     }
 
     
 
     private void SetLives()
     {
+        MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+        if (currentHealth < (maxHealth * 0.90f) && !deathSoundPlaying)
+        {
+            deathSoundPlaying = true;
+            musicPlayer.deathSound(true, deathSound);
+        }
+        else if (currentHealth >= (maxHealth * 0.90f) && deathSoundPlaying)
+        {
+            deathSoundPlaying = false;
+            musicPlayer.deathSound(false, deathSound);
+        }
+
         if (currentHealth <= 0)
         {
+            if (currentLives-1 > 0 && deathSoundPlaying)
+            {
+                deathSoundPlaying = false;
+                musicPlayer.deathSound(false, deathSound);
+            }
             RespawnPlayer();
         }
     }
@@ -378,18 +430,21 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (!isGrounded && extraJumps > 0 && doubleJumpUpgrade)
+        else if (!isGrounded && extraJumps > 0)// && doubleJumpUpgrade)
         {
             extraJumps--;
             rb.gravityScale = gravityValue;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            ParticleSystem ps = GameObject.Find("Jump Particles").GetComponent<ParticleSystem>();
+            ps.Play();
         }
         lastGroundedTime = 0f;
         lastJumpTime = Time.time;
         isJumping = true;
         //canJump = false;
         yield return new WaitForSeconds(jumpTime);
+        isJumping = false;
         //canJump = true;
 
     }
@@ -415,17 +470,32 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f);
+        int dashDir = 1;
+
+        if (Math.Abs(playerHorizontalInput) <= 0.1)
+        {
+            dashDir = (int)(transform.localScale.x);
+        }
+        else
+        {
+            dashDir = Math.Sign(playerHorizontalInput);
+        }
+        rb.velocity = new Vector2( dashDir* dashForce, 0f);
         float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
+        
+        trail.emitting = true;
         yield return new WaitForSeconds(dashTime);
         if (!onWall)
         {
             rb.AddForce(stopforce * Vector2.right);
         }
+        trail.emitting = false;
 
 
-        if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded)// && canJump)
+
+        if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)// && canJump)
         {
+            isJumping = true;
             StartCoroutine(Jump());
         }
         rb.gravityScale = gravityValue;
@@ -477,7 +547,7 @@ public class PlayerMovement : MonoBehaviour
 
         lastIsGrounded = isGrounded;
 
-        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isGrounded)
+        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)
         {
             isJumping = true;
             StartCoroutine(Jump());
@@ -512,9 +582,11 @@ public class PlayerMovement : MonoBehaviour
         {
             lastWalledTime = Time.time;
         }
-
-        if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall)
+        
+        if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall && !isGrounded && !isJumping && Time.time - lastGroundedTime > .5f)
         {
+            Debug.Log(Time.time - lastGroundedTime);
+            isJumping = true;
             StartCoroutine(Jump());
         }
     }
@@ -532,7 +604,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isSliding)
+        if (Time.time - lastJumpInput < jumpGraceTime && extraJumps > 0 && isSliding && !isJumping && Time.time - lastGroundedTime > .5f)
         {
             isJumping = true;
             StartCoroutine(Jump());
@@ -573,6 +645,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (isDead)
+        {
+            animator.Play("MC_Death");
+            return;
+        }
+
         // Idle animation
         if (isGrounded && playerHorizontalInput == 0)
         {
@@ -602,7 +680,7 @@ public class PlayerMovement : MonoBehaviour
             // Settings Sounds
             runningAudio.enabled = false;
         }
-        else if (onWall || isSliding)
+        else if (onWall && isSliding)
         {
             animator.Play("MC_WallGrip");
         }
@@ -610,12 +688,6 @@ public class PlayerMovement : MonoBehaviour
         {
             runningAudio.enabled = false;
         }
-    }
-
-    private IEnumerator DeathAnimation()
-    {
-        animator.Play("MC_Death");
-        yield return new WaitForSeconds(1);
     }
 
     public void SetGlobalLight(float value)
@@ -631,9 +703,21 @@ public class PlayerMovement : MonoBehaviour
             dataManager = FindAnyObjectByType<DataManager>();
             dashUpgrade = dataManager.data.dashUpgrade;
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
+            if (dataManager.data.doubleJumpPlus)
+            {
+                maxJumps = 2;
+            }
+            else if(dataManager.data.doubleJumpUpgrade)
+            {
+                maxJumps = 1;
+            }
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
             currentLives = dataManager.data.lives;
+            maxLives = dataManager.data.maxLives;
             lightMax = dataManager.data.lightRadius;
+            decreaseHealthRate = dataManager.data.healthRate;
+            increaseHealthRate = dataManager.data.healthRate;
+            dataManager.UpdateUI();
 
         }
     }
@@ -651,6 +735,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SHIFT to dash forwards.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetDashUpgrade();
+            dataManager.SavePlayer();
         }
         if (currentScene.name == "Level_2" && !wallJumpUpgrade)
         {
@@ -658,6 +743,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SPACE on a wall to wall jump.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetWallJumpUpgrade();
+            dataManager.SavePlayer();
         }
         if (currentScene.name == "Level_3" && !doubleJumpUpgrade)
         {
@@ -665,6 +751,7 @@ public class PlayerMovement : MonoBehaviour
             abilityDescription = "Press SPACE in the air to perform a double jump.";
             upgradeManager.openAbilityPopUp(abilityName, abilityDescription);
             dataManager.SetDoubleJumpUpgrade();
+            dataManager.SavePlayer();
         }
     }
 
@@ -711,5 +798,32 @@ public class PlayerMovement : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         isFrozen = frozen;
+    }
+
+    private IEnumerator Death()
+    {
+
+        isDead = true;
+        if (currentHealth == maxHealth)
+        {
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(true, deathSound);
+        }
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(2);
+
+        deathScreen.enabled = true;
+        yield return new WaitForSeconds(5);
+
+        respawn.GetComponent<RespawnPlayer>().setRespawn("InitialRespawnPoint");
+        dataManager.data.lives = maxLives;
+        currentLives = maxLives;
+        candles.GetComponent<Candles>().ResetCandles();
+        currentHealth = maxHealth;
+        timeIdleCount = 0;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        dataManager.SavePlayer();
+        isDead = false;
     }
 }
