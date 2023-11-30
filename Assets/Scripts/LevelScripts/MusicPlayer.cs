@@ -11,15 +11,23 @@ public class MusicPlayer : MonoBehaviour
     public bool levelMusicPlaying;
     public bool safeAreaMusicPlaying;
     private bool firstMusicPlayed;
+    private bool isPlayingDeathSound;
+    private PlayerMovement player;
 
     // Start is called before the first frame update
     void Start()
     {
         firstMusicPlayed = false;
+        player = FindAnyObjectByType<PlayerMovement>();
     }
 
     private void Update()
     {
+        if (player.isDead)
+        {
+            levelMusic.Stop();
+        }
+
         if (safeArea.inSafeArea && !firstMusicPlayed)
         {
             safeAreaMusic.Play();
@@ -78,6 +86,56 @@ public class MusicPlayer : MonoBehaviour
         levelMusicPlaying = true;
         safeAreaMusicPlaying = false;
         StartCoroutine(Crossfade(safeAreaMusic, levelMusic));
+    }
+
+
+    public void deathSound(bool play, AudioSource deathSound)
+    {
+        if (play)
+        {
+            StopCoroutine("stopDeathSound");
+            isPlayingDeathSound = true;
+            StartCoroutine(playDeathSound(deathSound));
+        }
+        else
+        {
+            StopCoroutine("playDeathSound");
+            isPlayingDeathSound = false;
+            StartCoroutine(stopDeathSound(deathSound));
+        }
+    }
+
+    private IEnumerator playDeathSound(AudioSource deathSound)
+    {
+        const float fadeDuration = 5f;
+
+        float timer = 0f;
+
+        deathSound.Stop();
+        deathSound.volume = 0;
+        deathSound.Play();
+        while (timer < fadeDuration && isPlayingDeathSound)
+        {
+            deathSound.volume = Mathf.Lerp(0f, 1.0f, timer / fadeDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator stopDeathSound(AudioSource deathSound)
+    {
+        const float fadeDuration = 0.1f;
+
+        float timer = 0f;
+
+        while (timer < fadeDuration && isPlayingDeathSound)
+        {
+            deathSound.volume = Mathf.Lerp(0.5f, 0.0f, timer / fadeDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        deathSound.Stop();
     }
 
 }
