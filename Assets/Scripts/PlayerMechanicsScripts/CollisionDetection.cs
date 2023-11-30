@@ -86,8 +86,14 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier(0.3f);
-            player.SetJumpMultiplier(0.6f);
-            player.SetDashMultiplier(0.6f);
+            if (!dataManager.data.jumpPlus)
+            {
+                player.SetJumpMultiplier(0.6f);
+            }
+            if (!dataManager.data.dashPlus)
+            {
+                player.SetDashMultiplier(0.6f);
+            }
         }
 
         else if (collision.CompareTag("NPC"))
