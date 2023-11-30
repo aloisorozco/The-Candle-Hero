@@ -11,6 +11,7 @@ public class Data
     public string currentScene;
     public string respawnPoint;
     public int lives;
+    public int maxLives;
     public float lightRadius;
 
     public string dataFile;
@@ -28,13 +29,14 @@ public class Data
         this.currentScene = "Tutorial";
         this.respawnPoint = "InitialRespawnPoint";
         this.lives = 3;
+        this.maxLives =3;
         this.lightRadius = 5;
         this.emberTutorial = new bool[] {false, false, false };
         this.emberLevel1 = new bool[] { false, false, false, false, false, false };
         this.emberLevel2 = new bool[] { false, false, false, false, false};
         this.emberLevel3 = new bool[] { false, false, false, false, false };
     }
-    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, float lightRadius, string dataFile, bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, bool[] emberLevel3)
+    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, int maxLives, float lightRadius, string dataFile, bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, bool[] emberLevel3)
     {
         this.embers = embers;
         this.dashUpgrade = dashUpgrade;
@@ -43,6 +45,7 @@ public class Data
         this.currentScene = currentScene;
         this.respawnPoint = respawnPoint;
         this.lives = lives;
+        this.maxLives = maxLives;
         this.lightRadius = lightRadius;
         this.dataFile = dataFile;
         this.emberTutorial = emberTutorial;

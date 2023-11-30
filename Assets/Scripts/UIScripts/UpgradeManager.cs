@@ -29,13 +29,15 @@ public class UpgradeManager : MonoBehaviour
     public void OnMitochondriaButtonClicked()
     {
         player.GetComponent<PlayerMovement>().AddLife(livesIncrease);
-        dataManager.data.lives += livesIncrease;
+        dataManager.data.maxLives += livesIncrease;
+        dataManager.data.lives = dataManager.data.maxLives;
     }
 
     public void OnStrongGreensButtonClicked()
     {
         player.GetComponent<PlayerMovement>().AddLife(livesIncrease);
-        dataManager.data.lives += livesIncrease;
+        dataManager.data.maxLives += livesIncrease;
+        dataManager.data.lives = dataManager.data.maxLives;
     }
 
     public void OnHealingEmberButtonClicked()
