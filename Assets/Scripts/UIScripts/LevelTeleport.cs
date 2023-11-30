@@ -7,12 +7,6 @@ public class LevelTeleport : MonoBehaviour
 {
     private DataManager dataManager;
     public Button[] levelButtons;
-    [SerializeField] Image[] buttonImages;
-    private void Start()
-    {
-        //dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-
-    }
 
     public void SetActiveLevelButtons()
     {

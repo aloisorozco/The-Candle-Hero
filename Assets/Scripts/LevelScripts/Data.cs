@@ -42,7 +42,7 @@ public class Data
         this.emberLevel1 = new bool[] { false, false, false, false, false, false };
         this.emberLevel2 = new bool[] { false, false, false, false, false};
         this.emberLevel3 = new bool[] { false, false, false, false, false };
-        this.activeLevels = new bool[] { true, false, false };
+        this.activeLevels = new bool[] { true, false, false, false};
         this.dashPlus = false;
         this.jumpPlus = false;
         this.doubleJumpPlus = false;

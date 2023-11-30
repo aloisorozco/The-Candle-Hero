@@ -16,6 +16,8 @@ TagManager:
   - TutorialCheckpoint
   - TutorialJump
   - TutorialHidden
+  - TutorialMove
+  - TutorialEmbers
   layers:
   - Default
   - TransparentFX
