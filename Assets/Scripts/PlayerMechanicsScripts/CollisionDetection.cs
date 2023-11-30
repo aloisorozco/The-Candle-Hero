@@ -36,6 +36,7 @@ public class CollisionDetection : MonoBehaviour
             dataManager.data.currentScene = currentSceneName;
             dataManager.data.respawnPoint = "InitialRespawnPoint";
             FindAnyObjectByType<MusicPlayer>().levelMusic.Stop();
+            SaveSystem.SavePlayer(dataManager.data, dataManager.data.currentScene);
             SceneManager.LoadScene(currentSceneName);
         }
         if (onAltar && Input.GetKeyDown(KeyCode.E))
