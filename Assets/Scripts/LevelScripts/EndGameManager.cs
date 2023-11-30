@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndGameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class EndGameManager : MonoBehaviour
     void Start()
     {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        endGameCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -27,7 +29,7 @@ public class EndGameManager : MonoBehaviour
 
     public void displayEndGameUI()
     {
-        StopCoroutine(dataManager.GameTime());
+        Time.timeScale = 0;
         endGameCanvas.enabled = true;
 
         UpdateTimerText(dataManager.data.gameTimer);
@@ -93,5 +95,10 @@ public class EndGameManager : MonoBehaviour
         }
 
         nbUpgradesText.text = nbUpgrades.ToString() + "/9";
+    }
+
+    public void toCredits()
+    {
+        SceneManager.LoadScene("CreditScene");
     }
 }

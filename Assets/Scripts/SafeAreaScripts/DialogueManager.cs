@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
+using UnityEngine.SceneManagement;
 
 //source: https://www.youtube.com/watch?v=vY0Sk93YUhA&ab_channel=ShapedbyRainStudios
 
@@ -64,6 +65,12 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         dialoguePanel.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "Level_Final")
+        {
+            Debug.Log("Should open end UI");
+            GameObject.Find("EndGameManager").GetComponent<EndGameManager>().displayEndGameUI();
+        }
 
         if (!hasGivenAbilityBefore)
         {

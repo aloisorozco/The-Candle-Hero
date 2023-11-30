@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Death Settings")]
     [SerializeField] private Canvas deathScreen;
     [SerializeField] public bool isDead;
-    [SerializeField] private AudioSource deathSound;
+    [SerializeField] public AudioSource deathSound;
     private bool deathSoundPlaying = false;
 
 
@@ -338,12 +338,12 @@ public class PlayerMovement : MonoBehaviour
     private void SetLives()
     {
         MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
-        if (currentHealth < maxHealth && !deathSoundPlaying)
+        if (currentHealth < (maxHealth * 0.90f) && !deathSoundPlaying)
         {
             deathSoundPlaying = true;
             musicPlayer.deathSound(true, deathSound);
         }
-        else if (currentHealth == maxHealth && deathSoundPlaying)
+        else if (currentHealth >= (maxHealth * 0.90f) && deathSoundPlaying)
         {
             deathSoundPlaying = false;
             musicPlayer.deathSound(false, deathSound);

@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level_Final.unity
     guid: 00bc423dbad35984eaf44cbb01dc231e
+  - enabled: 1
+    path: Assets/Scenes/Levels/CreditScene.unity
+    guid: 6be831a1592852c44b039a5ca7da263e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
