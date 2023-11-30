@@ -38,7 +38,7 @@ public class Data
         this.lives = 5;
         this.maxLives =5;
         this.lightRadius = 5;
-        this.emberTutorial = new bool[] {false, false, false };
+        this.emberTutorial = new bool[] { false, false };
         this.emberLevel1 = new bool[] { false, false, false, false, false, false };
         this.emberLevel2 = new bool[] { false, false, false, false, false};
         this.emberLevel3 = new bool[] { false, false, false, false, false };

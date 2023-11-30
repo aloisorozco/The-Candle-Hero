@@ -792,6 +792,11 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isDead = true;
+        if (currentHealth > 0)
+        {
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(true, deathSound);
+        }
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(2);
 

@@ -112,6 +112,7 @@ public class CollisionDetection : MonoBehaviour
         }
         if (collision.CompareTag("Ember"))
         {
+            Debug.Log("Should gain 1 ember");
             string number = collision.gameObject.name.Split(' ')[1];
             resourceManager.AddEmber(Int32.Parse(number));
             UI_particles.GetComponentInChildren<ParticleSystem>().Play();
@@ -126,6 +127,31 @@ public class CollisionDetection : MonoBehaviour
         {
             player.inCheckpoint = true;
         }
+
+        // TUTORIAL MESSAGES
+        if (collision.CompareTag("TutorialCheckpoint"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Light the flame to set";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Spawn Point";
+        }
+        if (collision.CompareTag("TutorialJump"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.3f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press SPACE to";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Jump";
+        }
+        if (collision.CompareTag("TutorialHidden"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.4f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Leap of";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Faith";
+        }
+
+
 
     }
 
@@ -155,6 +181,23 @@ public class CollisionDetection : MonoBehaviour
         if (collision.CompareTag("Check Safe"))
         {
             player.inCheckpoint = false;
+        }
+
+        // TUTORIAL MESSAGES
+        if (collision.CompareTag("TutorialCheckpoint"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialJump"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialHidden"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
         }
     }
 
