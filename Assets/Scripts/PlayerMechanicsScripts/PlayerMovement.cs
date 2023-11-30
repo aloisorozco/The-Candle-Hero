@@ -279,7 +279,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetHealth()
     {
-        Debug.Log(currentHealth);
 
         if (Mathf.Abs(rb.velocity.x) > idleEpsilon)
         {
@@ -586,7 +585,6 @@ public class PlayerMovement : MonoBehaviour
         
         if (Time.time - lastJumpInput < wallJumpGraceTime && extraJumps > 0 && onWall && !isGrounded && !isJumping && Time.time - lastGroundedTime > .5f)
         {
-            Debug.Log(Time.time - lastGroundedTime);
             isJumping = true;
             StartCoroutine(Jump());
         }
@@ -687,6 +685,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            runningAudio.enabled = false;
             runningAudio.enabled = false;
         }
     }
