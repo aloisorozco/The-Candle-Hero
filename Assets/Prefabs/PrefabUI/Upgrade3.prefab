@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 7758899856755785790}
   - component: {fileID: 1255489781786424149}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Upgrade Title3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
