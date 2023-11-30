@@ -31,8 +31,8 @@ public class LevelTeleport : MonoBehaviour
         // Scene numbers are 1-3, array is 0-2
         Time.timeScale = 1f;
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-        Debug.Log("Change Scenes: LevelTeleport: Line 37: " + i);
         if (dataManager.GetActiveLevel(i - 1) == true && SceneManager.GetActiveScene().buildIndex != i)
+            dataManager.data.respawnPoint = "InitialRespawnPoint";
             SceneManager.LoadScene(i);
     }
 }
