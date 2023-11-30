@@ -15,7 +15,7 @@ public class CollisionDetection : MonoBehaviour
     private bool onDoor;
     private bool onAltar;
     [SerializeField] private ImpactFlash impactFlash;
-    [SerializeField] private Canvas onScreenText;
+    [SerializeField] public Canvas onScreenText;
     [SerializeField] private Canvas UI_particles;
     [SerializeField] private Canvas altarUI;
 

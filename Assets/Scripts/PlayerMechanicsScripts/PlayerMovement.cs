@@ -797,6 +797,7 @@ public class PlayerMovement : MonoBehaviour
         timeIdleCount = 0;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        dataManager.SavePlayer();
         isDead = false;
     }
 }

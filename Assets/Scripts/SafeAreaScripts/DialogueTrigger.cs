@@ -30,6 +30,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                collisionDetector.onScreenText.enabled = false;
                 if (!hasTalkedToBefore)
                 {
                     hasTalkedToBefore = true;
