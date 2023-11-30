@@ -29710,7 +29710,7 @@ Transform:
   m_GameObject: {fileID: 3998861995723879788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.53, y: -1.22, z: -10}
+  m_LocalPosition: {x: -10.47, y: -1.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29884,7 +29884,7 @@ Transform:
   m_GameObject: {fileID: 4138334714161370495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7399998, y: 0.17000008, z: 0}
+  m_LocalPosition: {x: 3.6800003, y: 0.20000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43947,9 +43947,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2266109479480943906}
     m_Modifications:
+    - target: {fileID: 1904494711230858402, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484139547319882626, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade Title3
+      objectReference: {fileID: 0}
     - target: {fileID: 3407115190401369617, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
       propertyPath: m_Name
       value: BuySystemCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857733289920979792, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade
       objectReference: {fileID: 0}
     - target: {fileID: 4886300998085526519, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
       propertyPath: m_Pivot.x
@@ -44031,6 +44043,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5066741811127653517, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 6062418826540502441, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
       propertyPath: inventoryUI
       value: 
@@ -44043,10 +44059,22 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.039215688
       objectReference: {fileID: 0}
+    - target: {fileID: 7003562378457774015, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade Title1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985223489838533869, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 8542553425624003529, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
       propertyPath: candleCount
       value: 
       objectReference: {fileID: 9147202668848696261}
+    - target: {fileID: 9183329116188500766, guid: 43e0071bb553c4db39990eb139a8b1f2, type: 3}
+      propertyPath: m_Name
+      value: Upgrade Title2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
