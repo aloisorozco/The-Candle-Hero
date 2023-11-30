@@ -221,6 +221,8 @@ public class PlayerMovement : MonoBehaviour
         inSafeArea = safeArea.GetComponent<SafeArea>().inSafeArea;
         if (inSafeArea)
         {
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(false, deathSound);
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth, maxHealth);
             globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity + globalLightRate, globalLightMin, globalLightMax);
