@@ -11,6 +11,12 @@ public class PauseMenuController : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject playerUI;
 
+    private void Start()
+    {
+        playerUI.SetActive(true);
+        pauseMenuUI.SetActive(false);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
