@@ -13,6 +13,9 @@ TagManager:
   - Altar
   - Ember
   - Check Safe
+  - TutorialCheckpoint
+  - TutorialJump
+  - TutorialHidden
   layers:
   - Default
   - TransparentFX
