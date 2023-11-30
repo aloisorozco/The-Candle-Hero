@@ -36,7 +36,10 @@ public class Data
         this.emberLevel2 = new bool[] { false, false, false, false, false};
         this.emberLevel3 = new bool[] { false, false, false, false, false };
     }
-    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, int maxLives, float lightRadius, string dataFile, bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, bool[] emberLevel3)
+    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, 
+        bool wallJumpUpgrade, string currentScene, string respawnPoint, 
+        int lives, int maxLives, float lightRadius, string dataFile, 
+        bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, bool[] emberLevel3)
     {
         this.embers = embers;
         this.dashUpgrade = dashUpgrade;
