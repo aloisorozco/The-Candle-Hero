@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashStopForce;
     [SerializeField] private int nbDashInAir = 1;
     [SerializeField] private int maxDashInAir = 1;
+    [SerializeField] private TrailRenderer trail;
     private bool canDash = true;
     private bool isDashing;
 
@@ -129,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Data Settings")]
     public DataManager dataManager;
 
+
     //Components
     private Rigidbody2D rb;
 
@@ -150,6 +152,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         transform.position = respawn.GetComponent<RespawnPlayer>().getRespawn().position;
+        trail = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        trail.emitting = false;
     }
 
     // Update is called once per frame
@@ -428,6 +432,8 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = gravityValue;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            ParticleSystem ps = GameObject.Find("Jump Particles").GetComponent<ParticleSystem>();
+            ps.Play();
         }
         lastGroundedTime = 0f;
         lastJumpTime = Time.time;
@@ -462,11 +468,15 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(Math.Sign(playerHorizontalInput) * dashForce, 0f);
         float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
+        
+        trail.emitting = true;
         yield return new WaitForSeconds(dashTime);
         if (!onWall)
         {
             rb.AddForce(stopforce * Vector2.right);
         }
+        trail.emitting = false;
+
 
 
         if (Time.time - lastJumpInput < dashJumpGraceTime && extraJumps > 0 && isGrounded && !isJumping)// && canJump)
@@ -678,17 +688,12 @@ public class PlayerMovement : MonoBehaviour
         {
             dataManager = FindAnyObjectByType<DataManager>();
             dashUpgrade = dataManager.data.dashUpgrade;
-
-            //For testing
-            dashUpgrade = true;
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
-            if (true )
+            if (dataManager.data.doubleJumpUpgrade )
             {
                 maxJumps = 1;
             }
             wallJumpUpgrade = dataManager.data.wallJumpUpgrade;
-            //For testing
-            wallJumpUpgrade = true;
             currentLives = dataManager.data.lives;
             maxLives = dataManager.data.maxLives;
             lightMax = dataManager.data.lightRadius;
