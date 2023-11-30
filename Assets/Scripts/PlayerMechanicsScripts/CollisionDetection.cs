@@ -68,7 +68,6 @@ public class CollisionDetection : MonoBehaviour
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 
-            Debug.Log("Before");
             dataManager.ResetLives();
             if (SceneManager.GetActiveScene().name != "Tutorial")
             {
