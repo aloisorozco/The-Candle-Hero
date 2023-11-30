@@ -9,7 +9,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        bool[] emberTutorial = new bool[] { false, false, false };
+        bool[] emberTutorial = new bool[] { false, false };
         bool[] emberLevel1 = new bool[] { false, false, false, false, false, false };
         bool[] emberLevel2 = new bool[] { false, false, false, false, false };
         bool[] emberLevel3 = new bool[] { false, false, false, false, false };
@@ -35,11 +35,11 @@ public class DataManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Level_2")
         {
-            data.emberLevel1[emberNum - 1] = true;
+            data.emberLevel2[emberNum - 1] = true;
         }
         else if (SceneManager.GetActiveScene().name == "Level_3")
         {
-            data.emberLevel1[emberNum - 1] = true;
+            data.emberLevel3[emberNum - 1] = true;
         }
     }
 
