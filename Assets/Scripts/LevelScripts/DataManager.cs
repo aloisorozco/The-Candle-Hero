@@ -150,7 +150,6 @@ public class DataManager : MonoBehaviour
             yield return new WaitForSeconds(1f); // Wait for 1 second
 
             data.gameTimer++;
-            Debug.Log(data.gameTimer);
         }
     }
 }
