@@ -54,10 +54,7 @@ public class ButtonHandler : MonoBehaviour
     public void OnConfirmButtonClick()
     {
         // Instantiate the upgrade prefab
-        if (numUpdates >= 0 && numUpdates <= 2) { 
-            GameObject newUpgrade = Instantiate(prefabs[numUpdates], new Vector3(1000, 610 - (numUpdates * 161), 0), Quaternion.identity, inventoryUI.transform);
-            playerResource.SetCountCandle(playerResource.currentEmbers - prices[numUpdates]);
-        }
+
 
         dm.BuyUpgrade(upgradeSelected);
 

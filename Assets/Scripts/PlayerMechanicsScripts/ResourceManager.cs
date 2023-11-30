@@ -35,6 +35,11 @@ public class ResourceManager : MonoBehaviour
         SetActiveEmbers();
     }
 
+    private void Update()
+    {
+        currentEmbers = dataManager.data.embers;
+    }
+
     public void AddEmber(int num)
     {
         dataManager.AddEmber(num);
