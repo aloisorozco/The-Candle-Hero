@@ -32,6 +32,8 @@ public class EndGameManager : MonoBehaviour
         Time.timeScale = 0;
         endGameCanvas.enabled = true;
 
+        GetComponent<AudioSource>().Play();
+
         UpdateTimerText(dataManager.data.gameTimer);
         displayNbEmbers();
         displayNbUpgrades();
