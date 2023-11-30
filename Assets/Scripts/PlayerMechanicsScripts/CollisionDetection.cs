@@ -64,6 +64,7 @@ public class CollisionDetection : MonoBehaviour
             respawn.setRespawn(collision.gameObject.name);
             StartCoroutine(impactFlash.FlashRoutine());
 
+            dataManager.ResetLives();
             dataManager.SavePlayer();
         }
         else if (collision.CompareTag("Door"))
@@ -109,6 +110,10 @@ public class CollisionDetection : MonoBehaviour
 
             dataManager.SavePlayer();
         }
+        if(collision.CompareTag("Check Safe"))
+        {
+            player.inCheckpoint = true;
+        }
 
     }
 
@@ -134,6 +139,10 @@ public class CollisionDetection : MonoBehaviour
         {
             onAltar = false;
             onScreenText.enabled = false;
+        }
+        if (collision.CompareTag("Check Safe"))
+        {
+            player.inCheckpoint = false;
         }
     }
 

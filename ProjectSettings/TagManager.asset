@@ -12,6 +12,7 @@ TagManager:
   - NPC
   - Altar
   - Ember
+  - Check Safe
   layers:
   - Default
   - TransparentFX

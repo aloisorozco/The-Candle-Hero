@@ -108,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Safe Area Settings")]
     [SerializeField] private GameObject safeArea;
     [SerializeField] private bool inSafeArea;
+    [SerializeField] public bool inCheckpoint;
 
     [Header("Animator and Sound")]
     [SerializeField] public Animator animator;
@@ -227,6 +228,12 @@ public class PlayerMovement : MonoBehaviour
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth, maxHealth);
             globalLightSource.intensity = Mathf.Clamp(globalLightSource.intensity + globalLightRate, globalLightMin, globalLightMax);
+            return;
+        }
+        if (inCheckpoint)
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth, maxHealth);
             return;
         }
 
@@ -688,6 +695,7 @@ public class PlayerMovement : MonoBehaviour
             //For testing
             wallJumpUpgrade = true;
             currentLives = dataManager.data.lives;
+            maxLives = dataManager.data.maxLives;
             lightMax = dataManager.data.lightRadius;
 
         }
