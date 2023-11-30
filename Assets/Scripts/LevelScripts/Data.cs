@@ -22,6 +22,11 @@ public class Data
     public bool[] emberLevel3;
 
     public bool[] activeLevels;
+
+    public bool dashPlus;
+    public bool jumpPlus;
+    public bool doubleJumpPlus;
+    public float healthRate;
     public Data()
     {
         this.embers = 0;
@@ -33,13 +38,24 @@ public class Data
         this.lives = 5;
         this.maxLives =5;
         this.lightRadius = 5;
-        this.emberTutorial = new bool[] {false, false, false };
+        this.emberTutorial = new bool[] { false, false };
         this.emberLevel1 = new bool[] { false, false, false, false, false, false };
         this.emberLevel2 = new bool[] { false, false, false, false, false};
         this.emberLevel3 = new bool[] { false, false, false, false, false };
         this.activeLevels = new bool[] { true, false, false };
+        this.dashPlus = false;
+        this.jumpPlus = false;
+        this.doubleJumpPlus = false;
+        this.healthRate = 1;
+
+        
     }
-    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, bool wallJumpUpgrade, string currentScene, string respawnPoint, int lives, int maxLives, float lightRadius, string dataFile, bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, bool[] emberLevel3, bool[] activeLevels)
+    public Data(int embers, bool dashUpgrade, bool doubleJumpUpgrade, 
+        bool wallJumpUpgrade, string currentScene, string respawnPoint, 
+        int lives, int maxLives, float lightRadius, string dataFile, 
+        bool[] emberTutorial, bool[] emberLevel1, bool[] emberLevel2, 
+        bool[] emberLevel3, bool[] activeLevels, bool dashPlus, 
+        bool jumpPlus, bool doubleJumpPlus ,float healthRate)
     {
         this.embers = embers;
         this.dashUpgrade = dashUpgrade;
@@ -56,5 +72,9 @@ public class Data
         this.emberLevel2 = emberLevel2;
         this.emberLevel3 = emberLevel3;
         this.activeLevels = activeLevels;
+        this.dashPlus = dashPlus;
+        this.jumpPlus = jumpPlus;
+        this.doubleJumpPlus = doubleJumpPlus;
+        this.healthRate = healthRate;
     }
 }

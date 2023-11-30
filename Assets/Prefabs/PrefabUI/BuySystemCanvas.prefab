@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'num
+  m_text: '1
 
 '
   m_isRightToLeft: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'num
+  m_text: '2
 
 '
   m_isRightToLeft: 0
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'num
+  m_text: '3
 
 '
   m_isRightToLeft: 0

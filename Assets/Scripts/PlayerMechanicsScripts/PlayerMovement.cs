@@ -89,10 +89,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Health Settings")]
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 100;
-    [SerializeField] private int increaseHealthRate = 5;
-    [SerializeField] private int decreaseHealthRate = 5;
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currentHealth = 100;
+    [SerializeField] private float increaseHealthRate = 5;
+    [SerializeField] private float decreaseHealthRate = 5;
     [SerializeField] private int currentLives = 3;
     [SerializeField] private int maxLives = 3;
     [SerializeField] private GameObject respawn;
@@ -310,6 +310,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        trail.emitting = false;
         if (currentLives != 0)
         {
             currentLives--;
@@ -691,7 +692,11 @@ public class PlayerMovement : MonoBehaviour
             dataManager = FindAnyObjectByType<DataManager>();
             dashUpgrade = dataManager.data.dashUpgrade;
             doubleJumpUpgrade = dataManager.data.doubleJumpUpgrade;
-            if (dataManager.data.doubleJumpUpgrade )
+            if (dataManager.data.doubleJumpPlus)
+            {
+                maxJumps = 2;
+            }
+            else if(dataManager.data.doubleJumpUpgrade)
             {
                 maxJumps = 1;
             }
@@ -699,6 +704,8 @@ public class PlayerMovement : MonoBehaviour
             currentLives = dataManager.data.lives;
             maxLives = dataManager.data.maxLives;
             lightMax = dataManager.data.lightRadius;
+            decreaseHealthRate = dataManager.data.healthRate;
+            increaseHealthRate = dataManager.data.healthRate;
 
         }
     }
@@ -785,6 +792,11 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isDead = true;
+        if (currentHealth > 0)
+        {
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(true, deathSound);
+        }
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(2);
 

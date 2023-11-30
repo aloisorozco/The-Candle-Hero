@@ -55,11 +55,7 @@ public class ResourceManager : MonoBehaviour
         int numEmbers = 0;
         bool[] activeEmbers;
 
-        if (currentScene == "Tutorial")
-        {
-            numEmbers = dataManager.data.emberTutorial.Length;
-            activeEmbers = dataManager.data.emberTutorial;
-        }
+        if (currentScene == "Tutorial") { activeEmbers = dataManager.data.emberTutorial; }
         else if (currentScene == "Level_1") { activeEmbers = dataManager.data.emberLevel1; }
         else if (currentScene == "Level_2") { activeEmbers = dataManager.data.emberLevel2; }
         else if (currentScene == "Level_3") { activeEmbers = dataManager.data.emberLevel3; }
