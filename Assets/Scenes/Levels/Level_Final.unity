@@ -1309,6 +1309,22 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 0.88906574
       objectReference: {fileID: 0}
+    - target: {fileID: 1399217192959750646, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: m_text
+      value: Obi
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399217192959750646, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.732572
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399217192959750646, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399217192959750646, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.5157232
+      objectReference: {fileID: 0}
     - target: {fileID: 1446039267881536128, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.53
