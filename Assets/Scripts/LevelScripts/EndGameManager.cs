@@ -80,7 +80,7 @@ public class EndGameManager : MonoBehaviour
         }
 
 
-        nbEmbersText.text = nbEmbers.ToString() + "/14";
+        nbEmbersText.text = nbEmbers.ToString() + "/18";
     }
 
     private void displayNbUpgrades()
