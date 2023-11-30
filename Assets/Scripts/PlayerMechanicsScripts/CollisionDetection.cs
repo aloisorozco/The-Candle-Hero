@@ -57,6 +57,8 @@ public class CollisionDetection : MonoBehaviour
             {
                 collision.GetComponent<CandleInformation>().hasVisitedBefore = true;
             }
+            MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
+            musicPlayer.deathSound(false, player.deathSound);
             player.SetGlobalLight(collision.GetComponent<CandleInformation>().lightValue);
             collision.GetComponent<CircleCollider2D>().enabled = false;
             collision.GetComponentInChildren<ParticleSystem>().Play();
@@ -112,7 +114,6 @@ public class CollisionDetection : MonoBehaviour
         }
         if (collision.CompareTag("Ember"))
         {
-            Debug.Log("Should gain 1 ember");
             string number = collision.gameObject.name.Split(' ')[1];
             resourceManager.AddEmber(Int32.Parse(number));
             UI_particles.GetComponentInChildren<ParticleSystem>().Play();
