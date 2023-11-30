@@ -312,15 +312,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        currentLives--;
-        dataManager.data.lives--;
-        respawn.GetComponent<RespawnPlayer>().removeHeart();
+        if (currentLives != 0)
+        {
+            currentLives--;
+            dataManager.data.lives--;
+            respawn.GetComponent<RespawnPlayer>().removeHeart();
+        }
 
         if (currentLives == 0) 
         {
             StartCoroutine(Death());
         }
-        else
+        else if (currentLives > 0)
         {
             currentHealth = maxHealth;
             timeIdleCount = 0;
