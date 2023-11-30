@@ -792,7 +792,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isDead = true;
-        if (currentHealth > 0)
+        if (currentHealth == maxHealth)
         {
             MusicPlayer musicPlayer = FindAnyObjectByType<MusicPlayer>();
             musicPlayer.deathSound(true, deathSound);

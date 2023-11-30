@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
@@ -16,8 +17,9 @@ public class DataManager : MonoBehaviour
         bool[] emberLevel2 = new bool[] { false, false, false, false, false };
         bool[] emberLevel3 = new bool[] { false, false, false, false, false };
         bool[] activeLevels = new bool[] { true, false, false, false};
-        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 5, 5, 5, "Save 1", emberTutorial, emberLevel1, emberLevel2, emberLevel3, activeLevels, false, false, false, 1);
-        
+        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 5, 5, 5, "Save 1", emberTutorial, emberLevel1, emberLevel2, emberLevel3, activeLevels, false, false, false, 1, 0);
+
+        StartCoroutine(GameTime());
         DontDestroyOnLoad(this.gameObject);
         
     }
@@ -102,5 +104,14 @@ public class DataManager : MonoBehaviour
         return data.activeLevels[i];
     }
 
+    public IEnumerator GameTime()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f); // Wait for 1 second
 
+            data.gameTimer++;
+            Debug.Log(data.gameTimer);
+        }
+    }
 }
