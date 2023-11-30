@@ -246,7 +246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 276, y: -48.00006}
+  m_AnchoredPosition: {x: 264, y: 41.99994}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8299519592626362589
@@ -288,8 +288,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294639360
+  m_fontColor: {r: 0, g: 1, b: 0.9804468, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -306,8 +306,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -457,7 +457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 276, y: -54}
+  m_AnchoredPosition: {x: 264, y: 36}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8870403655144622464
@@ -499,8 +499,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294639360
+  m_fontColor: {r: 0, g: 1, b: 0.9804468, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -517,8 +517,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1192,7 +1192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to the Upgrade Shop!
+  m_text: Heimlich's Altar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4438ccd35b2d4a2ba807526a9c7490b, type: 2}
   m_sharedMaterial: {fileID: -5284255935447581240, guid: d4438ccd35b2d4a2ba807526a9c7490b, type: 2}
@@ -1201,8 +1201,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290540884
-  m_fontColor: {r: 0.32974365, g: 0.4594, b: 0.735849, a: 1}
+    rgba: 4292238886
+  m_fontColor: {r: 0.14785801, g: 0.36736026, b: 0.8396226, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1219,8 +1219,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.2
-  m_fontSizeBase: 54.2
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1510,7 +1510,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.652603, y: 0}
+  m_AnchoredPosition: {x: -1, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1078812705744498655
@@ -1541,9 +1541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Candles
-
-'
+  m_text: Embers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4438ccd35b2d4a2ba807526a9c7490b, type: 2}
   m_sharedMaterial: {fileID: -5284255935447581240, guid: d4438ccd35b2d4a2ba807526a9c7490b, type: 2}
@@ -1577,8 +1575,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1646,7 +1644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 276, y: -51}
+  m_AnchoredPosition: {x: 264, y: 39}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7334201780398401552
@@ -1688,8 +1686,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294639360
+  m_fontColor: {r: 0, g: 1, b: 0.9804468, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1706,8 +1704,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2069,6 +2067,22 @@ PrefabInstance:
       propertyPath: confirmationUI
       value: 
       objectReference: {fileID: 5415694018487689846}
+    - target: {fileID: 1255489781786424149, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
+      propertyPath: m_text
+      value: Gust of Steam++
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554388892351682619, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554388892351682619, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554388892351682619, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2165301083935173582, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2185,6 +2199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade3
       objectReference: {fileID: 0}
+    - target: {fileID: 6675137108337810806, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
+      propertyPath: m_text
+      value: The Gust of Steam ability helps you with obstacles
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7387745536072077420, guid: c5881fb8ad01a4585a2cb73d1872c705, type: 3}
     m_RemovedGameObjects: []
@@ -2207,6 +2225,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2089619522439188106}
     m_Modifications:
+    - target: {fileID: 1140021150366015219, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140021150366015219, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4297137655041757607, guid: 24bf7d12b9632c5418867e5a48bf1193, type: 3}
+    - target: {fileID: 1140021150366015219, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140021150366015219, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140021150366015219, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752568182588425976, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_text
+      value: Mitochondria
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752568182588425976, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752568182588425976, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689997677890865791, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
+      propertyPath: m_text
+      value: Your tenacity rises
+      objectReference: {fileID: 0}
     - target: {fileID: 3965119165352626085, guid: 45f601dfa92c541ada2e30af21a03aca, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2424,6 +2478,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade2
       objectReference: {fileID: 0}
+    - target: {fileID: 2285114659393523508, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 77.066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2285114659393523508, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -177
+      objectReference: {fileID: 0}
     - target: {fileID: 2771835421110690525, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
       propertyPath: upgradePrefab
       value: 
@@ -2432,6 +2494,10 @@ PrefabInstance:
       propertyPath: confirmationUI
       value: 
       objectReference: {fileID: 5415694018487689846}
+    - target: {fileID: 3728733459216865599, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_text
+      value: Eternal Flame
+      objectReference: {fileID: 0}
     - target: {fileID: 4167866740389703048, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2463,6 +2529,34 @@ PrefabInstance:
     - target: {fileID: 4167866740389703048, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802863524836021102, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241086852600004003, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_text
+      value: Your vision gets enlarged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815366235378411530, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815366235378411530, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4435594221877548958, guid: 5512c73b5b5bd5649a8147be51cb16a3, type: 3}
+    - target: {fileID: 5815366235378411530, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815366235378411530, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5815366235378411530, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2771835421110690525, guid: ffa5f221757c14ac8973a35d5a4833c2, type: 3}
