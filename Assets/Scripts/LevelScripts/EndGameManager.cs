@@ -32,6 +32,8 @@ public class EndGameManager : MonoBehaviour
         Time.timeScale = 0;
         endGameCanvas.enabled = true;
 
+        GetComponent<AudioSource>().Play();
+
         UpdateTimerText(dataManager.data.gameTimer);
         displayNbEmbers();
         displayNbUpgrades();
@@ -80,7 +82,7 @@ public class EndGameManager : MonoBehaviour
         }
 
 
-        nbEmbersText.text = nbEmbers.ToString() + "/14";
+        nbEmbersText.text = nbEmbers.ToString() + "/18";
     }
 
     private void displayNbUpgrades()
