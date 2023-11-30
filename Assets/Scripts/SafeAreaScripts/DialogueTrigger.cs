@@ -16,6 +16,12 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Dialogue Manager")]
     [SerializeField] private GameObject dialogueManager;
 
+    [Header("Inventory")]
+    [SerializeField] GameObject abilityPrefab;
+    [SerializeField] GameObject inventoryPage;
+    public int xOffset;
+    private bool obtainedItem = false;
+
     private bool hasTalkedToBefore = false;
     private CollisionDetection collisionDetector;
 
@@ -35,6 +41,10 @@ public class DialogueTrigger : MonoBehaviour
                 {
                     hasTalkedToBefore = true;
                     dialogueManager.GetComponent<DialogueManager>().EnterDialogueMode(inkJSON, npcName);
+                    
+                        Instantiate(abilityPrefab, new Vector3(inventoryPage.transform.position.x - (xOffset * 178f), inventoryPage.transform.position.y + 208f, 0), Quaternion.identity, inventoryPage.transform);
+                    
+
                 }
                 else
                 {

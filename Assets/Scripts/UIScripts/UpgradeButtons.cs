@@ -13,6 +13,7 @@ public class ButtonHandler : MonoBehaviour
 
     [Header("Upgrade Information")]
     public int numUpdates = 0;
+    public float xOffset;
     [SerializeField] GameObject[] prefabs;
     [SerializeField] int[] prices;
     [SerializeField] TextMeshProUGUI[] pricesText;
@@ -55,7 +56,7 @@ public class ButtonHandler : MonoBehaviour
     {
         // Instantiate the upgrade prefab
         if (numUpdates >= 0 && numUpdates <= 2) { 
-            GameObject newUpgrade = Instantiate(prefabs[numUpdates], new Vector3(1000, 610 - (numUpdates * 161), 0), Quaternion.identity, inventoryUI.transform);
+            GameObject newUpgrade = Instantiate(prefabs[numUpdates], new Vector3(1000 + (xOffset * 212), 610 - (numUpdates * 161), 0), Quaternion.identity, inventoryUI.transform);
             playerResource.SetCountCandle(playerResource.currentEmbers - prices[numUpdates]);
         }
 
