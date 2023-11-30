@@ -63,6 +63,22 @@ public class RespawnPlayer : MonoBehaviour
         }
     }
 
+    public void ResetHearts()
+    {
+        numLives = dataManager.data.lives;
+        foreach (Transform child in heartsUI.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        livesArray = new GameObject[numLives];
+        for (int i = 0; i < numLives; i++)
+        {
+            if (livesArray[i] == null)
+                livesArray[i] = Instantiate(heartsPrefab, new Vector3(heartsUI.transform.position.x + (88 * i), heartsUI.transform.position.y, 0), Quaternion.identity, heartsUI.transform);
+        }
+        
+    }
+
     public Transform getRespawn()
     {
         return respawnPoint;
