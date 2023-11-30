@@ -13,7 +13,7 @@ public class DataManager : MonoBehaviour
         bool[] emberLevel1 = new bool[] { false, false, false, false, false, false };
         bool[] emberLevel2 = new bool[] { false, false, false, false, false };
         bool[] emberLevel3 = new bool[] { false, false, false, false, false };
-        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 3, 3, 5, "Save 1", emberTutorial, emberLevel1, emberLevel2, emberLevel3);
+        data = new Data(0, false, false, false, "Tutorial", "InitialRespawnPoint", 5, 5, 5, "Save 1", emberTutorial, emberLevel1, emberLevel2, emberLevel3);
         
         DontDestroyOnLoad(this.gameObject);
         
@@ -68,7 +68,6 @@ public class DataManager : MonoBehaviour
 
     public void SavePlayer()
     {
-        Debug.Log(data.dataFile);
         SaveSystem.SavePlayer(data, data.dataFile);
     }
 

@@ -28,8 +28,8 @@ public class Data
         this.wallJumpUpgrade = false;
         this.currentScene = "Tutorial";
         this.respawnPoint = "InitialRespawnPoint";
-        this.lives = 3;
-        this.maxLives =3;
+        this.lives = 5;
+        this.maxLives =5;
         this.lightRadius = 5;
         this.emberTutorial = new bool[] {false, false, false };
         this.emberLevel1 = new bool[] { false, false, false, false, false, false };
