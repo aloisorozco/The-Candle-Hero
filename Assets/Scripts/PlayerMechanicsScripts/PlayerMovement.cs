@@ -470,7 +470,17 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(Math.Sign(playerHorizontalInput) * dashForce, 0f);
+        int dashDir = 1;
+
+        if (Math.Abs(playerHorizontalInput) <= 0.1)
+        {
+            dashDir = (int)(transform.localScale.x);
+        }
+        else
+        {
+            dashDir = Math.Sign(playerHorizontalInput);
+        }
+        rb.velocity = new Vector2( dashDir* dashForce, 0f);
         float stopforce = Mathf.Pow(Mathf.Abs(rb.velocity.x) * dashStopForce, velPower) * -transform.localScale.x;
         
         trail.emitting = true;

@@ -179,8 +179,14 @@ public class CollisionDetection : MonoBehaviour
         else if (collision.CompareTag("Cobweb"))
         {
             player.SetSpeedMultiplier((1.0f / 0.3f));
-            player.SetJumpMultiplier((1.0f / 0.6f));
-            player.SetDashMultiplier((1.0f / 0.6f));
+            if (!dataManager.data.jumpPlus)
+            {
+                player.SetJumpMultiplier(1.0f / 0.6f);
+            }
+            if (!dataManager.data.dashPlus)
+            {
+                player.SetDashMultiplier(1.0f / 0.6f);
+            }
         }
         else if (collision.CompareTag("NPC"))
         {
