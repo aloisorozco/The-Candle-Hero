@@ -150,6 +150,20 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Leap of";
             onScreenText.GetComponentInChildren<TMP_Text>().text = "Faith";
         }
+        if (collision.CompareTag("TutorialMove"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.6f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press A & D to";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Move";
+        }
+        if (collision.CompareTag("TutorialEmbers"))
+        {
+            onScreenText.enabled = true;
+            onScreenText.transform.position = collision.transform.position + Vector3.up * 1.9f;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Collect resources called";
+            onScreenText.GetComponentInChildren<TMP_Text>().text = "Embers";
+        }
 
 
 
@@ -195,6 +209,16 @@ public class CollisionDetection : MonoBehaviour
             onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
         }
         if (collision.CompareTag("TutorialHidden"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialMove"))
+        {
+            onScreenText.enabled = false;
+            onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
+        }
+        if (collision.CompareTag("TutorialEmbers"))
         {
             onScreenText.enabled = false;
             onScreenText.GetComponentsInChildren<TMP_Text>()[1].text = "Press E to";
