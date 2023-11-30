@@ -1317,6 +1317,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.17
       objectReference: {fileID: 0}
+    - target: {fileID: 1652934748485869456, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: inkJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: c5e261f607264b24289dd018821b5657, type: 3}
+    - target: {fileID: 1652934748485869456, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: npcName
+      value: Obi
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652934748485869456, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
+      propertyPath: inkJSONRepeat
+      value: 
+      objectReference: {fileID: 4900000, guid: e435a870f58c0e3438197147e2095286, type: 3}
     - target: {fileID: 1884817603639130441, guid: f0b34ab2619048b4e9d5e5cf8a509689, type: 3}
       propertyPath: m_Size.x
       value: 32
