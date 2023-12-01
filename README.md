@@ -12,5 +12,7 @@ The core mechanic of The Candle Hero is to never stop moving. Abida, the main ch
 Each level presents a unique challenge. Collect embers and interact with NPCs to get accessories that grant you abilities!
 
 Genre : Horror 2D Platformer
+
 Target audience: For teens and adults
+
 Similar Games: Super Mario Bros meets Yume Nikki
