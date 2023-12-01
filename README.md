@@ -7,7 +7,7 @@
 
 Abida, a young brilliant flame, embarks on a quest to find their missing brother flame who wandered into a haunted mansion. Abida will explore the mansion hoping to find their brother and a way out.
 
-The core mechanic of The Candle Hero is to never stop moving. Abida, the main character's health is based on their velocity, so if you slow down, you lose health.
+The core mechanic of The Candle Hero is to never stop moving. The main character's health is based on their velocity, so if you slow down, you lose health.
 
 Each level presents a unique challenge. Collect embers and interact with NPCs to get accessories that grant you abilities!
 
