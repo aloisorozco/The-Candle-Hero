@@ -1,6 +1,4 @@
-# COMP-376-Project
-
-## The Candle Hero: "Never Stop Moving"
+# The Candle Hero: "Never Stop Moving"
 **Created by Alois Orozco, André Kasper Kolstad, Mathieu La Brie, Dom Doesburg, Farah Zakari**
 
 ### Check out our fun and exciting 2D Platfomer Game!
