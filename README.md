@@ -1,7 +1,7 @@
 # The Candle Hero: "Never Stop Moving"
 **Created by Alois Orozco, André Kasper Kolstad, Mathieu La Brie, Dom Doesburg, Farah Zakari**
 
-### Check out our fun and exciting 2D Platfomer Game! [Try it out yourself!]([Try it out yourself!](https://maklapadre.itch.io/the-candle-hero))
+### Check out our fun and exciting 2D Platfomer Game! [Try it out yourself!](https://maklapadre.itch.io/the-candle-hero)
 
 Abida, a young brilliant flame, embarks on a quest to find their missing brother flame who wandered into a haunted mansion. Abida will explore the mansion hoping to find their brother and a way out.
 
